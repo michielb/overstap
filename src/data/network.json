@@ -1,0 +1,2690 @@
+{
+  "stations": {
+    "ASD": {
+      "code": "ASD",
+      "name": "Amsterdam Centraal",
+      "nameShort": "Amsterdm C",
+      "lat": 52.3788871765137,
+      "lng": 4.90027761459351,
+      "isTransfer": true,
+      "lines": [
+        "IC-819",
+        "IC-3019",
+        "IC-2921",
+        "IC-2215",
+        "IC-2113",
+        "IC-3012",
+        "IC-2912",
+        "IC-1519"
+      ]
+    },
+    "ALM": {
+      "code": "ALM",
+      "name": "Almere Centrum",
+      "nameShort": "Almere C",
+      "lat": 52.37503,
+      "lng": 5.21764,
+      "isTransfer": true,
+      "lines": [
+        "IC-819",
+        "ICD-2417",
+        "IC-823"
+      ]
+    },
+    "LLS": {
+      "code": "LLS",
+      "name": "Lelystad Centrum",
+      "nameShort": "Lelystad C",
+      "lat": 52.5077781677246,
+      "lng": 5.47277784347534,
+      "isTransfer": true,
+      "lines": [
+        "IC-819",
+        "IC-823"
+      ]
+    },
+    "ZL": {
+      "code": "ZL",
+      "name": "Zwolle",
+      "nameShort": "Zwolle",
+      "lat": 52.5047225952148,
+      "lng": 6.09194421768188,
+      "isTransfer": true,
+      "lines": [
+        "IC-819",
+        "IC-519",
+        "IC-621",
+        "IC-823"
+      ]
+    },
+    "ASN": {
+      "code": "ASN",
+      "name": "Assen",
+      "nameShort": "Assen",
+      "lat": 52.9916648864746,
+      "lng": 6.57083320617676,
+      "isTransfer": false,
+      "lines": [
+        "IC-519"
+      ]
+    },
+    "GN": {
+      "code": "GN",
+      "name": "Groningen",
+      "nameShort": "Groningen",
+      "lat": 53.2105560302734,
+      "lng": 6.56472206115723,
+      "isTransfer": true,
+      "lines": [
+        "IC-519",
+        "ST-37413"
+      ]
+    },
+    "MP": {
+      "code": "MP",
+      "name": "Meppel",
+      "nameShort": "Meppel",
+      "lat": 52.6908340454102,
+      "lng": 6.19750022888184,
+      "isTransfer": true,
+      "lines": [
+        "IC-819",
+        "IC-823"
+      ]
+    },
+    "SWK": {
+      "code": "SWK",
+      "name": "Steenwijk",
+      "nameShort": "Steenwijk",
+      "lat": 52.7915109924316,
+      "lng": 6.11455576324463,
+      "isTransfer": true,
+      "lines": [
+        "IC-819",
+        "IC-823"
+      ]
+    },
+    "HR": {
+      "code": "HR",
+      "name": "Heerenveen",
+      "nameShort": "Heerenveen",
+      "lat": 52.9613876342773,
+      "lng": 5.91416645050049,
+      "isTransfer": true,
+      "lines": [
+        "IC-819",
+        "IC-823"
+      ]
+    },
+    "LW": {
+      "code": "LW",
+      "name": "Leeuwarden",
+      "nameShort": "Leeuwarden",
+      "lat": 53.1958351135254,
+      "lng": 5.79222202301025,
+      "isTransfer": true,
+      "lines": [
+        "IC-819",
+        "IC-823",
+        "ST-37413"
+      ]
+    },
+    "UT": {
+      "code": "UT",
+      "name": "Utrecht Centraal",
+      "nameShort": "Utrecht C",
+      "lat": 52.0888900756836,
+      "lng": 5.11027765274048,
+      "isTransfer": true,
+      "lines": [
+        "IC-1721",
+        "IC-3019",
+        "IC-3519",
+        "IC-2921",
+        "IC-621",
+        "IC-3121",
+        "IC-3918"
+      ]
+    },
+    "AMF": {
+      "code": "AMF",
+      "name": "Amersfoort Centraal",
+      "nameShort": "Amersfrt C",
+      "lat": 52.1538887023926,
+      "lng": 5.37055540084839,
+      "isTransfer": true,
+      "lines": [
+        "IC-1721",
+        "IC-621",
+        "IC-1519"
+      ]
+    },
+    "APD": {
+      "code": "APD",
+      "name": "Apeldoorn",
+      "nameShort": "Apeldoorn",
+      "lat": 52.2091674804687,
+      "lng": 5.97027778625488,
+      "isTransfer": true,
+      "lines": [
+        "IC-1721",
+        "IC-1519"
+      ]
+    },
+    "DV": {
+      "code": "DV",
+      "name": "Deventer",
+      "nameShort": "Deventer",
+      "lat": 52.2574996948242,
+      "lng": 6.16055536270142,
+      "isTransfer": false,
+      "lines": [
+        "IC-1721"
+      ]
+    },
+    "AML": {
+      "code": "AML",
+      "name": "Almelo",
+      "nameShort": "Almelo",
+      "lat": 52.3580551147461,
+      "lng": 6.65388870239258,
+      "isTransfer": false,
+      "lines": [
+        "IC-1721"
+      ]
+    },
+    "HGL": {
+      "code": "HGL",
+      "name": "Hengelo",
+      "nameShort": "Hengelo",
+      "lat": 52.2616653442383,
+      "lng": 6.79388904571533,
+      "isTransfer": false,
+      "lines": [
+        "IC-1721"
+      ]
+    },
+    "ES": {
+      "code": "ES",
+      "name": "Enschede",
+      "nameShort": "Enschede",
+      "lat": 52.2224998474121,
+      "lng": 6.8899998664856,
+      "isTransfer": false,
+      "lines": [
+        "IC-1721"
+      ]
+    },
+    "ASA": {
+      "code": "ASA",
+      "name": "Amsterdam Amstel",
+      "nameShort": "Amstel",
+      "lat": 52.3466682434082,
+      "lng": 4.91777801513672,
+      "isTransfer": true,
+      "lines": [
+        "IC-3019",
+        "IC-2921"
+      ]
+    },
+    "DB": {
+      "code": "DB",
+      "name": "Driebergen-Zeist",
+      "nameShort": "Driebergen",
+      "lat": 52.0652770996094,
+      "lng": 5.25861120223999,
+      "isTransfer": false,
+      "lines": [
+        "IC-3019"
+      ]
+    },
+    "KLP": {
+      "code": "KLP",
+      "name": "Veenendaal-De Klomp",
+      "nameShort": "De Klomp",
+      "lat": 52.0458335876465,
+      "lng": 5.57388877868652,
+      "isTransfer": false,
+      "lines": [
+        "IC-3019"
+      ]
+    },
+    "ED": {
+      "code": "ED",
+      "name": "Ede-Wageningen",
+      "nameShort": "Ede-Wag",
+      "lat": 52.0277786254883,
+      "lng": 5.67305564880371,
+      "isTransfer": true,
+      "lines": [
+        "IC-3019",
+        "IC-3121"
+      ]
+    },
+    "AH": {
+      "code": "AH",
+      "name": "Arnhem Centraal",
+      "nameShort": "Arnhem C",
+      "lat": 51.9850006103516,
+      "lng": 5.89916658401489,
+      "isTransfer": true,
+      "lines": [
+        "IC-3019",
+        "IC-3121"
+      ]
+    },
+    "NM": {
+      "code": "NM",
+      "name": "Nijmegen",
+      "nameShort": "Nijmegen",
+      "lat": 51.8436126708984,
+      "lng": 5.85222244262695,
+      "isTransfer": true,
+      "lines": [
+        "IC-3019",
+        "IC-3121"
+      ]
+    },
+    "HT": {
+      "code": "HT",
+      "name": "'s-Hertogenbosch",
+      "nameShort": "Den Bosch",
+      "lat": 51.69048,
+      "lng": 5.29362,
+      "isTransfer": true,
+      "lines": [
+        "IC-3519",
+        "IC-2921",
+        "IC-3918"
+      ]
+    },
+    "EHV": {
+      "code": "EHV",
+      "name": "Eindhoven Centraal",
+      "nameShort": "Eindhovn C",
+      "lat": 51.4433326721191,
+      "lng": 5.48138904571533,
+      "isTransfer": true,
+      "lines": [
+        "IC-3519",
+        "IC-2921",
+        "IC-3918",
+        "IC-1121"
+      ]
+    },
+    "HM": {
+      "code": "HM",
+      "name": "Helmond",
+      "nameShort": "Helmond",
+      "lat": 51.4755554199219,
+      "lng": 5.66194438934326,
+      "isTransfer": false,
+      "lines": [
+        "IC-3519"
+      ]
+    },
+    "DN": {
+      "code": "DN",
+      "name": "Deurne",
+      "nameShort": "Deurne",
+      "lat": 51.4558334350586,
+      "lng": 5.78888893127441,
+      "isTransfer": false,
+      "lines": [
+        "IC-3519"
+      ]
+    },
+    "HRT": {
+      "code": "HRT",
+      "name": "Horst-Sevenum",
+      "nameShort": "Horst-Sev",
+      "lat": 51.4263877868652,
+      "lng": 6.04222202301025,
+      "isTransfer": false,
+      "lines": [
+        "IC-3519"
+      ]
+    },
+    "BR": {
+      "code": "BR",
+      "name": "Blerick",
+      "nameShort": "Blerick",
+      "lat": 51.372501373291,
+      "lng": 6.15500020980835,
+      "isTransfer": false,
+      "lines": [
+        "IC-3519"
+      ]
+    },
+    "VL": {
+      "code": "VL",
+      "name": "Venlo",
+      "nameShort": "Venlo",
+      "lat": 51.3636093139648,
+      "lng": 6.17277765274048,
+      "isTransfer": true,
+      "lines": [
+        "IC-3519",
+        "ST-32226",
+        "ST-32215"
+      ]
+    },
+    "WT": {
+      "code": "WT",
+      "name": "Weert",
+      "nameShort": "Weert",
+      "lat": 51.2486114501953,
+      "lng": 5.70361089706421,
+      "isTransfer": false,
+      "lines": [
+        "IC-2921"
+      ]
+    },
+    "RM": {
+      "code": "RM",
+      "name": "Roermond",
+      "nameShort": "Roermond",
+      "lat": 51.1930541992188,
+      "lng": 5.9941668510437,
+      "isTransfer": true,
+      "lines": [
+        "IC-2921",
+        "ST-32226",
+        "ST-32215",
+        "IC-3915"
+      ]
+    },
+    "STD": {
+      "code": "STD",
+      "name": "Sittard",
+      "nameShort": "Sittard",
+      "lat": 51.0016670227051,
+      "lng": 5.85861110687256,
+      "isTransfer": true,
+      "lines": [
+        "IC-2921",
+        "IC-3915"
+      ]
+    },
+    "HRL": {
+      "code": "HRL",
+      "name": "Heerlen",
+      "nameShort": "Heerlen",
+      "lat": 50.8908348083496,
+      "lng": 5.97499990463257,
+      "isTransfer": false,
+      "lines": [
+        "IC-2921"
+      ]
+    },
+    "MT": {
+      "code": "MT",
+      "name": "Maastricht",
+      "nameShort": "Maastricht",
+      "lat": 50.8502769470215,
+      "lng": 5.70555543899536,
+      "isTransfer": false,
+      "lines": [
+        "IC-2921"
+      ]
+    },
+    "ASS": {
+      "code": "ASS",
+      "name": "Amsterdam Sloterdijk",
+      "nameShort": "Sloterdijk",
+      "lat": 52.3888893127441,
+      "lng": 4.83777761459351,
+      "isTransfer": true,
+      "lines": [
+        "IC-2215",
+        "IC-2113",
+        "IC-3012",
+        "IC-2912",
+        "SPR-4121"
+      ]
+    },
+    "HLM": {
+      "code": "HLM",
+      "name": "Haarlem",
+      "nameShort": "Haarlem",
+      "lat": 52.3877792358398,
+      "lng": 4.63833332061768,
+      "isTransfer": true,
+      "lines": [
+        "IC-2215",
+        "IC-2113"
+      ]
+    },
+    "HAD": {
+      "code": "HAD",
+      "name": "Heemstede-Aerdenhout",
+      "nameShort": "Heemstede",
+      "lat": 52.3591651916504,
+      "lng": 4.60666656494141,
+      "isTransfer": true,
+      "lines": [
+        "IC-2215",
+        "IC-2113"
+      ]
+    },
+    "LEDN": {
+      "code": "LEDN",
+      "name": "Leiden Centraal",
+      "nameShort": "Leiden C",
+      "lat": 52.1661109924316,
+      "lng": 4.48166656494141,
+      "isTransfer": true,
+      "lines": [
+        "IC-2215",
+        "IC-2113"
+      ]
+    },
+    "LAA": {
+      "code": "LAA",
+      "name": "Den Haag Laan v NOI",
+      "nameShort": "Laan v NOI",
+      "lat": 52.0786094665527,
+      "lng": 4.34277772903442,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "GV": {
+      "code": "GV",
+      "name": "Den Haag HS",
+      "nameShort": "Dn Haag HS",
+      "lat": 52.0697212219238,
+      "lng": 4.32250022888184,
+      "isTransfer": true,
+      "lines": [
+        "IC-2215",
+        "SPR-5012"
+      ]
+    },
+    "DT": {
+      "code": "DT",
+      "name": "Delft",
+      "nameShort": "Delft",
+      "lat": 52.0066680908203,
+      "lng": 4.35638904571533,
+      "isTransfer": true,
+      "lines": [
+        "IC-2215",
+        "SPR-5012"
+      ]
+    },
+    "SDM": {
+      "code": "SDM",
+      "name": "Schiedam Centrum",
+      "nameShort": "Schiedam C",
+      "lat": 51.9212438128032,
+      "lng": 4.4089937210083,
+      "isTransfer": true,
+      "lines": [
+        "IC-2215",
+        "SPR-5012"
+      ]
+    },
+    "RTD": {
+      "code": "RTD",
+      "name": "Rotterdam Centraal",
+      "nameShort": "Rotterdm C",
+      "lat": 51.9249992370605,
+      "lng": 4.46888875961304,
+      "isTransfer": true,
+      "lines": [
+        "IC-2215",
+        "IC-2819",
+        "IC-1114",
+        "ICD-2417",
+        "IC-1121",
+        "SPR-5012",
+        "ICD-1814"
+      ]
+    },
+    "RTB": {
+      "code": "RTB",
+      "name": "Rotterdam Blaak",
+      "nameShort": "Blaak",
+      "lat": 51.9202766418457,
+      "lng": 4.48888874053955,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "DDR": {
+      "code": "DDR",
+      "name": "Dordrecht",
+      "nameShort": "Dordrecht",
+      "lat": 51.8072204589844,
+      "lng": 4.66833353042603,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "RSD": {
+      "code": "RSD",
+      "name": "Roosendaal",
+      "nameShort": "Roosendaal",
+      "lat": 51.5402793884277,
+      "lng": 4.45833349227905,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "BGN": {
+      "code": "BGN",
+      "name": "Bergen op Zoom",
+      "nameShort": "Bergen opZ",
+      "lat": 51.4938888549805,
+      "lng": 4.29611110687256,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "RB": {
+      "code": "RB",
+      "name": "Rilland-Bath",
+      "nameShort": "Rilland-Ba",
+      "lat": 51.422779083252,
+      "lng": 4.16111087799072,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "KBD": {
+      "code": "KBD",
+      "name": "Krabbendijke",
+      "nameShort": "Krabbendke",
+      "lat": 51.4333343505859,
+      "lng": 4.11694431304932,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "KRG": {
+      "code": "KRG",
+      "name": "Kruiningen-Yerseke",
+      "nameShort": "Kruiningen",
+      "lat": 51.4650001525879,
+      "lng": 4.03722238540649,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "BZL": {
+      "code": "BZL",
+      "name": "Kapelle-Biezelinge",
+      "nameShort": "Kapelle-Bi",
+      "lat": 51.4808349609375,
+      "lng": 3.95611119270325,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "GS": {
+      "code": "GS",
+      "name": "Goes",
+      "nameShort": "Goes",
+      "lat": 51.4980545043945,
+      "lng": 3.89055562019348,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "ARN": {
+      "code": "ARN",
+      "name": "Arnemuiden",
+      "nameShort": "Arnemuiden",
+      "lat": 51.5016670227051,
+      "lng": 3.66916656494141,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "MDB": {
+      "code": "MDB",
+      "name": "Middelburg",
+      "nameShort": "Middelburg",
+      "lat": 51.4947204589844,
+      "lng": 3.61722230911255,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "VSS": {
+      "code": "VSS",
+      "name": "Vlissingen Souburg",
+      "nameShort": "Souburg",
+      "lat": 51.4647216796875,
+      "lng": 3.59527778625488,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "VS": {
+      "code": "VS",
+      "name": "Vlissingen",
+      "nameShort": "Vlissingen",
+      "lat": 51.4458351135254,
+      "lng": 3.59527778625488,
+      "isTransfer": false,
+      "lines": [
+        "IC-2215"
+      ]
+    },
+    "GVC": {
+      "code": "GVC",
+      "name": "Den Haag Centraal",
+      "nameShort": "Den Haag C",
+      "lat": 52.0802764892578,
+      "lng": 4.32499980926514,
+      "isTransfer": true,
+      "lines": [
+        "IC-2113",
+        "IC-621",
+        "IC-1721",
+        "SPR-5012"
+      ]
+    },
+    "ZD": {
+      "code": "ZD",
+      "name": "Zaandam",
+      "nameShort": "Zaandam",
+      "lat": 52.4388885498047,
+      "lng": 4.81361103057861,
+      "isTransfer": false,
+      "lines": [
+        "IC-3012"
+      ]
+    },
+    "CAS": {
+      "code": "CAS",
+      "name": "Castricum",
+      "nameShort": "Castricum",
+      "lat": 52.5458335876465,
+      "lng": 4.65861129760742,
+      "isTransfer": false,
+      "lines": [
+        "IC-3012"
+      ]
+    },
+    "HLO": {
+      "code": "HLO",
+      "name": "Heiloo",
+      "nameShort": "Heiloo",
+      "lat": 52.5994453430176,
+      "lng": 4.70055532455444,
+      "isTransfer": false,
+      "lines": [
+        "IC-3012"
+      ]
+    },
+    "AMR": {
+      "code": "AMR",
+      "name": "Alkmaar",
+      "nameShort": "Alkmaar",
+      "lat": 52.6377792358398,
+      "lng": 4.73972225189209,
+      "isTransfer": false,
+      "lines": [
+        "IC-3012"
+      ]
+    },
+    "HN": {
+      "code": "HN",
+      "name": "Hoorn",
+      "nameShort": "Hoorn",
+      "lat": 52.6447219848633,
+      "lng": 5.05555534362793,
+      "isTransfer": false,
+      "lines": [
+        "IC-2912"
+      ]
+    },
+    "GD": {
+      "code": "GD",
+      "name": "Gouda",
+      "nameShort": "Gouda",
+      "lat": 52.0175018310547,
+      "lng": 4.70444440841675,
+      "isTransfer": true,
+      "lines": [
+        "IC-621",
+        "IC-1721",
+        "IC-2819"
+      ]
+    },
+    "RTA": {
+      "code": "RTA",
+      "name": "Rotterdam Alexander",
+      "nameShort": "Alexander",
+      "lat": 51.9519462585449,
+      "lng": 4.55361127853394,
+      "isTransfer": false,
+      "lines": [
+        "IC-2819"
+      ]
+    },
+    "BD": {
+      "code": "BD",
+      "name": "Breda",
+      "nameShort": "Breda",
+      "lat": 51.5955543518066,
+      "lng": 4.78000020980835,
+      "isTransfer": true,
+      "lines": [
+        "IC-1114",
+        "IC-1121",
+        "ICD-1814"
+      ]
+    },
+    "SHL": {
+      "code": "SHL",
+      "name": "Schiphol Airport",
+      "nameShort": "Schiphol",
+      "lat": 52.3094444274902,
+      "lng": 4.76194429397583,
+      "isTransfer": true,
+      "lines": [
+        "ICD-2417",
+        "SPR-4121",
+        "ICD-1814"
+      ]
+    },
+    "ASDZ": {
+      "code": "ASDZ",
+      "name": "Amsterdam Zuid",
+      "nameShort": "Amsterdm Z",
+      "lat": 52.338889,
+      "lng": 4.872356,
+      "isTransfer": false,
+      "lines": [
+        "ICD-2417"
+      ]
+    },
+    "SM": {
+      "code": "SM",
+      "name": "Swalmen",
+      "nameShort": "Swalmen",
+      "lat": 51.23582,
+      "lng": 6.03228,
+      "isTransfer": true,
+      "lines": [
+        "ST-32226",
+        "ST-32215"
+      ]
+    },
+    "RV": {
+      "code": "RV",
+      "name": "Reuver",
+      "nameShort": "Reuver",
+      "lat": 51.2832191665301,
+      "lng": 6.07895851135253,
+      "isTransfer": true,
+      "lines": [
+        "ST-32226",
+        "ST-32215"
+      ]
+    },
+    "TG": {
+      "code": "TG",
+      "name": "Tegelen",
+      "nameShort": "Tegelen",
+      "lat": 51.33894,
+      "lng": 6.14253,
+      "isTransfer": true,
+      "lines": [
+        "ST-32226",
+        "ST-32215"
+      ]
+    },
+    "TB": {
+      "code": "TB",
+      "name": "Tilburg",
+      "nameShort": "Tilburg",
+      "lat": 51.5605545043945,
+      "lng": 5.08361101150513,
+      "isTransfer": false,
+      "lines": [
+        "IC-1121"
+      ]
+    },
+    "HVS": {
+      "code": "HVS",
+      "name": "Hilversum",
+      "nameShort": "Hilversum",
+      "lat": 52.2258338928223,
+      "lng": 5.18194437026978,
+      "isTransfer": false,
+      "lines": [
+        "IC-1519"
+      ]
+    },
+    "DTCP": {
+      "code": "DTCP",
+      "name": "Delft Campus",
+      "nameShort": "Delft Camp",
+      "lat": 51.9908332824707,
+      "lng": 4.36472225189209,
+      "isTransfer": false,
+      "lines": [
+        "SPR-5012"
+      ]
+    },
+    "RSW": {
+      "code": "RSW",
+      "name": "Rijswijk",
+      "nameShort": "Rijswijk",
+      "lat": 52.039722442627,
+      "lng": 4.31916666030884,
+      "isTransfer": false,
+      "lines": [
+        "SPR-5012"
+      ]
+    },
+    "GVMW": {
+      "code": "GVMW",
+      "name": "Den Haag Moerwijk",
+      "nameShort": "Moerwijk",
+      "lat": 52.0538902282715,
+      "lng": 4.3086109161377,
+      "isTransfer": false,
+      "lines": [
+        "SPR-5012"
+      ]
+    },
+    "ZH": {
+      "code": "ZH",
+      "name": "Zuidhorn",
+      "nameShort": "Zuidhorn",
+      "lat": 53.2486292,
+      "lng": 6.4062361,
+      "isTransfer": false,
+      "lines": [
+        "ST-37413"
+      ]
+    },
+    "GK": {
+      "code": "GK",
+      "name": "Grijpskerk",
+      "nameShort": "Grijpskerk",
+      "lat": 53.2557403255735,
+      "lng": 6.30977869033813,
+      "isTransfer": false,
+      "lines": [
+        "ST-37413"
+      ]
+    },
+    "BP": {
+      "code": "BP",
+      "name": "Buitenpost",
+      "nameShort": "Buitenpost",
+      "lat": 53.2564547,
+      "lng": 6.1446496,
+      "isTransfer": false,
+      "lines": [
+        "ST-37413"
+      ]
+    },
+    "DWE": {
+      "code": "DWE",
+      "name": "De Westereen",
+      "nameShort": "Westereen",
+      "lat": 53.24817,
+      "lng": 6.03463,
+      "isTransfer": false,
+      "lines": [
+        "ST-37413"
+      ]
+    },
+    "FWD": {
+      "code": "FWD",
+      "name": "Feanwâlden",
+      "nameShort": "Feanwâlden",
+      "lat": 53.2351834,
+      "lng": 5.9886615,
+      "isTransfer": false,
+      "lines": [
+        "ST-37413"
+      ]
+    },
+    "HDG": {
+      "code": "HDG",
+      "name": "Hurdegaryp",
+      "nameShort": "Hurdegaryp",
+      "lat": 53.2187783,
+      "lng": 5.934543,
+      "isTransfer": false,
+      "lines": [
+        "ST-37413"
+      ]
+    },
+    "LWC": {
+      "code": "LWC",
+      "name": "Leeuwarden Camminghaburen",
+      "nameShort": "Camminghab",
+      "lat": 53.2021808,
+      "lng": 5.8422968,
+      "isTransfer": false,
+      "lines": [
+        "ST-37413"
+      ]
+    },
+    "ASDL": {
+      "code": "ASDL",
+      "name": "Amsterdam Lelylaan",
+      "nameShort": "Lelylaan",
+      "lat": 52.3577766418457,
+      "lng": 4.83388900756836,
+      "isTransfer": false,
+      "lines": [
+        "SPR-4121"
+      ]
+    }
+  },
+  "adjacency": {
+    "ASD": [
+      {
+        "to": "ALM",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ASA",
+        "line": "IC-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "ASA",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "ASS",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "ASS",
+        "line": "IC-2113",
+        "durationMin": 0
+      },
+      {
+        "to": "ASS",
+        "line": "IC-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "ASS",
+        "line": "IC-2912",
+        "durationMin": 0
+      },
+      {
+        "to": "HVS",
+        "line": "IC-1519",
+        "durationMin": 0
+      }
+    ],
+    "ALM": [
+      {
+        "to": "ASD",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "LLS",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ASDZ",
+        "line": "ICD-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "LLS",
+        "line": "IC-823",
+        "durationMin": 0
+      }
+    ],
+    "LLS": [
+      {
+        "to": "ALM",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ZL",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ALM",
+        "line": "IC-823",
+        "durationMin": 0
+      },
+      {
+        "to": "ZL",
+        "line": "IC-823",
+        "durationMin": 0
+      }
+    ],
+    "ZL": [
+      {
+        "to": "LLS",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ASN",
+        "line": "IC-519",
+        "durationMin": 0
+      },
+      {
+        "to": "MP",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "AMF",
+        "line": "IC-621",
+        "durationMin": 0
+      },
+      {
+        "to": "LLS",
+        "line": "IC-823",
+        "durationMin": 0
+      },
+      {
+        "to": "MP",
+        "line": "IC-823",
+        "durationMin": 0
+      }
+    ],
+    "ASN": [
+      {
+        "to": "ZL",
+        "line": "IC-519",
+        "durationMin": 0
+      },
+      {
+        "to": "GN",
+        "line": "IC-519",
+        "durationMin": 0
+      }
+    ],
+    "GN": [
+      {
+        "to": "ASN",
+        "line": "IC-519",
+        "durationMin": 0
+      },
+      {
+        "to": "ZH",
+        "line": "ST-37413",
+        "durationMin": 0
+      }
+    ],
+    "MP": [
+      {
+        "to": "ZL",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "SWK",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ZL",
+        "line": "IC-823",
+        "durationMin": 0
+      },
+      {
+        "to": "SWK",
+        "line": "IC-823",
+        "durationMin": 0
+      }
+    ],
+    "SWK": [
+      {
+        "to": "MP",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "HR",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "MP",
+        "line": "IC-823",
+        "durationMin": 0
+      },
+      {
+        "to": "HR",
+        "line": "IC-823",
+        "durationMin": 0
+      }
+    ],
+    "HR": [
+      {
+        "to": "SWK",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "LW",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "SWK",
+        "line": "IC-823",
+        "durationMin": 0
+      },
+      {
+        "to": "LW",
+        "line": "IC-823",
+        "durationMin": 0
+      }
+    ],
+    "LW": [
+      {
+        "to": "HR",
+        "line": "IC-819",
+        "durationMin": 0
+      },
+      {
+        "to": "HR",
+        "line": "IC-823",
+        "durationMin": 0
+      },
+      {
+        "to": "LWC",
+        "line": "ST-37413",
+        "durationMin": 0
+      }
+    ],
+    "UT": [
+      {
+        "to": "AMF",
+        "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "ASA",
+        "line": "IC-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "DB",
+        "line": "IC-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "HT",
+        "line": "IC-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "ASA",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "HT",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "GD",
+        "line": "IC-621",
+        "durationMin": 0
+      },
+      {
+        "to": "AMF",
+        "line": "IC-621",
+        "durationMin": 0
+      },
+      {
+        "to": "GD",
+        "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "ED",
+        "line": "IC-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "HT",
+        "line": "IC-3918",
+        "durationMin": 0
+      }
+    ],
+    "AMF": [
+      {
+        "to": "UT",
+        "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "APD",
+        "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "UT",
+        "line": "IC-621",
+        "durationMin": 0
+      },
+      {
+        "to": "ZL",
+        "line": "IC-621",
+        "durationMin": 0
+      },
+      {
+        "to": "HVS",
+        "line": "IC-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "APD",
+        "line": "IC-1519",
+        "durationMin": 0
+      }
+    ],
+    "APD": [
+      {
+        "to": "AMF",
+        "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "DV",
+        "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "AMF",
+        "line": "IC-1519",
+        "durationMin": 0
+      }
+    ],
+    "DV": [
+      {
+        "to": "APD",
+        "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "AML",
+        "line": "IC-1721",
+        "durationMin": 0
+      }
+    ],
+    "AML": [
+      {
+        "to": "DV",
+        "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "HGL",
+        "line": "IC-1721",
+        "durationMin": 0
+      }
+    ],
+    "HGL": [
+      {
+        "to": "AML",
+        "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "ES",
+        "line": "IC-1721",
+        "durationMin": 0
+      }
+    ],
+    "ES": [
+      {
+        "to": "HGL",
+        "line": "IC-1721",
+        "durationMin": 0
+      }
+    ],
+    "ASA": [
+      {
+        "to": "ASD",
+        "line": "IC-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "UT",
+        "line": "IC-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "ASD",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "UT",
+        "line": "IC-2921",
+        "durationMin": 0
+      }
+    ],
+    "DB": [
+      {
+        "to": "UT",
+        "line": "IC-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "KLP",
+        "line": "IC-3019",
+        "durationMin": 0
+      }
+    ],
+    "KLP": [
+      {
+        "to": "DB",
+        "line": "IC-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "ED",
+        "line": "IC-3019",
+        "durationMin": 0
+      }
+    ],
+    "ED": [
+      {
+        "to": "KLP",
+        "line": "IC-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "AH",
+        "line": "IC-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "UT",
+        "line": "IC-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "AH",
+        "line": "IC-3121",
+        "durationMin": 0
+      }
+    ],
+    "AH": [
+      {
+        "to": "ED",
+        "line": "IC-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "NM",
+        "line": "IC-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "ED",
+        "line": "IC-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "NM",
+        "line": "IC-3121",
+        "durationMin": 0
+      }
+    ],
+    "NM": [
+      {
+        "to": "AH",
+        "line": "IC-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "AH",
+        "line": "IC-3121",
+        "durationMin": 0
+      }
+    ],
+    "HT": [
+      {
+        "to": "UT",
+        "line": "IC-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "EHV",
+        "line": "IC-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "UT",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "EHV",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "EHV",
+        "line": "IC-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "UT",
+        "line": "IC-3918",
+        "durationMin": 0
+      }
+    ],
+    "EHV": [
+      {
+        "to": "HT",
+        "line": "IC-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HM",
+        "line": "IC-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HT",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "WT",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "HT",
+        "line": "IC-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "TB",
+        "line": "IC-1121",
+        "durationMin": 0
+      }
+    ],
+    "HM": [
+      {
+        "to": "EHV",
+        "line": "IC-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "DN",
+        "line": "IC-3519",
+        "durationMin": 0
+      }
+    ],
+    "DN": [
+      {
+        "to": "HM",
+        "line": "IC-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HRT",
+        "line": "IC-3519",
+        "durationMin": 0
+      }
+    ],
+    "HRT": [
+      {
+        "to": "DN",
+        "line": "IC-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "BR",
+        "line": "IC-3519",
+        "durationMin": 0
+      }
+    ],
+    "BR": [
+      {
+        "to": "HRT",
+        "line": "IC-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "VL",
+        "line": "IC-3519",
+        "durationMin": 0
+      }
+    ],
+    "VL": [
+      {
+        "to": "BR",
+        "line": "IC-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "TG",
+        "line": "ST-32226",
+        "durationMin": 0
+      },
+      {
+        "to": "TG",
+        "line": "ST-32215",
+        "durationMin": 0
+      }
+    ],
+    "WT": [
+      {
+        "to": "EHV",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "RM",
+        "line": "IC-2921",
+        "durationMin": 0
+      }
+    ],
+    "RM": [
+      {
+        "to": "WT",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "STD",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "SM",
+        "line": "ST-32226",
+        "durationMin": 0
+      },
+      {
+        "to": "SM",
+        "line": "ST-32215",
+        "durationMin": 0
+      },
+      {
+        "to": "STD",
+        "line": "IC-3915",
+        "durationMin": 0
+      }
+    ],
+    "STD": [
+      {
+        "to": "RM",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "HRL",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "RM",
+        "line": "IC-3915",
+        "durationMin": 0
+      }
+    ],
+    "HRL": [
+      {
+        "to": "STD",
+        "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "MT",
+        "line": "IC-2921",
+        "durationMin": 0
+      }
+    ],
+    "MT": [
+      {
+        "to": "HRL",
+        "line": "IC-2921",
+        "durationMin": 0
+      }
+    ],
+    "ASS": [
+      {
+        "to": "ASD",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "HLM",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "ASD",
+        "line": "IC-2113",
+        "durationMin": 0
+      },
+      {
+        "to": "HLM",
+        "line": "IC-2113",
+        "durationMin": 0
+      },
+      {
+        "to": "ASD",
+        "line": "IC-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "ZD",
+        "line": "IC-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "ASD",
+        "line": "IC-2912",
+        "durationMin": 0
+      },
+      {
+        "to": "HN",
+        "line": "IC-2912",
+        "durationMin": 0
+      },
+      {
+        "to": "ASDL",
+        "line": "SPR-4121",
+        "durationMin": 0
+      }
+    ],
+    "HLM": [
+      {
+        "to": "ASS",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "HAD",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "ASS",
+        "line": "IC-2113",
+        "durationMin": 0
+      },
+      {
+        "to": "HAD",
+        "line": "IC-2113",
+        "durationMin": 0
+      }
+    ],
+    "HAD": [
+      {
+        "to": "HLM",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "LEDN",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "HLM",
+        "line": "IC-2113",
+        "durationMin": 0
+      },
+      {
+        "to": "LEDN",
+        "line": "IC-2113",
+        "durationMin": 0
+      }
+    ],
+    "LEDN": [
+      {
+        "to": "HAD",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "LAA",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "HAD",
+        "line": "IC-2113",
+        "durationMin": 0
+      },
+      {
+        "to": "GVC",
+        "line": "IC-2113",
+        "durationMin": 0
+      }
+    ],
+    "LAA": [
+      {
+        "to": "LEDN",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "GV",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "GV": [
+      {
+        "to": "LAA",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "DT",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "GVMW",
+        "line": "SPR-5012",
+        "durationMin": 0
+      },
+      {
+        "to": "GVC",
+        "line": "SPR-5012",
+        "durationMin": 0
+      }
+    ],
+    "DT": [
+      {
+        "to": "GV",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "SDM",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "DTCP",
+        "line": "SPR-5012",
+        "durationMin": 0
+      },
+      {
+        "to": "RSW",
+        "line": "SPR-5012",
+        "durationMin": 0
+      }
+    ],
+    "SDM": [
+      {
+        "to": "DT",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "RTD",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "RTD",
+        "line": "SPR-5012",
+        "durationMin": 0
+      },
+      {
+        "to": "DTCP",
+        "line": "SPR-5012",
+        "durationMin": 0
+      }
+    ],
+    "RTD": [
+      {
+        "to": "SDM",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "RTB",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "RTA",
+        "line": "IC-2819",
+        "durationMin": 0
+      },
+      {
+        "to": "BD",
+        "line": "IC-1114",
+        "durationMin": 0
+      },
+      {
+        "to": "SHL",
+        "line": "ICD-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "BD",
+        "line": "IC-1121",
+        "durationMin": 0
+      },
+      {
+        "to": "SDM",
+        "line": "SPR-5012",
+        "durationMin": 0
+      },
+      {
+        "to": "SHL",
+        "line": "ICD-1814",
+        "durationMin": 0
+      },
+      {
+        "to": "BD",
+        "line": "ICD-1814",
+        "durationMin": 0
+      }
+    ],
+    "RTB": [
+      {
+        "to": "RTD",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "DDR",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "DDR": [
+      {
+        "to": "RTB",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "RSD",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "RSD": [
+      {
+        "to": "DDR",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "BGN",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "BGN": [
+      {
+        "to": "RSD",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "RB",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "RB": [
+      {
+        "to": "BGN",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "KBD",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "KBD": [
+      {
+        "to": "RB",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "KRG",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "KRG": [
+      {
+        "to": "KBD",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "BZL",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "BZL": [
+      {
+        "to": "KRG",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "GS",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "GS": [
+      {
+        "to": "BZL",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "ARN",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "ARN": [
+      {
+        "to": "GS",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "MDB",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "MDB": [
+      {
+        "to": "ARN",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "VSS",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "VSS": [
+      {
+        "to": "MDB",
+        "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "VS",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "VS": [
+      {
+        "to": "VSS",
+        "line": "IC-2215",
+        "durationMin": 0
+      }
+    ],
+    "GVC": [
+      {
+        "to": "LEDN",
+        "line": "IC-2113",
+        "durationMin": 0
+      },
+      {
+        "to": "GD",
+        "line": "IC-621",
+        "durationMin": 0
+      },
+      {
+        "to": "GD",
+        "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "GV",
+        "line": "SPR-5012",
+        "durationMin": 0
+      }
+    ],
+    "ZD": [
+      {
+        "to": "ASS",
+        "line": "IC-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "CAS",
+        "line": "IC-3012",
+        "durationMin": 0
+      }
+    ],
+    "CAS": [
+      {
+        "to": "ZD",
+        "line": "IC-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "HLO",
+        "line": "IC-3012",
+        "durationMin": 0
+      }
+    ],
+    "HLO": [
+      {
+        "to": "CAS",
+        "line": "IC-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "AMR",
+        "line": "IC-3012",
+        "durationMin": 0
+      }
+    ],
+    "AMR": [
+      {
+        "to": "HLO",
+        "line": "IC-3012",
+        "durationMin": 0
+      }
+    ],
+    "HN": [
+      {
+        "to": "ASS",
+        "line": "IC-2912",
+        "durationMin": 0
+      }
+    ],
+    "GD": [
+      {
+        "to": "GVC",
+        "line": "IC-621",
+        "durationMin": 0
+      },
+      {
+        "to": "UT",
+        "line": "IC-621",
+        "durationMin": 0
+      },
+      {
+        "to": "GVC",
+        "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "UT",
+        "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "RTA",
+        "line": "IC-2819",
+        "durationMin": 0
+      }
+    ],
+    "RTA": [
+      {
+        "to": "RTD",
+        "line": "IC-2819",
+        "durationMin": 0
+      },
+      {
+        "to": "GD",
+        "line": "IC-2819",
+        "durationMin": 0
+      }
+    ],
+    "BD": [
+      {
+        "to": "RTD",
+        "line": "IC-1114",
+        "durationMin": 0
+      },
+      {
+        "to": "RTD",
+        "line": "IC-1121",
+        "durationMin": 0
+      },
+      {
+        "to": "TB",
+        "line": "IC-1121",
+        "durationMin": 0
+      },
+      {
+        "to": "RTD",
+        "line": "ICD-1814",
+        "durationMin": 0
+      }
+    ],
+    "SHL": [
+      {
+        "to": "RTD",
+        "line": "ICD-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "ASDZ",
+        "line": "ICD-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "ASDL",
+        "line": "SPR-4121",
+        "durationMin": 0
+      },
+      {
+        "to": "RTD",
+        "line": "ICD-1814",
+        "durationMin": 0
+      }
+    ],
+    "ASDZ": [
+      {
+        "to": "SHL",
+        "line": "ICD-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "ALM",
+        "line": "ICD-2417",
+        "durationMin": 0
+      }
+    ],
+    "SM": [
+      {
+        "to": "RM",
+        "line": "ST-32226",
+        "durationMin": 0
+      },
+      {
+        "to": "RV",
+        "line": "ST-32226",
+        "durationMin": 0
+      },
+      {
+        "to": "RV",
+        "line": "ST-32215",
+        "durationMin": 0
+      },
+      {
+        "to": "RM",
+        "line": "ST-32215",
+        "durationMin": 0
+      }
+    ],
+    "RV": [
+      {
+        "to": "SM",
+        "line": "ST-32226",
+        "durationMin": 0
+      },
+      {
+        "to": "TG",
+        "line": "ST-32226",
+        "durationMin": 0
+      },
+      {
+        "to": "TG",
+        "line": "ST-32215",
+        "durationMin": 0
+      },
+      {
+        "to": "SM",
+        "line": "ST-32215",
+        "durationMin": 0
+      }
+    ],
+    "TG": [
+      {
+        "to": "RV",
+        "line": "ST-32226",
+        "durationMin": 0
+      },
+      {
+        "to": "VL",
+        "line": "ST-32226",
+        "durationMin": 0
+      },
+      {
+        "to": "VL",
+        "line": "ST-32215",
+        "durationMin": 0
+      },
+      {
+        "to": "RV",
+        "line": "ST-32215",
+        "durationMin": 0
+      }
+    ],
+    "TB": [
+      {
+        "to": "BD",
+        "line": "IC-1121",
+        "durationMin": 0
+      },
+      {
+        "to": "EHV",
+        "line": "IC-1121",
+        "durationMin": 0
+      }
+    ],
+    "HVS": [
+      {
+        "to": "ASD",
+        "line": "IC-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "AMF",
+        "line": "IC-1519",
+        "durationMin": 0
+      }
+    ],
+    "DTCP": [
+      {
+        "to": "SDM",
+        "line": "SPR-5012",
+        "durationMin": 0
+      },
+      {
+        "to": "DT",
+        "line": "SPR-5012",
+        "durationMin": 0
+      }
+    ],
+    "RSW": [
+      {
+        "to": "DT",
+        "line": "SPR-5012",
+        "durationMin": 0
+      },
+      {
+        "to": "GVMW",
+        "line": "SPR-5012",
+        "durationMin": 0
+      }
+    ],
+    "GVMW": [
+      {
+        "to": "RSW",
+        "line": "SPR-5012",
+        "durationMin": 0
+      },
+      {
+        "to": "GV",
+        "line": "SPR-5012",
+        "durationMin": 0
+      }
+    ],
+    "ZH": [
+      {
+        "to": "GN",
+        "line": "ST-37413",
+        "durationMin": 0
+      },
+      {
+        "to": "GK",
+        "line": "ST-37413",
+        "durationMin": 0
+      }
+    ],
+    "GK": [
+      {
+        "to": "ZH",
+        "line": "ST-37413",
+        "durationMin": 0
+      },
+      {
+        "to": "BP",
+        "line": "ST-37413",
+        "durationMin": 0
+      }
+    ],
+    "BP": [
+      {
+        "to": "GK",
+        "line": "ST-37413",
+        "durationMin": 0
+      },
+      {
+        "to": "DWE",
+        "line": "ST-37413",
+        "durationMin": 0
+      }
+    ],
+    "DWE": [
+      {
+        "to": "BP",
+        "line": "ST-37413",
+        "durationMin": 0
+      },
+      {
+        "to": "FWD",
+        "line": "ST-37413",
+        "durationMin": 0
+      }
+    ],
+    "FWD": [
+      {
+        "to": "DWE",
+        "line": "ST-37413",
+        "durationMin": 0
+      },
+      {
+        "to": "HDG",
+        "line": "ST-37413",
+        "durationMin": 0
+      }
+    ],
+    "HDG": [
+      {
+        "to": "FWD",
+        "line": "ST-37413",
+        "durationMin": 0
+      },
+      {
+        "to": "LWC",
+        "line": "ST-37413",
+        "durationMin": 0
+      }
+    ],
+    "LWC": [
+      {
+        "to": "HDG",
+        "line": "ST-37413",
+        "durationMin": 0
+      },
+      {
+        "to": "LW",
+        "line": "ST-37413",
+        "durationMin": 0
+      }
+    ],
+    "ASDL": [
+      {
+        "to": "ASS",
+        "line": "SPR-4121",
+        "durationMin": 0
+      },
+      {
+        "to": "SHL",
+        "line": "SPR-4121",
+        "durationMin": 0
+      }
+    ]
+  },
+  "lines": {
+    "IC-819": [
+      "ASD",
+      "ALM",
+      "LLS",
+      "ZL",
+      "MP",
+      "SWK",
+      "HR",
+      "LW"
+    ],
+    "IC-519": [
+      "ZL",
+      "ASN",
+      "GN"
+    ],
+    "IC-1721": [
+      "GD",
+      "UT",
+      "AMF",
+      "APD",
+      "DV",
+      "AML",
+      "HGL",
+      "ES"
+    ],
+    "IC-3019": [
+      "ASD",
+      "ASA",
+      "UT"
+    ],
+    "IC-3519": [
+      "UT",
+      "HT",
+      "EHV",
+      "HM",
+      "DN",
+      "HRT",
+      "BR",
+      "VL"
+    ],
+    "IC-2921": [
+      "EHV",
+      "WT",
+      "RM",
+      "STD",
+      "HRL",
+      "MT"
+    ],
+    "IC-2215": [
+      "ASD",
+      "ASS",
+      "HLM",
+      "HAD",
+      "LEDN",
+      "LAA",
+      "GV",
+      "DT",
+      "SDM",
+      "RTD",
+      "RTB",
+      "DDR",
+      "RSD",
+      "BGN",
+      "RB",
+      "KBD",
+      "KRG",
+      "BZL",
+      "GS",
+      "ARN",
+      "MDB",
+      "VSS",
+      "VS"
+    ],
+    "IC-2113": [
+      "ASD",
+      "ASS"
+    ],
+    "IC-3012": [
+      "ASD",
+      "ASS",
+      "ZD",
+      "CAS",
+      "HLO",
+      "AMR"
+    ],
+    "IC-2912": [
+      "ASD",
+      "ASS",
+      "HN"
+    ],
+    "IC-621": [
+      "UT",
+      "AMF",
+      "ZL"
+    ],
+    "IC-3121": [
+      "UT",
+      "ED",
+      "AH",
+      "NM"
+    ],
+    "IC-2819": [
+      "RTD",
+      "RTA",
+      "GD"
+    ],
+    "IC-3918": [
+      "EHV",
+      "HT",
+      "UT"
+    ],
+    "IC-1114": [
+      "BD",
+      "RTD"
+    ],
+    "ICD-2417": [
+      "RTD",
+      "SHL",
+      "ASDZ",
+      "ALM"
+    ],
+    "IC-823": [
+      "ALM",
+      "LLS",
+      "ZL",
+      "MP",
+      "SWK",
+      "HR",
+      "LW"
+    ],
+    "ST-32226": [
+      "RM",
+      "SM",
+      "RV",
+      "TG",
+      "VL"
+    ],
+    "IC-1121": [
+      "RTD",
+      "BD",
+      "TB",
+      "EHV"
+    ],
+    "IC-1519": [
+      "ASD",
+      "HVS",
+      "AMF",
+      "APD"
+    ],
+    "SPR-5012": [
+      "RTD",
+      "SDM",
+      "DTCP",
+      "DT",
+      "RSW",
+      "GVMW",
+      "GV",
+      "GVC"
+    ],
+    "ST-37413": [
+      "GN",
+      "ZH",
+      "GK",
+      "BP",
+      "DWE",
+      "FWD",
+      "HDG",
+      "LWC",
+      "LW"
+    ],
+    "ST-32215": [
+      "VL",
+      "TG",
+      "RV",
+      "SM",
+      "RM"
+    ],
+    "IC-3915": [
+      "RM",
+      "STD"
+    ],
+    "SPR-4121": [
+      "ASS",
+      "ASDL",
+      "SHL"
+    ],
+    "ICD-1814": [
+      "SHL",
+      "RTD",
+      "BD"
+    ]
+  },
+  "transferStations": [
+    "ASD",
+    "ALM",
+    "LLS",
+    "ZL",
+    "GN",
+    "MP",
+    "SWK",
+    "HR",
+    "LW",
+    "UT",
+    "AMF",
+    "APD",
+    "ASA",
+    "ED",
+    "AH",
+    "NM",
+    "HT",
+    "EHV",
+    "VL",
+    "RM",
+    "STD",
+    "ASS",
+    "HLM",
+    "HAD",
+    "LEDN",
+    "GV",
+    "DT",
+    "SDM",
+    "RTD",
+    "GVC",
+    "GD",
+    "BD",
+    "SHL",
+    "SM",
+    "RV",
+    "TG"
+  ]
+}
