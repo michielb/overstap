@@ -1,8 +1,7 @@
 /**
  * GuessInput — the active row where the player builds their current guess.
  *
- * Shows chips for each station added so far, a StationInput autocomplete,
- * and submit/clear buttons.
+ * MB-398: All touch targets are minimum 44px. Delete button uses a larger hit area.
  */
 
 import type { Station } from '../data/types.js'
@@ -37,20 +36,23 @@ export function GuessInput({
           {currentInput.map((code, i) => (
             <span
               key={code}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-yellow-50
-                         border border-yellow-200 text-sm font-medium text-gray-800"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-yellow-50
+                         border border-yellow-200 text-sm font-medium text-gray-800 min-h-[40px]"
             >
               <span className="text-xs text-gray-400 font-mono">{i + 1}</span>
               {stations[code]?.nameShort ?? code}
             </span>
           ))}
+          {/* Delete button with large touch target */}
           <button
             onClick={onRemoveLast}
             disabled={disabled}
-            className="p-1 text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-40"
-            title="Verwijder laatste station"
+            aria-label="Verwijder laatste station"
+            className="flex items-center justify-center min-w-[44px] min-h-[44px] rounded-lg
+                       text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors
+                       disabled:opacity-40 active:bg-gray-100"
           >
-            ⌫
+            <span className="text-lg" aria-hidden="true">⌫</span>
           </button>
         </div>
       )}
@@ -69,9 +71,10 @@ export function GuessInput({
         <button
           onClick={onSubmit}
           disabled={disabled}
-          className="flex-1 py-2.5 rounded-xl bg-[#FFC917] text-gray-900 font-semibold text-sm
+          className="flex-1 py-3 rounded-xl bg-[#FFC917] text-gray-900 font-semibold text-sm
                      hover:bg-yellow-400 active:bg-yellow-500 transition-colors
-                     disabled:opacity-40 disabled:cursor-not-allowed"
+                     disabled:opacity-40 disabled:cursor-not-allowed min-h-[48px]
+                     touch-manipulation"
         >
           Controleer
         </button>
@@ -79,8 +82,9 @@ export function GuessInput({
           <button
             onClick={onClear}
             disabled={disabled}
-            className="px-4 py-2.5 rounded-xl border border-gray-200 text-gray-600 text-sm
-                       hover:bg-gray-50 transition-colors disabled:opacity-40"
+            className="px-4 py-3 rounded-xl border border-gray-200 text-gray-600 text-sm
+                       hover:bg-gray-50 active:bg-gray-100 transition-colors
+                       disabled:opacity-40 min-h-[48px] touch-manipulation"
           >
             Wissen
           </button>

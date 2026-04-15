@@ -1,1 +1,52 @@
 @import "tailwindcss";
+
+/* ── Confetti particle animation (MB-397) ────────────────────────────────── */
+
+@keyframes confetti-fall {
+  0%   { transform: translateY(0)     rotate(0deg)   translateX(0);           opacity: 1; }
+  60%  {                                                                        opacity: 1; }
+  100% { transform: translateY(110vh) rotate(540deg) translateX(var(--drift)); opacity: 0; }
+}
+
+.confetti-particle {
+  animation: confetti-fall linear forwards;
+}
+
+/* ── Wrong guess shake (MB-397) ──────────────────────────────────────────── */
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-7px); }
+  30%       { transform: translateX(7px); }
+  45%       { transform: translateX(-5px); }
+  60%       { transform: translateX(5px); }
+  75%       { transform: translateX(-3px); }
+  90%       { transform: translateX(3px); }
+}
+
+.animate-shake {
+  animation: shake 0.55s ease-in-out;
+}
+
+/* ── Score screen reveal (MB-397) ────────────────────────────────────────── */
+
+@keyframes score-reveal {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+.animate-score-reveal {
+  animation: score-reveal 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Safe-area padding for notched phones (MB-398) ───────────────────────── */
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ── Prevent double-tap zoom on interactive elements ─────────────────────── */
+
+button, a {
+  touch-action: manipulation;
+}
