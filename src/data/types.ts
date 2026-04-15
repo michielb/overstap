@@ -48,7 +48,6 @@ export interface Puzzle {
 }
 
 export interface GuessResult {
-  stations: string[]
   correct: boolean[]    // Per-station correctness
   isWin: boolean
 }

@@ -85,3 +85,35 @@ export function getDailyPuzzle(graph: NetworkGraph, dateStr?: string): Puzzle {
     solution: route.transfers,
   }
 }
+
+// ── Practice puzzle selector ──────────────────────────────────────────────────
+
+export type Difficulty = 'makkelijk' | 'gemiddeld' | 'moeilijk'
+
+const difficultyTransfers: Record<Difficulty, number> = {
+  makkelijk: 1,
+  gemiddeld: 2,
+  moeilijk: 3,
+}
+
+/**
+ * Returns a random puzzle at the given difficulty level.
+ * Makkelijk = 1 transfer, Gemiddeld = 2, Moeilijk = 3.
+ */
+export function getPracticePuzzle(graph: NetworkGraph, difficulty: Difficulty): Puzzle {
+  const targetTransfers = difficultyTransfers[difficulty]
+  const candidates = buildCandidates(graph).filter(c => c.transferCount === targetTransfers)
+
+  if (candidates.length === 0) return getDailyPuzzle(graph)
+
+  const idx = Math.floor(Math.random() * candidates.length)
+  const pick = candidates[idx]
+  const route = findRoutes(graph, pick.from, pick.to)
+
+  return {
+    date: new Date().toISOString().slice(0, 10),
+    from: pick.from,
+    to: pick.to,
+    solution: route.transfers,
+  }
+}
