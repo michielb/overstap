@@ -51,7 +51,7 @@ function FilledRow({ row, stations }: { row: GuessRow; stations: Record<string, 
       {row.stations.map((code, i) => (
         <Chip
           key={code}
-          label={stations[code]?.nameShort ?? code}
+          label={stations[code]?.name ?? code}
           correct={row.result.correct[i]}
         />
       ))}

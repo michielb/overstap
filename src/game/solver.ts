@@ -160,15 +160,11 @@ export function validateGuess(
     }
   }
 
-  // Partial credit: mark stations that appear in any solution at the right position
-  if (route.allRoutes.length > 0) {
-    const maxLen = Math.max(...route.allRoutes.map(r => r.length))
-    if (guess.length === maxLen) {
-      for (let i = 0; i < guess.length; i++) {
-        if (route.allRoutes.some(sol => sol[i] === guess[i])) {
-          correct[i] = true
-        }
-      }
+  // Partial credit: mark stations that appear in any solution at the right position,
+  // regardless of whether the guess has the right number of transfers.
+  for (let i = 0; i < guess.length; i++) {
+    if (route.allRoutes.some(sol => sol.length > i && sol[i] === guess[i])) {
+      correct[i] = true
     }
   }
 

@@ -70,7 +70,7 @@ export function ScoreScreen({ won, guesses, solution, transferCount, stations, p
 
   const solutionText = solution.length === 0
     ? 'directe trein — geen overstap'
-    : solution.map(c => stations[c]?.nameShort ?? c).join(' → ')
+    : solution.map(c => stations[c]?.name ?? c).join(' → ')
 
   const shareText = buildShareText(guesses, transferCount, won, puzzleDate)
 

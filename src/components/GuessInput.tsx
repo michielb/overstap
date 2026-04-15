@@ -41,7 +41,7 @@ export function GuessInput({
                          border border-yellow-200 text-sm font-medium text-gray-800"
             >
               <span className="text-xs text-gray-400 font-mono">{i + 1}</span>
-              {stations[code]?.nameShort ?? code}
+              {stations[code]?.name ?? code}
             </span>
           ))}
           <button
