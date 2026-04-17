@@ -29,3 +29,6 @@ dist-ssr
 
 # Data dumps (raw API responses, generated)
 scripts/data/raw/
+
+# Claude Code local state
+.claude/
