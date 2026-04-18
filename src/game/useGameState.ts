@@ -1,152 +1,84 @@
 /**
- * MB-392: Game engine — state management and guess validation
+ * Game engine for v2: player guesses stops one at a time.
  *
- * Manages the full game lifecycle: puzzle setup, guess submission,
- * per-guess feedback, win/lose detection.
+ * Each guess is classified immediately as correct / wrong-order / not-on-route
+ * and appended as a slot. The game ends when either every route stop has been
+ * placed (win) or all slots are used (lose).
  */
 
-import { useReducer, useCallback } from 'react'
-import type { NetworkGraph, Puzzle, GuessResult } from '../data/types.js'
-import { findRoutes, validateGuess } from './solver.js'
-
-// ── Constants ────────────────────────────────────────────────────────────────
-
-export const MAX_GUESSES = 6
-
-// ── State ────────────────────────────────────────────────────────────────────
+import { useReducer, useCallback, useMemo } from 'react'
+import type { LinePuzzle, Slot } from '../data/types.js'
+import { classifyGuess, isRouteComplete } from './classify.js'
+import { slotCount } from './puzzle.js'
 
 export type GameStatus = 'playing' | 'won' | 'lost'
 
-export interface GuessRow {
-  stations: string[]    // station codes the player guessed
-  result: GuessResult   // correctness per station
-  isOptimal: boolean    // guess matches the optimal solution
-}
-
 export interface GameState {
-  puzzle: Puzzle
+  puzzle: LinePuzzle
   status: GameStatus
-  guesses: GuessRow[]
-  currentInput: string[]  // stations being built up for the current guess
-  solution: string[]      // the optimal transfer stations (hidden from player)
-  allSolutions: string[][]
-  transferCount: number   // number of transfers in optimal route
+  slots: Slot[]
+  maxSlots: number
 }
-
-// ── Actions ──────────────────────────────────────────────────────────────────
 
 type Action =
-  | { type: 'ADD_STATION'; code: string }
-  | { type: 'REMOVE_LAST_STATION' }
-  | { type: 'CLEAR_INPUT' }
-  | { type: 'SUBMIT_GUESS' }
-  | { type: 'RESET'; puzzle: Puzzle; graph: NetworkGraph }
+  | { type: 'GUESS'; code: string }
+  | { type: 'RESET'; puzzle: LinePuzzle }
 
-// ── Reducer ──────────────────────────────────────────────────────────────────
+function initialState(puzzle: LinePuzzle): GameState {
+  return {
+    puzzle,
+    status: 'playing',
+    slots: [],
+    maxSlots: slotCount(puzzle.stops.length),
+  }
+}
 
 function reducer(state: GameState, action: Action): GameState {
   switch (action.type) {
-    case 'ADD_STATION': {
+    case 'GUESS': {
       if (state.status !== 'playing') return state
-      if (state.currentInput.includes(action.code)) return state  // no dupes
+      if (state.slots.some(s => s.station === action.code)) return state  // no dupes
       if (action.code === state.puzzle.from || action.code === state.puzzle.to) return state
-      return { ...state, currentInput: [...state.currentInput, action.code] }
+
+      const status = classifyGuess(state.puzzle.stops, state.slots, action.code)
+      const nextSlots = [...state.slots, { station: action.code, status }]
+
+      let nextStatus: GameStatus = 'playing'
+      if (isRouteComplete(state.puzzle.stops, nextSlots)) nextStatus = 'won'
+      else if (nextSlots.length >= state.maxSlots) nextStatus = 'lost'
+
+      return { ...state, slots: nextSlots, status: nextStatus }
     }
 
-    case 'REMOVE_LAST_STATION': {
-      if (state.currentInput.length === 0) return state
-      return { ...state, currentInput: state.currentInput.slice(0, -1) }
-    }
-
-    case 'CLEAR_INPUT': {
-      return { ...state, currentInput: [] }
-    }
-
-    case 'SUBMIT_GUESS': {
-      if (state.status !== 'playing') return state
-      const guess = state.currentInput
-
-      // Build a Route object for validation
-      const route = {
-        from: state.puzzle.from,
-        to: state.puzzle.to,
-        transfers: state.solution,
-        allRoutes: state.allSolutions,
-        transferCount: state.transferCount,
-      }
-
-      const result = validateGuess(route, guess)
-      const isOptimal = state.allSolutions.some(
-        sol => sol.length === guess.length && sol.every((s, i) => s === guess[i])
-      )
-
-      const row: GuessRow = { stations: guess, result, isOptimal }
-      const newGuesses = [...state.guesses, row]
-
-      let status: GameStatus = 'playing'
-      if (result.isWin) status = 'won'
-      else if (newGuesses.length >= MAX_GUESSES) status = 'lost'
-
-      return {
-        ...state,
-        guesses: newGuesses,
-        currentInput: [],
-        status,
-      }
-    }
-
-    case 'RESET': {
-      const route = findRoutes(action.graph, action.puzzle.from, action.puzzle.to)
-      return {
-        puzzle: action.puzzle,
-        status: 'playing',
-        guesses: [],
-        currentInput: [],
-        solution: route.transfers,
-        allSolutions: route.allRoutes,
-        transferCount: route.transferCount,
-      }
-    }
+    case 'RESET':
+      return initialState(action.puzzle)
 
     default:
       return state
   }
 }
 
-// ── Hook ─────────────────────────────────────────────────────────────────────
+export function useGameState(puzzle: LinePuzzle) {
+  const initial = useMemo(() => initialState(puzzle), [puzzle])
+  const [state, dispatch] = useReducer(reducer, initial)
 
-export function useGameState(puzzle: Puzzle, graph: NetworkGraph) {
-  const route = findRoutes(graph, puzzle.from, puzzle.to)
-
-  const [state, dispatch] = useReducer(reducer, {
-    puzzle,
-    status: 'playing' as GameStatus,
-    guesses: [],
-    currentInput: [],
-    solution: route.transfers,
-    allSolutions: route.allRoutes,
-    transferCount: route.transferCount,
-  })
-
-  const addStation = useCallback((code: string) => {
-    dispatch({ type: 'ADD_STATION', code })
+  const guess = useCallback((code: string) => {
+    dispatch({ type: 'GUESS', code })
   }, [])
 
-  const removeLastStation = useCallback(() => {
-    dispatch({ type: 'REMOVE_LAST_STATION' })
+  const reset = useCallback((newPuzzle: LinePuzzle) => {
+    dispatch({ type: 'RESET', puzzle: newPuzzle })
   }, [])
 
-  const clearInput = useCallback(() => {
-    dispatch({ type: 'CLEAR_INPUT' })
-  }, [])
+  // Derived: codes the user has already placed (any status) — excluded from input
+  const placedCodes = useMemo(
+    () => state.slots.map(s => s.station),
+    [state.slots],
+  )
 
-  const submitGuess = useCallback(() => {
-    dispatch({ type: 'SUBMIT_GUESS' })
-  }, [])
+  const correctCount = state.slots.filter(s => s.status !== 'not-on-route').length
+  const orderBroken = state.slots.some(s => s.status === 'wrong-order')
+  const score = correctCount + (state.status === 'won' && !orderBroken ? 1 : 0)
 
-  const reset = useCallback((newPuzzle: Puzzle) => {
-    dispatch({ type: 'RESET', puzzle: newPuzzle, graph })
-  }, [graph])
-
-  return { state, addStation, removeLastStation, clearInput, submitGuess, reset }
+  return { state, placedCodes, correctCount, orderBroken, score, guess, reset }
 }

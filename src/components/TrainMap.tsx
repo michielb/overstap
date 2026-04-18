@@ -1,22 +1,16 @@
 /**
- * MB-389 + MB-390: Schematic train map
+ * TrainMap — progressive route reveal.
  *
- * Renders Netherlands outline, all network tracks (from spoorkaart geometry),
- * and station dots. Highlights origin, destination, and guessed transfers.
+ * Shows origin + destination always. Each correctly-placed stop appears at its
+ * true lat/lng as the player guesses it. A polyline is drawn through the
+ * origin → revealed stops → destination, growing as more stops are revealed.
+ * Stops not yet guessed are invisible. On game end, any remaining stops are
+ * revealed for the solution display.
  */
 
-import type { NetworkGraph } from '../data/types.js'
-import tracksData from '../data/tracks.json'
+import type { NetworkGraph, Slot } from '../data/types.js'
 
-interface TrackSegment {
-  from: string
-  to: string
-  coords: [number, number][]
-}
-
-const tracks = tracksData as TrackSegment[]
-
-// ── Map bounds (WGS84) ────────────────────────────────────────────────────────
+// ── Projection ───────────────────────────────────────────────────────────────
 
 const MIN_LNG = 3.2
 const MAX_LNG = 7.35
@@ -26,20 +20,13 @@ const MAX_LAT = 53.65
 const SVG_W = 380
 const SVG_H = 460
 
-// ── Projection ────────────────────────────────────────────────────────────────
-
 function project(lng: number, lat: number): [number, number] {
   const x = ((lng - MIN_LNG) / (MAX_LNG - MIN_LNG)) * SVG_W
   const y = (1 - (lat - MIN_LAT) / (MAX_LAT - MIN_LAT)) * SVG_H
   return [Math.round(x * 10) / 10, Math.round(y * 10) / 10]
 }
 
-function coordsToPolyline(coords: [number, number][]): string {
-  return coords.map(([lng, lat]) => project(lng, lat).join(',')).join(' ')
-}
-
-// ── Simplified Netherlands outline (clockwise from NW coast) ─────────────────
-// Approximate border polygon for context; not exact
+// ── Simplified Netherlands outline for geographic context ────────────────────
 
 const NL_OUTLINE: [number, number][] = [
   [4.62, 52.83], [4.67, 52.96], [4.73, 53.07], [4.78, 53.17],
@@ -55,45 +42,42 @@ const NL_OUTLINE: [number, number][] = [
 
 const NL_PATH = NL_OUTLINE.map(([lng, lat]) => project(lng, lat).join(',')).join(' ')
 
-// ── Component ─────────────────────────────────────────────────────────────────
+// ── Component ────────────────────────────────────────────────────────────────
 
 interface Props {
   graph: NetworkGraph
-  from: string           // origin station code
-  to: string             // destination station code
-  guesses: string[]      // transfer codes guessed so far (correct + incorrect)
-  correctGuesses: string[] // codes confirmed correct
-  revealSolution?: boolean
-  solution?: string[]
+  from: string
+  to: string
+  stops: string[]               // full route in order (excluding from/to)
+  slots: Slot[]                 // player's guesses in input order
+  revealAll?: boolean           // on game end, show the whole route
 }
 
-export function TrainMap({
-  graph,
-  from,
-  to,
-  guesses,
-  correctGuesses,
-  revealSolution,
-  solution = [],
-}: Props) {
-  const stationList = Object.values(graph.stations)
+export function TrainMap({ graph, from, to, stops, slots, revealAll }: Props) {
+  const placed = new Set(
+    slots.filter(s => s.status !== 'not-on-route').map(s => s.station),
+  )
+  const wrongOrder = new Set(
+    slots.filter(s => s.status === 'wrong-order').map(s => s.station),
+  )
 
-  function stationColor(code: string): string {
-    if (code === from) return '#FFC917'        // NS yellow — origin
-    if (code === to) return '#003082'           // NS blue — destination
-    if (revealSolution && solution.includes(code)) return '#00A04A'  // green — solution reveal
-    if (correctGuesses.includes(code)) return '#00A04A'  // green — correct guess
-    if (guesses.includes(code)) return '#e53e3e'          // red — wrong guess
-    if (graph.stations[code]?.isTransfer) return '#6B7280' // gray — transfer station
-    return '#D1D5DB'                            // light gray — regular station
-  }
+  // Stops to render, in route order: any placed (or all if revealed)
+  const visibleStops = stops.filter(c => revealAll || placed.has(c))
 
-  function stationRadius(code: string): number {
-    if (code === from || code === to) return 7
-    if (correctGuesses.includes(code) || (revealSolution && solution.includes(code))) return 6
-    if (guesses.includes(code)) return 5
-    if (graph.stations[code]?.isTransfer) return 4
-    return 2.5
+  // Polyline path: origin → visible stops (in true route order) → destination
+  const pathCodes = [from, ...visibleStops, to]
+  const pathPoints = pathCodes
+    .map(code => graph.stations[code])
+    .filter(Boolean)
+    .map(s => project(s.lng, s.lat).join(','))
+    .join(' ')
+
+  function dotFill(code: string): string {
+    if (code === from) return '#FFC917'
+    if (code === to) return '#003082'
+    if (revealAll && !placed.has(code)) return '#9CA3AF'  // unguessed on reveal
+    if (wrongOrder.has(code)) return '#F59E0B'             // amber
+    return '#10B981'                                       // emerald
   }
 
   return (
@@ -102,87 +86,71 @@ export function TrainMap({
         viewBox={`0 0 ${SVG_W} ${SVG_H}`}
         className="w-full h-auto"
         style={{ maxHeight: '320px' }}
-        aria-label="Kaart van het Nederlandse treinnetwerk"
+        aria-label="Kaart van de route"
       >
         {/* Netherlands outline */}
         <polygon
           points={NL_PATH}
-          fill="#F3F4F6"
+          fill="#F9FAFB"
           stroke="#E5E7EB"
           strokeWidth="1.5"
           strokeLinejoin="round"
         />
 
-        {/* Track lines */}
-        {tracks.map((track, i) => {
-          const fromS = graph.stations[track.from]
-          const toS = graph.stations[track.to]
-          if (!fromS || !toS) return null
+        {/* Route polyline (grows as more stops are revealed) */}
+        {pathCodes.length >= 2 && (
+          <polyline
+            points={pathPoints}
+            fill="none"
+            stroke="#003082"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            opacity={0.85}
+          />
+        )}
 
-          // Highlight tracks that connect guessed/solution stations
-          const isHighlighted = correctGuesses.includes(track.from) || correctGuesses.includes(track.to)
-            || (revealSolution && (solution.includes(track.from) || solution.includes(track.to)))
-            || track.from === from || track.from === to
-            || track.to === from || track.to === to
-
-          return (
-            <polyline
-              key={i}
-              points={coordsToPolyline(track.coords)}
-              fill="none"
-              stroke={isHighlighted ? '#003082' : '#9CA3AF'}
-              strokeWidth={isHighlighted ? 2 : 1}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              opacity={isHighlighted ? 0.85 : 0.5}
-            />
-          )
-        })}
-
-        {/* Station dots */}
-        {stationList.map(station => {
-          const [x, y] = project(station.lng, station.lat)
-          const r = stationRadius(station.code)
-          const color = stationColor(station.code)
-          const isSpecial = station.code === from || station.code === to
-            || correctGuesses.includes(station.code)
-            || guesses.includes(station.code)
-            || (revealSolution && solution.includes(station.code))
+        {/* Station dots: origin, destination, and revealed stops */}
+        {pathCodes.map(code => {
+          const s = graph.stations[code]
+          if (!s) return null
+          const [x, y] = project(s.lng, s.lat)
+          const isEndpoint = code === from || code === to
+          const r = isEndpoint ? 7 : 5.5
+          const label = s.nameShort
 
           return (
-            <g key={station.code}>
+            <g key={code}>
               <circle
                 cx={x}
                 cy={y}
                 r={r}
-                fill={color}
-                stroke={isSpecial ? 'white' : 'none'}
-                strokeWidth={isSpecial ? 1.5 : 0}
+                fill={dotFill(code)}
+                stroke="white"
+                strokeWidth="1.5"
               />
-              {/* Label for highlighted stations */}
-              {isSpecial && (
-                <text
-                  x={x}
-                  y={y - r - 3}
-                  textAnchor="middle"
-                  fontSize="8"
-                  fontWeight="600"
-                  fill="#1F2937"
-                  className="select-none"
-                >
-                  {station.nameShort}
-                </text>
-              )}
+              <text
+                x={x}
+                y={y - r - 3}
+                textAnchor="middle"
+                fontSize="9"
+                fontWeight="600"
+                fill="#1F2937"
+                className="select-none"
+              >
+                {label}
+              </text>
             </g>
           )
         })}
       </svg>
 
       {/* Legend */}
-      <div className="px-4 py-2 border-t border-gray-100 flex items-center gap-4 flex-wrap text-xs text-gray-500">
+      <div className="px-4 py-2 border-t border-gray-100 flex items-center gap-3 flex-wrap text-xs text-gray-500">
         <LegendDot color="#FFC917" label={graph.stations[from]?.nameShort ?? from} />
         <LegendDot color="#003082" label={graph.stations[to]?.nameShort ?? to} />
-        {correctGuesses.length > 0 && <LegendDot color="#00A04A" label="Juist geraden" />}
+        {slots.some(s => s.status === 'correct') && <LegendDot color="#10B981" label="Goed" />}
+        {slots.some(s => s.status === 'wrong-order') && <LegendDot color="#F59E0B" label="Verkeerde volgorde" />}
       </div>
     </div>
   )

@@ -1,12 +1,13 @@
 /**
- * Puzzle selection — deterministic, date-seeded.
- * Same puzzle for all players on the same day.
+ * Puzzle selection for v2: "guess all stops on the route".
+ *
+ * A puzzle is a single-line segment (from, to, intermediate stops in order).
+ * Players guess the intermediate stops one at a time.
  */
 
-import type { NetworkGraph, Puzzle } from '../data/types.js'
-import { findRoutes } from './solver.js'
+import type { Difficulty, LinePuzzle, NetworkGraph } from '../data/types.js'
 
-// ── Seeded PRNG (mulberry32) ──────────────────────────────────────────────────
+// ── Seeded PRNG ──────────────────────────────────────────────────────────────
 
 function mulberry32(seed: number) {
   return function () {
@@ -19,69 +20,106 @@ function mulberry32(seed: number) {
 }
 
 function dateToSeed(date: string): number {
-  // "2026-04-14" → stable integer seed
   return date.split('-').reduce((acc, part) => acc * 1000 + parseInt(part), 0)
 }
 
-// ── Puzzle candidate generation ───────────────────────────────────────────────
+// ── Difficulty buckets (by intermediate-stop count) ──────────────────────────
 
-interface PuzzleCandidate {
+export function classifyDifficulty(intermediateCount: number): Difficulty | null {
+  if (intermediateCount < 2) return null       // 0–1: too trivial
+  if (intermediateCount <= 4) return 'easy'    // 2–4
+  if (intermediateCount <= 8) return 'medium'  // 5–8
+  return 'hard'                                // 9+
+}
+
+// ── Candidate generation ─────────────────────────────────────────────────────
+
+interface Candidate {
   from: string
   to: string
-  transferCount: number
+  stops: string[]
+  line: string
+  difficulty: Difficulty
 }
 
 /**
- * Build a list of interesting puzzle candidates from the network.
- * Only includes routes with 1–3 transfers (too easy or too hard excluded).
+ * Enumerate all line-segment puzzles from the network.
+ * Includes sub-segments of each line to broaden puzzle variety.
+ * Dedupes by (from, to), keeping the variant with MORE intermediate stops.
  */
-export function buildCandidates(graph: NetworkGraph): PuzzleCandidate[] {
-  const transferStations = graph.transferStations
-  const candidates: PuzzleCandidate[] = []
-  const seen = new Set<string>()
+export function buildCandidates(graph: NetworkGraph): Candidate[] {
+  const best = new Map<string, Candidate>()
 
-  for (let i = 0; i < transferStations.length; i++) {
-    for (let j = i + 1; j < transferStations.length; j++) {
-      const from = transferStations[i]
-      const to = transferStations[j]
-      const key = [from, to].sort().join('|')
-      if (seen.has(key)) continue
-      seen.add(key)
-
-      const route = findRoutes(graph, from, to)
-      if (route.transferCount >= 1 && route.transferCount <= 3) {
-        candidates.push({ from, to, transferCount: route.transferCount })
+  for (const [line, seq] of Object.entries(graph.lines)) {
+    // Every (i, j) sub-segment where j > i+2 gives ≥2 intermediate stops
+    for (let i = 0; i < seq.length; i++) {
+      for (let j = i + 3; j < seq.length; j++) {
+        const from = seq[i]
+        const to = seq[j]
+        const stops = seq.slice(i + 1, j)
+        const difficulty = classifyDifficulty(stops.length)
+        if (!difficulty) continue
+        // Canonical key (unordered) so we don't get A→B and B→A as distinct puzzles
+        const key = [from, to].sort().join('|')
+        const existing = best.get(key)
+        if (!existing || stops.length > existing.stops.length) {
+          best.set(key, { from, to, stops, line, difficulty })
+        }
       }
     }
   }
 
-  return candidates
+  return [...best.values()]
 }
 
-// ── Daily puzzle selector ─────────────────────────────────────────────────────
+// ── Daily puzzle selector ────────────────────────────────────────────────────
 
 /**
- * Returns today's puzzle. Deterministic: same date → same puzzle for all players.
+ * Returns today's puzzle. Same date → same puzzle for all players.
+ *
+ * Difficulty rotation: each day picks one of easy/medium/hard with equal chance,
+ * then picks a puzzle from that bucket. If the chosen bucket is empty, falls back.
  */
-export function getDailyPuzzle(graph: NetworkGraph, dateStr?: string): Puzzle {
+export function getDailyPuzzle(graph: NetworkGraph, dateStr?: string): LinePuzzle {
   const date = dateStr ?? new Date().toISOString().slice(0, 10)
-  const seed = dateToSeed(date)
-  const rng = mulberry32(seed)
+  const rng = mulberry32(dateToSeed(date))
 
   const candidates = buildCandidates(graph)
-  if (candidates.length === 0) {
-    // Fallback to a hardcoded known good puzzle
-    return { date, from: 'ASD', to: 'GN', solution: [] }
+  const byDifficulty: Record<Difficulty, Candidate[]> = {
+    easy: candidates.filter(c => c.difficulty === 'easy'),
+    medium: candidates.filter(c => c.difficulty === 'medium'),
+    hard: candidates.filter(c => c.difficulty === 'hard'),
   }
 
-  const idx = Math.floor(rng() * candidates.length)
-  const pick = candidates[idx]
-  const route = findRoutes(graph, pick.from, pick.to)
+  const order: Difficulty[] = ['easy', 'medium', 'hard']
+  const pickDifficulty = order[Math.floor(rng() * order.length)]
+
+  // Pick a non-empty bucket, preferring the rolled one
+  const buckets: Candidate[][] = [
+    byDifficulty[pickDifficulty],
+    ...order.filter(d => d !== pickDifficulty).map(d => byDifficulty[d]),
+  ]
+  const bucket = buckets.find(b => b.length > 0)
+
+  if (!bucket || bucket.length === 0) {
+    throw new Error('No puzzle candidates available in network data')
+  }
+
+  const pick = bucket[Math.floor(rng() * bucket.length)]
 
   return {
     date,
     from: pick.from,
     to: pick.to,
-    solution: route.transfers,
+    stops: pick.stops,
+    line: pick.line,
+    difficulty: pick.difficulty,
   }
+}
+
+// ── Slot count ───────────────────────────────────────────────────────────────
+
+/** Number of guess slots = ceil(stops × 1.3), min 3. */
+export function slotCount(stopCount: number): number {
+  return Math.max(3, Math.ceil(stopCount * 1.3))
 }

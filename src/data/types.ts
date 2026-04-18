@@ -11,17 +11,17 @@ export interface Station {
 }
 
 export interface Connection {
-  from: string         // Station code
-  to: string           // Station code
-  line: string         // Line code, e.g. "IC-direct"
-  durationMin: number  // Travel time in minutes
+  from: string
+  to: string
+  line: string
+  durationMin: number
 }
 
 export interface NetworkGraph {
   stations: Record<string, Station>
   adjacency: Record<string, AdjacencyEntry[]>
   lines: Record<string, string[]>  // line code -> ordered list of station codes
-  transferStations: string[]       // station codes that are transfer points
+  transferStations: string[]
 }
 
 export interface AdjacencyEntry {
@@ -30,24 +30,22 @@ export interface AdjacencyEntry {
   durationMin: number
 }
 
-// Game models
+// ── Game models (v2: guess-all-stops-on-route) ────────────────────────────────
 
-export interface Route {
-  from: string          // Station code
-  to: string            // Station code
-  transfers: string[]   // Ordered list of transfer station codes (the answer)
-  allRoutes: string[][] // All valid routes (for validating guesses)
-  transferCount: number
+export type Difficulty = 'easy' | 'medium' | 'hard'
+
+export interface LinePuzzle {
+  date: string              // YYYY-MM-DD
+  from: string              // origin station code
+  to: string                // destination station code
+  stops: string[]           // ordered intermediate station codes (excluding from/to)
+  line: string              // line identifier (for debugging / display)
+  difficulty: Difficulty
 }
 
-export interface Puzzle {
-  date: string          // YYYY-MM-DD
-  from: string          // Station code
-  to: string            // Station code
-  solution: string[]    // Transfer stations in order
-}
+export type SlotStatus = 'correct' | 'wrong-order' | 'not-on-route'
 
-export interface GuessResult {
-  correct: boolean[]    // Per-station correctness (index = position in guess)
-  isWin: boolean
+export interface Slot {
+  station: string           // station code guessed
+  status: SlotStatus
 }
