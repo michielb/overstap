@@ -28,6 +28,7 @@ const MODE_LABEL: Record<Mode, string> = {
 function buildShareText(
   puzzle: LinePuzzle,
   slots: Slot[],
+  stations: Record<string, Station>,
   score: number,
   orderBroken: boolean,
   won: boolean,
@@ -43,12 +44,12 @@ function buildShareText(
   const correctStops = slots.filter(s => s.status !== 'not-on-route').length
   const bonus = won && !orderBroken ? ' ⭐' : ''
 
-  const fromS = puzzle.from
-  const toS = puzzle.to
+  const fromName = stations[puzzle.from]?.name ?? puzzle.from
+  const toName = stations[puzzle.to]?.name ?? puzzle.to
 
   return [
     `Treintje — ${puzzle.date} · ${MODE_LABEL[mode]}`,
-    `${fromS} → ${toS}`,
+    `${fromName} → ${toName}`,
     `${correctStops}/${totalStops} stations, ${score} punten${bonus}`,
     grid,
   ].join('\n')
@@ -63,8 +64,10 @@ export function ScoreScreen({ won, puzzle, slots, stations, score, orderBroken, 
   const correctStops = slots.filter(s => s.status !== 'not-on-route').length
   const wrongStations = slots.filter(s => s.status === 'not-on-route')
 
-  const routeText = puzzle.stops.map(c => stations[c]?.nameShort ?? c).join(' → ')
-  const shareText = buildShareText(puzzle, slots, score, orderBroken, won, mode)
+  const routeText = [puzzle.from, ...puzzle.stops, puzzle.to]
+    .map(c => stations[c]?.nameShort ?? c)
+    .join(' → ')
+  const shareText = buildShareText(puzzle, slots, stations, score, orderBroken, won, mode)
 
   async function handleShare() {
     try {

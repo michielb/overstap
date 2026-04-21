@@ -1,14 +1,18 @@
 /**
- * Running player stats (MB-464).
+ * Running player stats (MB-464, extended in MB-479).
  *
- * Cumulative totals per mode so a future stats screen can surface averages,
- * accuracy, and perfect-round rate. Incremented exactly once per completed
- * game — the `statsRecorded` flag on the per-day game state is the guard
- * against double-counting on reload.
+ * Cumulative totals per category × mode so the stats screen can surface IC and
+ * Sprinter performance separately. Incremented exactly once per completed game
+ * — the `statsRecorded` flag on the per-day game state is the guard against
+ * double-counting on reload.
+ *
+ * Streak semantics (MB-479): `lastPlayedDate` moves whenever EITHER puzzle is
+ * completed. Completing the second puzzle on the same day is a no-op for the
+ * streak — one finished puzzle per day is enough to "play today".
  */
 
 import { useEffect, useState } from 'react'
-import type { Mode } from '../data/types.js'
+import type { Category, Mode } from '../data/types.js'
 import { storage } from '../storage/index.js'
 
 export interface ModeStats {
@@ -23,13 +27,19 @@ export interface HardStats extends ModeStats {
   wrongGuesses: number
 }
 
-export interface Stats {
+export interface CategoryStats {
   easy: ModeStats
   hard: HardStats
+}
+
+export interface Stats {
+  ic: CategoryStats
+  sprinter: CategoryStats
   lastPlayedDate: string  // YYYY-MM-DD, '' if never played
 }
 
 export interface GameCompletion {
+  category: Category
   mode: Mode
   date: string
   points: number
@@ -39,13 +49,18 @@ export interface GameCompletion {
   wrongGuesses: number      // hard mode only; ignored for easy
 }
 
-export interface DerivedStats {
+export interface DerivedCategoryStats {
   easy: { avgPoints: number; accuracy: number; perfectRate: number }
   hard: { avgPoints: number; accuracy: number; perfectRate: number }
 }
 
+export interface DerivedStats {
+  ic: DerivedCategoryStats
+  sprinter: DerivedCategoryStats
+}
+
 const STATS_KEY = 'stats'
-const STATS_VERSION = 1
+const STATS_VERSION = 2   // v1 = flat {easy,hard}; v2 = category-split
 
 function emptyModeStats(): ModeStats {
   return {
@@ -61,8 +76,12 @@ function emptyHardStats(): HardStats {
   return { ...emptyModeStats(), wrongGuesses: 0 }
 }
 
+function emptyCategoryStats(): CategoryStats {
+  return { easy: emptyModeStats(), hard: emptyHardStats() }
+}
+
 export function emptyStats(): Stats {
-  return { easy: emptyModeStats(), hard: emptyHardStats(), lastPlayedDate: '' }
+  return { ic: emptyCategoryStats(), sprinter: emptyCategoryStats(), lastPlayedDate: '' }
 }
 
 function isValidModeStats(v: unknown): v is ModeStats {
@@ -82,23 +101,53 @@ function isValidHardStats(v: unknown): v is HardStats {
   return typeof (v as { wrongGuesses?: unknown }).wrongGuesses === 'number'
 }
 
+function isValidCategoryStats(v: unknown): v is CategoryStats {
+  if (typeof v !== 'object' || v === null) return false
+  const o = v as Record<string, unknown>
+  return isValidModeStats(o.easy) && isValidHardStats(o.hard)
+}
+
 function isValidStats(v: unknown): v is Stats {
   if (typeof v !== 'object' || v === null) return false
   const o = v as Record<string, unknown>
-  if (!isValidModeStats(o.easy)) return false
-  if (!isValidHardStats(o.hard)) return false
-  if (typeof o.lastPlayedDate !== 'string') return false
-  return true
+  return (
+    isValidCategoryStats(o.ic) &&
+    isValidCategoryStats(o.sprinter) &&
+    typeof o.lastPlayedDate === 'string'
+  )
+}
+
+/**
+ * One-time migration: a v1 envelope stored { easy, hard, lastPlayedDate } with
+ * no category axis. Treat that history as IC (most early puzzles were IC-
+ * flavoured) and zero the Sprinter side. Runs lazily the first time readStats
+ * is called after the version bump.
+ */
+function migrateV1(): Stats | null {
+  const raw = storage.get<unknown>(STATS_KEY, 1)
+  if (typeof raw !== 'object' || raw === null) return null
+  const o = raw as Record<string, unknown>
+  if (!isValidModeStats(o.easy) || !isValidHardStats(o.hard)) return null
+  const migrated: Stats = {
+    ic: { easy: { ...o.easy }, hard: { ...o.hard } },
+    sprinter: emptyCategoryStats(),
+    lastPlayedDate: typeof o.lastPlayedDate === 'string' ? o.lastPlayedDate : '',
+  }
+  storage.set(STATS_KEY, migrated, STATS_VERSION)
+  return migrated
 }
 
 export function readStats(): Stats {
   const raw = storage.get<unknown>(STATS_KEY, STATS_VERSION)
-  if (!isValidStats(raw)) return emptyStats()
-  return {
-    easy: { ...raw.easy },
-    hard: { ...raw.hard },
-    lastPlayedDate: raw.lastPlayedDate,
+  if (isValidStats(raw)) {
+    return {
+      ic: { easy: { ...raw.ic.easy }, hard: { ...raw.ic.hard } },
+      sprinter: { easy: { ...raw.sprinter.easy }, hard: { ...raw.sprinter.hard } },
+      lastPlayedDate: raw.lastPlayedDate,
+    }
   }
+  const migrated = migrateV1()
+  return migrated ?? emptyStats()
 }
 
 const subscribers = new Set<() => void>()
@@ -114,32 +163,33 @@ function writeStats(stats: Stats): void {
  */
 export function recordCompletion(entry: GameCompletion): Stats {
   const current = readStats()
-  if (entry.mode === 'hard') {
-    const next: Stats = {
-      easy: current.easy,
-      hard: {
-        gamesPlayed: current.hard.gamesPlayed + 1,
-        totalPoints: current.hard.totalPoints + entry.points,
-        totalStopsGuessed: current.hard.totalStopsGuessed + entry.stopsGuessed,
-        totalStopsPossible: current.hard.totalStopsPossible + entry.stopsPossible,
-        perfectRounds: current.hard.perfectRounds + (entry.perfect ? 1 : 0),
-        wrongGuesses: current.hard.wrongGuesses + entry.wrongGuesses,
-      },
-      lastPlayedDate: entry.date,
-    }
-    writeStats(next)
-    return next
-  }
+  const cat = current[entry.category]
+  const nextCat: CategoryStats = entry.mode === 'hard'
+    ? {
+        easy: cat.easy,
+        hard: {
+          gamesPlayed: cat.hard.gamesPlayed + 1,
+          totalPoints: cat.hard.totalPoints + entry.points,
+          totalStopsGuessed: cat.hard.totalStopsGuessed + entry.stopsGuessed,
+          totalStopsPossible: cat.hard.totalStopsPossible + entry.stopsPossible,
+          perfectRounds: cat.hard.perfectRounds + (entry.perfect ? 1 : 0),
+          wrongGuesses: cat.hard.wrongGuesses + entry.wrongGuesses,
+        },
+      }
+    : {
+        easy: {
+          gamesPlayed: cat.easy.gamesPlayed + 1,
+          totalPoints: cat.easy.totalPoints + entry.points,
+          totalStopsGuessed: cat.easy.totalStopsGuessed + entry.stopsGuessed,
+          totalStopsPossible: cat.easy.totalStopsPossible + entry.stopsPossible,
+          perfectRounds: cat.easy.perfectRounds + (entry.perfect ? 1 : 0),
+        },
+        hard: cat.hard,
+      }
   const next: Stats = {
-    easy: {
-      gamesPlayed: current.easy.gamesPlayed + 1,
-      totalPoints: current.easy.totalPoints + entry.points,
-      totalStopsGuessed: current.easy.totalStopsGuessed + entry.stopsGuessed,
-      totalStopsPossible: current.easy.totalStopsPossible + entry.stopsPossible,
-      perfectRounds: current.easy.perfectRounds + (entry.perfect ? 1 : 0),
-    },
-    hard: current.hard,
-    lastPlayedDate: entry.date,
+    ic: entry.category === 'ic' ? nextCat : current.ic,
+    sprinter: entry.category === 'sprinter' ? nextCat : current.sprinter,
+    lastPlayedDate: entry.date,   // either puzzle's completion moves the marker
   }
   writeStats(next)
   return next
@@ -149,19 +199,23 @@ function safeDiv(num: number, denom: number): number {
   return denom > 0 ? num / denom : 0
 }
 
-export function deriveStats(stats: Stats): DerivedStats {
+function deriveCategory(cs: CategoryStats): DerivedCategoryStats {
   return {
     easy: {
-      avgPoints: safeDiv(stats.easy.totalPoints, stats.easy.gamesPlayed),
-      accuracy: safeDiv(stats.easy.totalStopsGuessed, stats.easy.totalStopsPossible),
-      perfectRate: safeDiv(stats.easy.perfectRounds, stats.easy.gamesPlayed),
+      avgPoints: safeDiv(cs.easy.totalPoints, cs.easy.gamesPlayed),
+      accuracy: safeDiv(cs.easy.totalStopsGuessed, cs.easy.totalStopsPossible),
+      perfectRate: safeDiv(cs.easy.perfectRounds, cs.easy.gamesPlayed),
     },
     hard: {
-      avgPoints: safeDiv(stats.hard.totalPoints, stats.hard.gamesPlayed),
-      accuracy: safeDiv(stats.hard.totalStopsGuessed, stats.hard.totalStopsPossible),
-      perfectRate: safeDiv(stats.hard.perfectRounds, stats.hard.gamesPlayed),
+      avgPoints: safeDiv(cs.hard.totalPoints, cs.hard.gamesPlayed),
+      accuracy: safeDiv(cs.hard.totalStopsGuessed, cs.hard.totalStopsPossible),
+      perfectRate: safeDiv(cs.hard.perfectRounds, cs.hard.gamesPlayed),
     },
   }
+}
+
+export function deriveStats(stats: Stats): DerivedStats {
+  return { ic: deriveCategory(stats.ic), sprinter: deriveCategory(stats.sprinter) }
 }
 
 export function useStats(): { stats: Stats; derived: DerivedStats } {

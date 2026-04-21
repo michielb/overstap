@@ -79,9 +79,6 @@ function EndpointRow({
         {variant === 'origin' ? 'A' : 'B'}
       </span>
       <div className="flex-1 min-w-0">
-        <p className="text-xs text-gray-400 uppercase tracking-wide">
-          {variant === 'origin' ? 'Vertrek' : 'Bestemming'}
-        </p>
         <p className="text-sm font-semibold text-gray-900 truncate">{station.name}</p>
       </div>
     </li>

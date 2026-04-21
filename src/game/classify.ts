@@ -1,13 +1,17 @@
 /**
  * Classify a single guess against the puzzle's ordered stop list.
  *
- * Rule:
+ * Rule (strict slot match):
  *   - If the station is not on the route → 'not-on-route'
- *   - Else if its route-position > all prior correctly-placed guesses → 'correct'
+ *   - Else if the guess lands in its correct slot — i.e. it equals
+ *     `stops[slots.length]` — → 'correct'
  *   - Else → 'wrong-order'
  *
- * The "prior correctly-placed" set = stations previously classified 'correct'.
- * Once 'wrong-order' is assigned it stays that way (no retroactive upgrade).
+ * The Nth guess is evaluated against the Nth route stop. Naming a station
+ * that's on the route but in the wrong slot yields 'wrong-order', whether it
+ * was "too early" or "too late". Beyond stops.length (after wrong-order /
+ * not-on-route fill slots past the route length) every on-route guess is
+ * 'wrong-order'.
  */
 
 import type { Slot, SlotStatus } from '../data/types.js'
@@ -17,14 +21,9 @@ export function classifyGuess(
   slots: Slot[],
   guess: string,
 ): SlotStatus {
-  const pos = stops.indexOf(guess)
-  if (pos === -1) return 'not-on-route'
-
-  const maxCorrectPos = slots
-    .filter(s => s.status === 'correct')
-    .reduce((max, s) => Math.max(max, stops.indexOf(s.station)), -1)
-
-  return pos > maxCorrectPos ? 'correct' : 'wrong-order'
+  if (!stops.includes(guess)) return 'not-on-route'
+  const expected = stops[slots.length]
+  return guess === expected ? 'correct' : 'wrong-order'
 }
 
 /**

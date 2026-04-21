@@ -48,8 +48,10 @@ type Action =
   | { type: 'RESET'; puzzle: LinePuzzle; mode: Mode }
 
 // Bump when GameState shape changes — old saves are then silently discarded.
-const STORAGE_VERSION = 3
-const storageKey = (date: string) => `game:${date}`
+// v4 (MB-479): keys gained a `:<category>` suffix so IC and Sprinter puzzles
+// for the same date persist independently.
+const STORAGE_VERSION = 4
+const storageKey = (date: string, category: string) => `game:${date}:${category}`
 
 function initialHardState(puzzle: LinePuzzle): HardGameState {
   return {
@@ -87,7 +89,7 @@ function initialState(puzzle: LinePuzzle, mode: Mode): GameState {
  * committed the first time it's saved (see MB-463 lock rules).
  */
 function loadOrInit(puzzle: LinePuzzle, mode: Mode): GameState {
-  const stored = storage.get<GameState>(storageKey(puzzle.date), STORAGE_VERSION)
+  const stored = storage.get<GameState>(storageKey(puzzle.date, puzzle.category), STORAGE_VERSION)
   if (!stored) return initialState(puzzle, mode)
   const p = stored.puzzle
   const matches =
@@ -129,6 +131,7 @@ function buildCompletion(state: GameState): import('./stats.js').GameCompletion 
     const perfect = state.status === 'won' && !orderBroken
     const points = stopsGuessed + (perfect ? 1 : 0)
     return {
+      category: state.puzzle.category,
       mode: 'hard',
       date: state.puzzle.date,
       points,
@@ -145,6 +148,7 @@ function buildCompletion(state: GameState): import('./stats.js').GameCompletion 
   const perfect = state.status === 'won' && !orderBroken
   const points = stopsGuessed + (perfect ? 1 : 0)
   return {
+    category: state.puzzle.category,
     mode: 'easy',
     date: state.puzzle.date,
     points,
@@ -230,7 +234,7 @@ export function useGameState(puzzle: LinePuzzle, mode: Mode = 'hard') {
   const [state, dispatch] = useReducer(reducer, undefined, () => loadOrInit(puzzle, mode))
 
   useEffect(() => {
-    storage.set(storageKey(state.puzzle.date), state, STORAGE_VERSION)
+    storage.set(storageKey(state.puzzle.date, state.puzzle.category), state, STORAGE_VERSION)
   }, [state])
 
   // Session-scoped guard so StrictMode's double-invoke of the effect below
@@ -239,7 +243,7 @@ export function useGameState(puzzle: LinePuzzle, mode: Mode = 'hard') {
 
   useEffect(() => {
     if (state.status === 'playing' || state.statsRecorded) return
-    const key = `${state.puzzle.date}:${state.mode}`
+    const key = `${state.puzzle.date}:${state.puzzle.category}:${state.mode}`
     if (recordedKeysRef.current.has(key)) return
     recordedKeysRef.current.add(key)
     recordCompletion(buildCompletion(state))

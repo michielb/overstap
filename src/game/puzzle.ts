@@ -156,9 +156,9 @@ export function getDailyPuzzle(
 ): LinePuzzle {
   const date = dateStr ?? new Date().toISOString().slice(0, 10)
 
-  if (!options.onlyCategory) {
-    const pinned = resolvePin(graph, date)
-    if (pinned) return pinned
+  const pinned = resolvePin(graph, date)
+  if (pinned && (!options.onlyCategory || options.onlyCategory === pinned.category)) {
+    return pinned
   }
 
   const rng = mulberry32(dateToSeed(date) ^ (options.onlyCategory === 'sprinter' ? 0xa5a5 : 0))
