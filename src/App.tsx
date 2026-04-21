@@ -15,12 +15,6 @@ import { storage } from './storage/index.js'
 const graph = networkData as unknown as NetworkGraph
 const puzzle = getDailyPuzzle(graph)
 
-const DIFFICULTY_LABEL: Record<string, string> = {
-  easy: 'Makkelijk',
-  medium: 'Gemiddeld',
-  hard: 'Moeilijk',
-}
-
 const HINT_STORAGE_KEY = 'ui:mode-hint-seen'
 const HINT_VERSION = 1
 
@@ -92,7 +86,7 @@ function App() {
             </div>
           </div>
           <p className="text-center text-xs text-gray-400 mt-3">
-            {DIFFICULTY_LABEL[state.puzzle.difficulty]} — {stopsTotal} tussenstation{stopsTotal === 1 ? '' : 's'}
+            {stopsTotal} tussenstation{stopsTotal === 1 ? '' : 's'}
           </p>
         </div>
 
