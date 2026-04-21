@@ -16,6 +16,8 @@ interface Props {
   score: number
   orderBroken: boolean
   mode: Mode
+  /** Hide the share button + share-text preview. Used in practice mode. */
+  hideShare?: boolean
 }
 
 // ── Share format ─────────────────────────────────────────────────────────────
@@ -57,7 +59,7 @@ function buildShareText(
 
 // ── Component ────────────────────────────────────────────────────────────────
 
-export function ScoreScreen({ won, puzzle, slots, stations, score, orderBroken, mode }: Props) {
+export function ScoreScreen({ won, puzzle, slots, stations, score, orderBroken, mode, hideShare }: Props) {
   const [copied, setCopied] = useState(false)
 
   const totalStops = puzzle.stops.length
@@ -133,17 +135,21 @@ export function ScoreScreen({ won, puzzle, slots, stations, score, orderBroken, 
         </div>
       )}
 
-      <button
-        onClick={handleShare}
-        className="w-full py-2.5 rounded-xl bg-[#003082] text-white font-semibold text-sm
-                   hover:bg-blue-900 active:bg-blue-950 transition-colors"
-      >
-        {copied ? '✓ Gekopieerd!' : 'Deel resultaat'}
-      </button>
+      {!hideShare && (
+        <>
+          <button
+            onClick={handleShare}
+            className="w-full py-2.5 rounded-xl bg-[#003082] text-white font-semibold text-sm
+                       hover:bg-blue-900 active:bg-blue-950 transition-colors"
+          >
+            {copied ? '✓ Gekopieerd!' : 'Deel resultaat'}
+          </button>
 
-      <pre className="text-xs text-gray-400 text-center font-mono whitespace-pre-wrap leading-relaxed">
-        {shareText}
-      </pre>
+          <pre className="text-xs text-gray-400 text-center font-mono whitespace-pre-wrap leading-relaxed">
+            {shareText}
+          </pre>
+        </>
+      )}
     </div>
   )
 }

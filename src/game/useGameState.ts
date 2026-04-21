@@ -44,6 +44,7 @@ type Action =
   | { type: 'PLACE'; code: string; slot: number; fromSlot?: number }
   | { type: 'RETURN_TO_POOL'; slot: number }
   | { type: 'CHECK' }
+  | { type: 'GIVE_UP' }
   | { type: 'STATS_RECORDED' }
   | { type: 'RESET'; puzzle: LinePuzzle; mode: Mode }
 
@@ -217,6 +218,17 @@ function reducer(state: GameState, action: Action): GameState {
       return { ...state, checked: true, status: 'won' }
     }
 
+    case 'GIVE_UP': {
+      if (state.status !== 'playing') return state
+      // Easy mode: flip `checked` so the solution reveal renders alongside any
+      // current placements. Hard mode: just mark lost; the score screen and
+      // map's revealAll path already handle the reveal from there.
+      if (state.mode === 'easy') {
+        return { ...state, status: 'lost', checked: true }
+      }
+      return { ...state, status: 'lost' }
+    }
+
     case 'STATS_RECORDED': {
       if (state.statsRecorded) return state
       return { ...state, statsRecorded: true }
@@ -230,25 +242,45 @@ function reducer(state: GameState, action: Action): GameState {
   }
 }
 
-export function useGameState(puzzle: LinePuzzle, mode: Mode = 'hard') {
-  const [state, dispatch] = useReducer(reducer, undefined, () => loadOrInit(puzzle, mode))
+interface UseGameStateOptions {
+  /**
+   * When true, skip all persistence and stats side-effects. Used by practice
+   * mode (MB-480) where each session is throwaway: nothing read from storage
+   * on mount, nothing written on state change, nothing recorded on completion.
+   */
+  ephemeral?: boolean
+}
+
+export function useGameState(
+  puzzle: LinePuzzle,
+  mode: Mode = 'hard',
+  options: UseGameStateOptions = {},
+) {
+  const ephemeral = options.ephemeral === true
+  const [state, dispatch] = useReducer(
+    reducer,
+    undefined,
+    () => ephemeral ? initialState(puzzle, mode) : loadOrInit(puzzle, mode),
+  )
 
   useEffect(() => {
+    if (ephemeral) return
     storage.set(storageKey(state.puzzle.date, state.puzzle.category), state, STORAGE_VERSION)
-  }, [state])
+  }, [state, ephemeral])
 
   // Session-scoped guard so StrictMode's double-invoke of the effect below
   // doesn't record the same completion twice before the flag flips in state.
   const recordedKeysRef = useRef<Set<string>>(new Set())
 
   useEffect(() => {
+    if (ephemeral) return
     if (state.status === 'playing' || state.statsRecorded) return
     const key = `${state.puzzle.date}:${state.puzzle.category}:${state.mode}`
     if (recordedKeysRef.current.has(key)) return
     recordedKeysRef.current.add(key)
     recordCompletion(buildCompletion(state))
     dispatch({ type: 'STATS_RECORDED' })
-  }, [state])
+  }, [state, ephemeral])
 
   const guess = useCallback((code: string) => {
     dispatch({ type: 'GUESS', code })
@@ -264,6 +296,10 @@ export function useGameState(puzzle: LinePuzzle, mode: Mode = 'hard') {
 
   const check = useCallback(() => {
     dispatch({ type: 'CHECK' })
+  }, [])
+
+  const giveUp = useCallback(() => {
+    dispatch({ type: 'GIVE_UP' })
   }, [])
 
   const reset = useCallback((newPuzzle: LinePuzzle, newMode: Mode) => {
@@ -310,6 +346,7 @@ export function useGameState(puzzle: LinePuzzle, mode: Mode = 'hard') {
     place,
     returnToPool,
     check,
+    giveUp,
     reset,
   }
 }

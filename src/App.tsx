@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './index.css'
 import networkData from './data/network.json'
 import type { Category, Mode, NetworkGraph, Slot, Station } from './data/types.js'
-import { getDailyPair, getDailyPuzzle } from './game/puzzle.js'
+import { getDailyPair, getDailyPuzzle, getRandomPuzzle } from './game/puzzle.js'
 import { useGameState, isModeLocked } from './game/useGameState.js'
 import { TrainMap } from './components/TrainMap.js'
 import { SlotList } from './components/SlotList.js'
@@ -29,10 +29,20 @@ const ACTIVE_TAB_VERSION = 1
 const HINT_STORAGE_KEY = 'ui:mode-hint-seen'
 const HINT_VERSION = 1
 
+type View = 'daily' | 'practice'
+
 function App() {
   const [selectedPoolCode, setSelectedPoolCode] = useState<string | null>(null)
   const ic = useGameState(icPuzzle, 'hard')
   const spr = useGameState(sprPuzzle, 'hard')
+
+  // Practice mode (MB-480): ephemeral throwaway puzzles. Initial puzzle is
+  // picked once on mount. Entering practice from the footer re-rolls via
+  // practice.reset; reload = remount = fresh puzzle.
+  const initialPractice = useMemo(() => getRandomPuzzle(graph), [])
+  const practice = useGameState(initialPractice, 'hard', { ephemeral: true })
+
+  const [view, setView] = useState<View>('daily')
 
   const [activeTab, setActiveTab] = useState<Category>(() => {
     const saved = storage.get<Category>(ACTIVE_TAB_KEY, ACTIVE_TAB_VERSION)
@@ -42,17 +52,20 @@ function App() {
     storage.set(ACTIVE_TAB_KEY, activeTab, ACTIVE_TAB_VERSION)
   }, [activeTab])
 
-  // Global mode lock (MB-479): either puzzle having committed to a mode locks
-  // both tabs. If either side has moved past the mode-choice gate — easy has
-  // been picked anywhere, OR hard has ended on either side — the toggle is
-  // disabled.
-  const locked = isModeLocked(ic.state) || isModeLocked(spr.state)
-  // With the cascade below, both hooks always share a mode. Read either.
-  const mode = ic.state.mode
+  // Global mode lock (MB-479): either DAILY puzzle having committed to a mode
+  // locks both tabs. Practice is always unlocked regardless.
+  const dailyLocked = isModeLocked(ic.state) || isModeLocked(spr.state)
+  const locked = view === 'daily' ? dailyLocked : false
+  // In daily both hooks share mode (cascade); in practice, practice has its
+  // own mode decoupled from daily.
+  const mode = view === 'practice' ? practice.state.mode : ic.state.mode
 
-  const active = activeTab === 'ic' ? ic : spr
+  const active = view === 'practice'
+    ? practice
+    : (activeTab === 'ic' ? ic : spr)
 
   // First-visit hint above the toggle. Persisted so it only appears once.
+  // Never shown in practice — there's no "too hard, give up" concept there.
   const [showHint, setShowHint] = useState(() => {
     if (mode === 'easy') return false
     return storage.get<boolean>(HINT_STORAGE_KEY, HINT_VERSION) !== true
@@ -67,11 +80,17 @@ function App() {
   function handleModeToggle(next: Mode) {
     dismissHint()
     if (next === mode) return
-    if (next === 'hard') return           // easy → hard is never allowed
-    if (locked) return                    // game over: no switching
+    if (view === 'practice') {
+      // Practice is unlocked in both directions — flip freely. Same puzzle,
+      // just re-initialised in the new mode.
+      setSelectedPoolCode(null)
+      practice.reset(practice.state.puzzle, next)
+      return
+    }
+    // Daily flow: easy is one-way, lock after commit, cascade both tabs.
+    if (next === 'hard') return
+    if (locked) return
     setSelectedPoolCode(null)
-    // Cascade: switching to easy resets BOTH puzzles, so the two tabs stay
-    // in lockstep on mode.
     ic.reset(icPuzzle, next)
     spr.reset(sprPuzzle, next)
   }
@@ -80,6 +99,24 @@ function App() {
     if (next === activeTab) return
     setSelectedPoolCode(null)   // pool selection is per-puzzle
     setActiveTab(next)
+  }
+
+  function enterPractice() {
+    dismissHint()
+    setSelectedPoolCode(null)
+    // Roll a fresh practice puzzle; default to the daily mode for continuity.
+    practice.reset(getRandomPuzzle(graph), ic.state.mode)
+    setView('practice')
+  }
+
+  function exitPractice() {
+    setSelectedPoolCode(null)
+    setView('daily')
+  }
+
+  function newPracticePuzzle() {
+    setSelectedPoolCode(null)
+    practice.reset(getRandomPuzzle(graph), practice.state.mode)
   }
 
   const fromStation = graph.stations[active.state.puzzle.from]
@@ -99,25 +136,45 @@ function App() {
           <ModeToggle
             mode={mode}
             locked={locked}
-            showHint={showHint}
+            freeFlip={view === 'practice'}
+            showHint={showHint && view === 'daily'}
             onDismissHint={dismissHint}
             onChange={handleModeToggle}
           />
-          <span className="text-sm text-gray-400 tabular-nums">
-            {new Date(puzzleDate).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long' })}
-          </span>
+          {view === 'daily' ? (
+            <span className="text-sm text-gray-400 tabular-nums">
+              {new Date(puzzleDate).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long' })}
+            </span>
+          ) : (
+            <button
+              type="button"
+              onClick={exitPractice}
+              className="text-sm font-medium text-[#003082] hover:underline"
+            >
+              ← Vandaag
+            </button>
+          )}
         </div>
       </header>
 
       <main className="flex-1 flex flex-col items-center px-4 py-6 max-w-lg mx-auto w-full gap-4">
-        {/* Tabs + route header — MB-479 */}
+        {/* Daily: tabs + route header. Practice: just route header + oefenmodus label. */}
         <div className="w-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-          <CategoryTabs
-            active={activeTab}
-            onChange={handleTabChange}
-            icDone={icDone}
-            sprDone={sprDone}
-          />
+          {view === 'daily' ? (
+            <CategoryTabs
+              active={activeTab}
+              onChange={handleTabChange}
+              icDone={icDone}
+              sprDone={sprDone}
+            />
+          ) : (
+            <div className="flex items-center justify-between gap-2 px-5 py-2.5 border-b border-gray-200 bg-amber-50">
+              <span className="text-xs font-semibold text-amber-700 uppercase tracking-wide">Oefenmodus</span>
+              <span className="text-xs text-amber-700/70">
+                {active.state.puzzle.category === 'ic' ? 'Intercity' : 'Sprinter'} · {stopsTotal} stop{stopsTotal === 1 ? '' : 's'}
+              </span>
+            </div>
+          )}
           <div className="p-5">
             <div className="flex items-center justify-between gap-4">
               <div className="text-center flex-1 min-w-0">
@@ -149,6 +206,7 @@ function App() {
             score={active.score}
             slotsForScore={active.slotsForScore}
             onGuess={active.guess}
+            hideShare={view === 'practice'}
           />
         ) : (
           <EasyModeBody
@@ -163,7 +221,45 @@ function App() {
             onPlace={active.place}
             onReturnToPool={active.returnToPool}
             onCheck={active.check}
+            hideShare={view === 'practice'}
           />
+        )}
+
+        {/* Practice controls — at the bottom of the page */}
+        {view === 'practice' && (
+          <div className="w-full grid grid-cols-2 gap-2 mt-2">
+            <button
+              type="button"
+              onClick={active.giveUp}
+              disabled={!isPlaying}
+              className="py-2.5 rounded-xl border border-gray-200 bg-white text-sm font-medium text-gray-700
+                         hover:bg-gray-50 active:bg-gray-100 transition-colors
+                         disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
+            >
+              Ik geef het op
+            </button>
+            <button
+              type="button"
+              onClick={newPracticePuzzle}
+              className="py-2.5 rounded-xl bg-[#003082] text-white text-sm font-semibold
+                         hover:bg-blue-900 active:bg-blue-950 transition-colors"
+            >
+              Nog een puzzel
+            </button>
+          </div>
+        )}
+
+        {/* Footer: entry point to practice from the daily view */}
+        {view === 'daily' && (
+          <div className="mt-2 text-center text-xs text-gray-400">
+            <button
+              type="button"
+              onClick={enterPractice}
+              className="hover:text-gray-600 hover:underline"
+            >
+              Oefenen met een willekeurige puzzel
+            </button>
+          </div>
         )}
       </main>
     </div>
@@ -233,14 +329,16 @@ function TabButton({
 interface ModeToggleProps {
   mode: Mode
   locked: boolean
+  /** When true, both directions flip freely — used in practice mode (MB-480). */
+  freeFlip?: boolean
   showHint: boolean
   onDismissHint: () => void
   onChange: (next: Mode) => void
 }
 
-function ModeToggle({ mode, locked, showHint, onDismissHint, onChange }: ModeToggleProps) {
-  const easyDisabled = locked && mode !== 'easy'
-  const hardDisabled = mode === 'easy' || locked
+function ModeToggle({ mode, locked, freeFlip, showHint, onDismissHint, onChange }: ModeToggleProps) {
+  const easyDisabled = freeFlip ? false : (locked && mode !== 'easy')
+  const hardDisabled = freeFlip ? false : (mode === 'easy' || locked)
 
   return (
     <div className="relative flex items-center">
@@ -313,11 +411,12 @@ interface HardBodyProps {
   score: number
   slotsForScore: Slot[]
   onGuess: (code: string) => void
+  hideShare?: boolean
 }
 
 function HardModeBody({
   state, fromStation, toStation, isPlaying, correctCount, stopsTotal,
-  excludeCodes, orderBroken, score, slotsForScore, onGuess,
+  excludeCodes, orderBroken, score, slotsForScore, onGuess, hideShare,
 }: HardBodyProps) {
   const slotsUsed = state.slots.length
 
@@ -364,6 +463,7 @@ function HardModeBody({
           score={score}
           orderBroken={orderBroken}
           mode="hard"
+          hideShare={hideShare}
         />
       )}
     </>
@@ -384,11 +484,12 @@ interface EasyBodyProps {
   onPlace: (code: string, slot: number, fromSlot?: number) => void
   onReturnToPool: (slot: number) => void
   onCheck: () => void
+  hideShare?: boolean
 }
 
 function EasyModeBody({
   state, fromStation, toStation, selectedPoolCode, setSelectedPoolCode,
-  orderBroken, score, slotsForScore, onPlace, onReturnToPool, onCheck,
+  orderBroken, score, slotsForScore, onPlace, onReturnToPool, onCheck, hideShare,
 }: EasyBodyProps) {
   const [isDragActive, setIsDragActive] = useState(false)
   const poolCodes = state.shuffledStops.filter(c => !state.placements.includes(c))
@@ -495,6 +596,7 @@ function EasyModeBody({
           score={score}
           orderBroken={orderBroken}
           mode="easy"
+          hideShare={hideShare}
         />
       )}
     </>

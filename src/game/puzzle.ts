@@ -229,6 +229,29 @@ export function getDailyPuzzle(
  * for the same date. The two use different seeds so they're independent picks.
  * Returns `null` for either side if no candidates exist in that category.
  */
+/**
+ * Random practice puzzle (MB-480): uniform pick from short-sized candidates
+ * only (3–5 intermediate stops). Practice is for learning corridors — quick
+ * rounds where you can actually remember the stops — not endurance runs.
+ * Medium and long are saved for the daily. NOT seeded; each call rolls fresh.
+ */
+export function getRandomPuzzle(graph: NetworkGraph): LinePuzzle {
+  const candidates = buildCandidates(graph).filter(c => c.size === 'short')
+  if (candidates.length === 0) {
+    throw new Error('No puzzle candidates available in network data')
+  }
+  const pick = candidates[Math.floor(Math.random() * candidates.length)]
+  return {
+    date: new Date().toISOString().slice(0, 10),
+    from: pick.from,
+    to: pick.to,
+    stops: pick.stops,
+    line: pick.line,
+    category: pick.category,
+    size: pick.size,
+  }
+}
+
 export function getDailyPair(
   graph: NetworkGraph,
   dateStr?: string,
