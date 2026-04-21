@@ -12,6 +12,7 @@ import { CorrectAnswerColumn } from './components/CorrectAnswerColumn.js'
 import { ScoreScreen } from './components/ScoreScreen.js'
 import { StationInput } from './components/StationInput.js'
 import { storage } from './storage/index.js'
+import { track } from './analytics.js'
 
 const graph = networkData as unknown as NetworkGraph
 
@@ -85,6 +86,7 @@ function App() {
       // just re-initialised in the new mode.
       setSelectedPoolCode(null)
       practice.reset(practice.state.puzzle, next)
+      track('mode_switch', { to: next, view: 'practice' })
       return
     }
     // Daily flow: easy is one-way, lock after commit, cascade both tabs.
@@ -93,30 +95,45 @@ function App() {
     setSelectedPoolCode(null)
     ic.reset(icPuzzle, next)
     spr.reset(sprPuzzle, next)
+    track('mode_switch', { to: next, view: 'daily' })
   }
 
   function handleTabChange(next: Category) {
     if (next === activeTab) return
     setSelectedPoolCode(null)   // pool selection is per-puzzle
     setActiveTab(next)
+    track('tab_switch', { to: next })
   }
 
   function enterPractice() {
     dismissHint()
     setSelectedPoolCode(null)
     // Roll a fresh practice puzzle; default to the daily mode for continuity.
-    practice.reset(getRandomPuzzle(graph), ic.state.mode)
+    const fresh = getRandomPuzzle(graph)
+    practice.reset(fresh, ic.state.mode)
     setView('practice')
+    track('practice_enter', { mode: ic.state.mode, category: fresh.category })
   }
 
   function exitPractice() {
     setSelectedPoolCode(null)
     setView('daily')
+    track('practice_exit')
   }
 
   function newPracticePuzzle() {
     setSelectedPoolCode(null)
-    practice.reset(getRandomPuzzle(graph), practice.state.mode)
+    const fresh = getRandomPuzzle(graph)
+    practice.reset(fresh, practice.state.mode)
+    track('practice_new', { category: fresh.category })
+  }
+
+  function giveUpActive() {
+    active.giveUp()
+    track('practice_giveup', {
+      category: active.state.puzzle.category,
+      mode: active.state.mode,
+    })
   }
 
   const fromStation = graph.stations[active.state.puzzle.from]
@@ -230,7 +247,7 @@ function App() {
           <div className="w-full grid grid-cols-2 gap-2 mt-2">
             <button
               type="button"
-              onClick={active.giveUp}
+              onClick={giveUpActive}
               disabled={!isPlaying}
               className="py-2.5 rounded-xl border border-gray-200 bg-white text-sm font-medium text-gray-700
                          hover:bg-gray-50 active:bg-gray-100 transition-colors

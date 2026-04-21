@@ -15,5 +15,23 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+    (function(){
+      var p = new URLSearchParams(location.search);
+      var src = "https://t.michielb.nl/wa/t.gif?" +
+        "u=" + encodeURIComponent(location.href) +
+        "&r=" + encodeURIComponent(document.referrer) +
+        "&t=Treintje" +
+        "&s=" + screen.width + "x" + screen.height +
+        "&sid=treintje&lang=nl&slug=" +
+        "&mb_source=" + encodeURIComponent(p.get("mb_source") || "") +
+        "&mb_medium=" + encodeURIComponent(p.get("mb_medium") || "") +
+        "&mb_campaign=" + encodeURIComponent(p.get("mb_campaign") || "") +
+        "&mb_term=" + encodeURIComponent(p.get("mb_term") || "") +
+        "&mb_content=" + encodeURIComponent(p.get("mb_content") || "") +
+        "&_=" + Date.now();
+      new Image().src = src;
+    })();
+    </script>
   </body>
 </html>

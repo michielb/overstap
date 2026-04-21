@@ -15,6 +15,7 @@ import { classifyGuess, isRouteComplete } from './classify.js'
 import { shuffleStops, slotCount } from './puzzle.js'
 import { storage } from '../storage/index.js'
 import { recordCompletion } from './stats.js'
+import { track } from '../analytics.js'
 
 export type GameStatus = 'playing' | 'won' | 'lost'
 
@@ -271,10 +272,33 @@ export function useGameState(
   // Session-scoped guard so StrictMode's double-invoke of the effect below
   // doesn't record the same completion twice before the flag flips in state.
   const recordedKeysRef = useRef<Set<string>>(new Set())
+  const analyticsRef = useRef<Set<string>>(new Set())
 
   useEffect(() => {
+    if (state.status === 'playing') return
+
+    // Analytics: fires for both daily and practice. Deduped on a key that
+    // includes the puzzle identity so a new practice puzzle still fires.
+    const aKey = `${state.puzzle.from}|${state.puzzle.to}|${state.puzzle.stops.join(',')}|${state.mode}`
+    if (!analyticsRef.current.has(aKey)) {
+      analyticsRef.current.add(aKey)
+      const completion = buildCompletion(state)
+      track('puzzle_complete', {
+        mode: state.mode,
+        category: state.puzzle.category,
+        size: state.puzzle.size,
+        status: state.status,
+        points: completion.points,
+        stops_guessed: completion.stopsGuessed,
+        stops_possible: completion.stopsPossible,
+        perfect: completion.perfect ? 1 : 0,
+        wrong_guesses: completion.wrongGuesses,
+        ephemeral: ephemeral ? 1 : 0,
+      })
+    }
+
     if (ephemeral) return
-    if (state.status === 'playing' || state.statsRecorded) return
+    if (state.statsRecorded) return
     const key = `${state.puzzle.date}:${state.puzzle.category}:${state.mode}`
     if (recordedKeysRef.current.has(key)) return
     recordedKeysRef.current.add(key)
