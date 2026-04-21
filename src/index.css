@@ -10,3 +10,20 @@
   --text-xl: 1.7875rem;     /* ~28.6px */
   --text-2xl: 2.1125rem;    /* ~33.8px */
 }
+
+/* MB-467: easy-mode correct-answer reveal — stagger applied via inline
+   animation-delay on each row. */
+@keyframes correct-answer-fade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.correct-answer-reveal {
+  animation: correct-answer-fade 260ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .correct-answer-reveal {
+    animation: none;
+  }
+}

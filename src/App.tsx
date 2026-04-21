@@ -8,6 +8,7 @@ import { TrainMap } from './components/TrainMap.js'
 import { SlotList } from './components/SlotList.js'
 import { EasySlotList } from './components/EasySlotList.js'
 import { StationPool } from './components/StationPool.js'
+import { CorrectAnswerColumn } from './components/CorrectAnswerColumn.js'
 import { ScoreScreen } from './components/ScoreScreen.js'
 import { StationInput } from './components/StationInput.js'
 import { storage } from './storage/index.js'
@@ -329,7 +330,7 @@ function EasyModeBody({
         revealAll={revealAll}
       />
 
-      {state.checked ? (
+      <div className="w-full grid grid-cols-2 gap-3 items-start">
         <EasySlotList
           fromStation={fromStation}
           toStation={toStation}
@@ -342,20 +343,12 @@ function EasyModeBody({
           onReturnToPool={onReturnToPool}
           onSlotTap={handleSlotTap}
         />
-      ) : (
-        <div className="w-full grid grid-cols-2 gap-3 items-start">
-          <EasySlotList
-            fromStation={fromStation}
-            toStation={toStation}
-            placements={state.placements}
-            stopsInOrder={state.puzzle.stops}
-            checked={state.checked}
-            selectedCode={selectedPoolCode}
+        {state.checked ? (
+          <CorrectAnswerColumn
             stations={graph.stations}
-            onPlace={handlePlace}
-            onReturnToPool={onReturnToPool}
-            onSlotTap={handleSlotTap}
+            stopsInOrder={state.puzzle.stops}
           />
+        ) : (
           <StationPool
             stations={graph.stations}
             codes={poolCodes}
@@ -363,8 +356,8 @@ function EasyModeBody({
             onSelect={handlePoolSelect}
             onDropFromSlot={onReturnToPool}
           />
-        </div>
-      )}
+        )}
+      </div>
 
       {!state.checked && (
         <>
