@@ -70,11 +70,12 @@ function EndpointRow({
   variant: 'origin' | 'destination'
 }) {
   const dotColor = variant === 'origin' ? 'bg-[#FFC917]' : 'bg-[#003082]'
+  const textColor = variant === 'origin' ? 'text-gray-900' : 'text-white'
   return (
     <li className="relative flex items-center gap-3 py-1.5">
       <span
         className={`relative z-10 w-10 h-10 rounded-full ${dotColor} flex items-center
-                    justify-center text-xs font-bold text-gray-900 shadow-sm`}
+                    justify-center text-xs font-bold ${textColor} shadow-sm`}
       >
         {variant === 'origin' ? 'A' : 'B'}
       </span>
