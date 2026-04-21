@@ -330,8 +330,21 @@ function EasyModeBody({
         revealAll={revealAll}
       />
 
-      <div className="w-full flex gap-3 items-start">
-        <div className="flex-1 min-w-0">
+      {state.checked ? (
+        <EasySlotList
+          fromStation={fromStation}
+          toStation={toStation}
+          placements={state.placements}
+          stopsInOrder={state.puzzle.stops}
+          checked={state.checked}
+          selectedCode={selectedPoolCode}
+          stations={graph.stations}
+          onPlace={handlePlace}
+          onReturnToPool={onReturnToPool}
+          onSlotTap={handleSlotTap}
+        />
+      ) : (
+        <div className="w-full grid grid-cols-2 gap-3 items-start">
           <EasySlotList
             fromStation={fromStation}
             toStation={toStation}
@@ -344,8 +357,6 @@ function EasyModeBody({
             onReturnToPool={onReturnToPool}
             onSlotTap={handleSlotTap}
           />
-        </div>
-        {!state.checked && (
           <StationPool
             stations={graph.stations}
             codes={poolCodes}
@@ -353,8 +364,8 @@ function EasyModeBody({
             onSelect={handlePoolSelect}
             onDropFromSlot={onReturnToPool}
           />
-        )}
-      </div>
+        </div>
+      )}
 
       {!state.checked && (
         <>

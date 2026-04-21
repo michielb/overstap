@@ -61,7 +61,6 @@ export function EasySlotList({
         {placements.map((code, i) => (
           <SlotRow
             key={`slot-${i}`}
-            index={i + 1}
             slotIndex={i}
             code={code}
             correctCode={stopsInOrder[i]}
@@ -102,7 +101,6 @@ function EndpointRow({ station, variant }: { station: Station; variant: 'origin'
 }
 
 interface SlotRowProps {
-  index: number
   slotIndex: number
   code: string | null
   correctCode: string
@@ -115,7 +113,6 @@ interface SlotRowProps {
 }
 
 function SlotRow({
-  index,
   slotIndex,
   code,
   correctCode,
@@ -175,7 +172,6 @@ function SlotRow({
       <>
         <CheckIcon />
         <span className="truncate flex-1">{shortName}</span>
-        <span className="text-[10px] font-mono tabular-nums text-white/60 shrink-0">{index}</span>
       </>
     )
   } else if (isWrong) {
@@ -184,33 +180,17 @@ function SlotRow({
       <>
         <CrossIcon />
         <span className="truncate flex-1">{shortName}</span>
-        <span className="text-[10px] font-mono tabular-nums text-white/60 shrink-0">{index}</span>
       </>
     )
   } else if (isFilledPrecheck) {
     pillClass = 'bg-[#0063D3] text-white cursor-grab active:cursor-grabbing'
-    content = (
-      <>
-        <span className="truncate flex-1">{shortName}</span>
-        <span className="text-[10px] font-mono tabular-nums text-white/60 shrink-0">{index}</span>
-      </>
-    )
+    content = <span className="truncate flex-1">{shortName}</span>
   } else if (isEmptySelected) {
     pillClass = 'bg-yellow-50 border-2 border-dashed border-[#FFC917]'
-    content = (
-      <>
-        <span className="flex-1" />
-        <span className="text-[10px] font-mono tabular-nums text-yellow-700 shrink-0">{index}</span>
-      </>
-    )
+    content = null
   } else {
     pillClass = 'bg-gray-50 border-2 border-dashed border-gray-200'
-    content = (
-      <>
-        <span className="flex-1" />
-        <span className="text-[10px] font-mono tabular-nums text-gray-300 shrink-0">{index}</span>
-      </>
-    )
+    content = null
   }
 
   return (

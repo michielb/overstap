@@ -34,7 +34,7 @@ export function StationPool({ stations, codes, selectedCode, onSelect, onDropFro
 
   return (
     <div
-      className="flex-1 min-w-0 bg-white rounded-2xl border border-gray-200 shadow-sm p-4"
+      className="min-w-0 bg-white rounded-2xl border border-gray-200 shadow-sm p-4"
       onDragOver={e => e.preventDefault()}
       onDrop={handleDrop}
       aria-label="Tussenstations om te plaatsen"
