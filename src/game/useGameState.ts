@@ -9,11 +9,12 @@
  * CHECK; each placement is then judged by absolute position.
  */
 
-import { useReducer, useCallback, useMemo, useEffect } from 'react'
+import { useReducer, useCallback, useMemo, useEffect, useRef } from 'react'
 import type { LinePuzzle, Mode, Slot } from '../data/types.js'
 import { classifyGuess, isRouteComplete } from './classify.js'
 import { shuffleStops, slotCount } from './puzzle.js'
 import { storage } from '../storage/index.js'
+import { recordCompletion } from './stats.js'
 
 export type GameStatus = 'playing' | 'won' | 'lost'
 
@@ -23,6 +24,7 @@ export interface HardGameState {
   status: GameStatus
   slots: Slot[]
   maxSlots: number
+  statsRecorded: boolean
 }
 
 export interface EasyGameState {
@@ -32,6 +34,7 @@ export interface EasyGameState {
   shuffledStops: string[]          // pool order (fixed; persisted)
   placements: (string | null)[]    // length = stops.length; null = empty slot
   checked: boolean
+  statsRecorded: boolean
 }
 
 export type GameState = HardGameState | EasyGameState
@@ -41,10 +44,11 @@ type Action =
   | { type: 'PLACE'; code: string; slot: number; fromSlot?: number }
   | { type: 'RETURN_TO_POOL'; slot: number }
   | { type: 'CHECK' }
+  | { type: 'STATS_RECORDED' }
   | { type: 'RESET'; puzzle: LinePuzzle; mode: Mode }
 
 // Bump when GameState shape changes — old saves are then silently discarded.
-const STORAGE_VERSION = 2
+const STORAGE_VERSION = 3
 const storageKey = (date: string) => `game:${date}`
 
 function initialHardState(puzzle: LinePuzzle): HardGameState {
@@ -54,6 +58,7 @@ function initialHardState(puzzle: LinePuzzle): HardGameState {
     status: 'playing',
     slots: [],
     maxSlots: slotCount(puzzle.stops.length),
+    statsRecorded: false,
   }
 }
 
@@ -65,6 +70,7 @@ function initialEasyState(puzzle: LinePuzzle): EasyGameState {
     shuffledStops: shuffleStops(puzzle.stops, puzzle.date),
     placements: Array.from({ length: puzzle.stops.length }, () => null),
     checked: false,
+    statsRecorded: false,
   }
 }
 
@@ -107,6 +113,46 @@ function loadOrInit(puzzle: LinePuzzle, mode: Mode): GameState {
 export function isModeLocked(state: GameState): boolean {
   if (state.mode === 'easy') return true
   return state.status !== 'playing'
+}
+
+/**
+ * Derive a stats-completion entry from a terminal game state. Mirrors the
+ * score/correct-count math in the useGameState hook's useMemo so the values
+ * written to the stats store match what ScoreScreen displays.
+ */
+function buildCompletion(state: GameState): import('./stats.js').GameCompletion {
+  const stopsPossible = state.puzzle.stops.length
+  if (state.mode === 'hard') {
+    const stopsGuessed = state.slots.filter(s => s.status !== 'not-on-route').length
+    const orderBroken = state.slots.some(s => s.status === 'wrong-order')
+    const wrongGuesses = state.slots.filter(s => s.status === 'not-on-route').length
+    const perfect = state.status === 'won' && !orderBroken
+    const points = stopsGuessed + (perfect ? 1 : 0)
+    return {
+      mode: 'hard',
+      date: state.puzzle.date,
+      points,
+      stopsGuessed,
+      stopsPossible,
+      perfect,
+      wrongGuesses,
+    }
+  }
+  const stopsGuessed = state.placements.reduce((n, code, i) => (
+    code !== null && code === state.puzzle.stops[i] ? n + 1 : n
+  ), 0)
+  const orderBroken = stopsGuessed < stopsPossible
+  const perfect = state.status === 'won' && !orderBroken
+  const points = stopsGuessed + (perfect ? 1 : 0)
+  return {
+    mode: 'easy',
+    date: state.puzzle.date,
+    points,
+    stopsGuessed,
+    stopsPossible,
+    perfect,
+    wrongGuesses: 0,
+  }
 }
 
 function reducer(state: GameState, action: Action): GameState {
@@ -167,6 +213,11 @@ function reducer(state: GameState, action: Action): GameState {
       return { ...state, checked: true, status: 'won' }
     }
 
+    case 'STATS_RECORDED': {
+      if (state.statsRecorded) return state
+      return { ...state, statsRecorded: true }
+    }
+
     case 'RESET':
       return initialState(action.puzzle, action.mode)
 
@@ -180,6 +231,19 @@ export function useGameState(puzzle: LinePuzzle, mode: Mode = 'hard') {
 
   useEffect(() => {
     storage.set(storageKey(state.puzzle.date), state, STORAGE_VERSION)
+  }, [state])
+
+  // Session-scoped guard so StrictMode's double-invoke of the effect below
+  // doesn't record the same completion twice before the flag flips in state.
+  const recordedKeysRef = useRef<Set<string>>(new Set())
+
+  useEffect(() => {
+    if (state.status === 'playing' || state.statsRecorded) return
+    const key = `${state.puzzle.date}:${state.mode}`
+    if (recordedKeysRef.current.has(key)) return
+    recordedKeysRef.current.add(key)
+    recordCompletion(buildCompletion(state))
+    dispatch({ type: 'STATS_RECORDED' })
   }, [state])
 
   const guess = useCallback((code: string) => {
