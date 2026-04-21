@@ -123,3 +123,21 @@ export function getDailyPuzzle(graph: NetworkGraph, dateStr?: string): LinePuzzl
 export function slotCount(stopCount: number): number {
   return Math.max(3, Math.ceil(stopCount * 1.3))
 }
+
+// ── Deterministic shuffle for easy-mode pool ─────────────────────────────────
+
+/**
+ * Deterministic Fisher-Yates shuffle seeded by date. Same date → same order for
+ * all players, so reloads show the same pool arrangement.
+ * The seed is xored with a constant so it doesn't collide with the daily-puzzle
+ * RNG stream.
+ */
+export function shuffleStops(stops: string[], dateStr: string): string[] {
+  const rng = mulberry32(dateToSeed(dateStr) ^ 0x5e51cafe)
+  const arr = [...stops]
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1))
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+  return arr
+}

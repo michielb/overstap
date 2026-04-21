@@ -43,6 +43,8 @@ export interface LinePuzzle {
   difficulty: Difficulty
 }
 
+export type Mode = 'easy' | 'hard'
+
 export type SlotStatus = 'correct' | 'wrong-order' | 'not-on-route'
 
 export interface Slot {
