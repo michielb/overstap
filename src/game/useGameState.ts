@@ -73,15 +73,16 @@ function initialState(puzzle: LinePuzzle, mode: Mode): GameState {
 }
 
 /**
- * Hydrate from storage if today's key exists and the stored puzzle + mode still
- * match. A puzzle mismatch means the generator shifted under the saved game; a
- * mode mismatch means the player switched modes (e.g. via URL flag). Both are
- * treated as "start fresh."
+ * Hydrate from storage if today's key exists and the stored puzzle still
+ * matches. A puzzle mismatch means the generator shifted under the saved game
+ * (rare: rebuild of network.json mid-day), in which case we start fresh.
+ *
+ * The stored `mode` wins over the requested one: within a day, the mode is
+ * committed the first time it's saved (see MB-463 lock rules).
  */
 function loadOrInit(puzzle: LinePuzzle, mode: Mode): GameState {
   const stored = storage.get<GameState>(storageKey(puzzle.date), STORAGE_VERSION)
   if (!stored) return initialState(puzzle, mode)
-  if (stored.mode !== mode) return initialState(puzzle, mode)
   const p = stored.puzzle
   const matches =
     p &&
@@ -92,6 +93,20 @@ function loadOrInit(puzzle: LinePuzzle, mode: Mode): GameState {
     p.stops.length === puzzle.stops.length &&
     p.stops.every((s, i) => s === puzzle.stops[i])
   return matches ? stored : initialState(puzzle, mode)
+}
+
+/**
+ * MB-463 lock: can the player still switch today's mode?
+ *
+ * - Easy is one-way. Once the pool is revealed the stations are seen, so we
+ *   never allow easy → hard.
+ * - Hard while playing: switching to easy is the "give up" path. Allowed even
+ *   mid-game — the resulting score/share will reflect easy mode.
+ * - Hard after the game ends: no more switching; the day is over.
+ */
+export function isModeLocked(state: GameState): boolean {
+  if (state.mode === 'easy') return true
+  return state.status !== 'playing'
 }
 
 function reducer(state: GameState, action: Action): GameState {

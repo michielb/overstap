@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './index.css'
 import networkData from './data/network.json'
 import type { Mode, NetworkGraph, Slot, Station } from './data/types.js'
 import { getDailyPuzzle } from './game/puzzle.js'
-import { useGameState } from './game/useGameState.js'
+import { useGameState, isModeLocked } from './game/useGameState.js'
 import { TrainMap } from './components/TrainMap.js'
 import { SlotList } from './components/SlotList.js'
 import { EasySlotList } from './components/EasySlotList.js'
 import { StationPool } from './components/StationPool.js'
 import { ScoreScreen } from './components/ScoreScreen.js'
 import { StationInput } from './components/StationInput.js'
+import { storage } from './storage/index.js'
 
 const graph = networkData as unknown as NetworkGraph
 const puzzle = getDailyPuzzle(graph)
@@ -20,34 +21,34 @@ const DIFFICULTY_LABEL: Record<string, string> = {
   hard: 'Moeilijk',
 }
 
-function initialModeFromUrl(): Mode {
-  if (typeof window === 'undefined') return 'hard'
-  const param = new URLSearchParams(window.location.search).get('mode')
-  return param === 'easy' ? 'easy' : 'hard'
-}
+const HINT_STORAGE_KEY = 'ui:mode-hint-seen'
+const HINT_VERSION = 1
 
 function App() {
-  const [mode, setMode] = useState<Mode>(initialModeFromUrl)
   const [selectedPoolCode, setSelectedPoolCode] = useState<string | null>(null)
   const { state, placedCodes, correctCount, orderBroken, score, slotsForScore,
-          guess, place, returnToPool, check, reset } = useGameState(puzzle, mode)
+          guess, place, returnToPool, check, reset } = useGameState(puzzle, 'hard')
 
-  // Keep the URL in sync with the current mode so reload preserves it. Uses
-  // replaceState to avoid polluting history on every toggle.
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    const current = new URLSearchParams(window.location.search).get('mode')
-    const desired = mode === 'easy' ? 'easy' : null
-    if (current === desired) return
-    const url = new URL(window.location.href)
-    if (desired) url.searchParams.set('mode', desired)
-    else url.searchParams.delete('mode')
-    window.history.replaceState(null, '', url.toString())
-  }, [mode])
+  const mode = state.mode
+  const locked = isModeLocked(state)
+
+  // First-visit hint above the toggle. Persisted so it only appears once.
+  const [showHint, setShowHint] = useState(() => {
+    if (mode === 'easy') return false
+    return storage.get<boolean>(HINT_STORAGE_KEY, HINT_VERSION) !== true
+  })
+
+  function dismissHint() {
+    if (!showHint) return
+    setShowHint(false)
+    storage.set(HINT_STORAGE_KEY, true, HINT_VERSION)
+  }
 
   function handleModeToggle(next: Mode) {
+    dismissHint()
     if (next === mode) return
-    setMode(next)
+    if (next === 'hard') return           // easy → hard is never allowed
+    if (locked) return                    // game over: no switching
     setSelectedPoolCode(null)
     reset(puzzle, next)
   }
@@ -63,7 +64,13 @@ function App() {
       <header className="bg-white border-b border-gray-200 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center justify-between gap-3">
           <h1 className="text-xl font-bold tracking-tight text-gray-900">Overstap</h1>
-          <ModeToggle mode={mode} onChange={handleModeToggle} />
+          <ModeToggle
+            mode={mode}
+            locked={locked}
+            showHint={showHint}
+            onDismissHint={dismissHint}
+            onChange={handleModeToggle}
+          />
           <span className="text-sm text-gray-400 tabular-nums">
             {new Date(puzzle.date).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long' })}
           </span>
@@ -123,30 +130,77 @@ function App() {
   )
 }
 
-// ── Mode toggle (temporary pre-MB-463) ─────────────────────────────────────
+// ── Mode toggle (MB-463) ────────────────────────────────────────────────────
+// Easy → Hard is never allowed (seeing the pool = permanent easy for today).
+// Hard → Easy is a "give up" path, allowed throughout the hard game;
+// after the game ends, both sides are locked.
 
-function ModeToggle({ mode, onChange }: { mode: Mode; onChange: (m: Mode) => void }) {
+interface ModeToggleProps {
+  mode: Mode
+  locked: boolean
+  showHint: boolean
+  onDismissHint: () => void
+  onChange: (next: Mode) => void
+}
+
+function ModeToggle({ mode, locked, showHint, onDismissHint, onChange }: ModeToggleProps) {
+  const easyDisabled = locked && mode !== 'easy'
+  const hardDisabled = mode === 'easy' || locked
+
   return (
-    <div className="flex rounded-full bg-gray-100 p-0.5 text-xs font-medium">
-      <button
-        type="button"
-        onClick={() => onChange('easy')}
-        className={`px-3 py-1 rounded-full transition-colors ${
-          mode === 'easy' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500'
-        }`}
-      >
-        Makkelijk
-      </button>
-      <button
-        type="button"
-        onClick={() => onChange('hard')}
-        className={`px-3 py-1 rounded-full transition-colors ${
-          mode === 'hard' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500'
-        }`}
-      >
-        Moeilijk
-      </button>
+    <div className="relative flex items-center">
+      {showHint && (
+        <button
+          type="button"
+          onClick={onDismissHint}
+          aria-label="Tip sluiten"
+          className="absolute top-full mt-2 left-1/2 -translate-x-1/2 z-10
+                     bg-gray-900 text-white text-xs rounded-lg pl-2.5 pr-1.5 py-1.5 shadow-lg
+                     whitespace-nowrap flex items-center gap-1.5
+                     hover:bg-gray-800 active:bg-gray-950 transition-colors cursor-pointer"
+        >
+          <span>Te moeilijk? Schakel naar Makkelijk voor vandaag!</span>
+          <span className="text-gray-400 leading-none text-base">×</span>
+          <span className="absolute bottom-full left-1/2 -translate-x-1/2
+                           border-4 border-transparent border-b-gray-900 pointer-events-none" />
+        </button>
+      )}
+      <div className="flex rounded-full bg-gray-100 p-0.5 text-xs font-medium">
+        <ToggleButton
+          label="Makkelijk"
+          active={mode === 'easy'}
+          disabled={easyDisabled}
+          onClick={() => onChange('easy')}
+        />
+        <ToggleButton
+          label="Moeilijk"
+          active={mode === 'hard'}
+          disabled={hardDisabled}
+          onClick={() => onChange('hard')}
+        />
+      </div>
     </div>
+  )
+}
+
+function ToggleButton({
+  label, active, disabled, onClick,
+}: { label: string; active: boolean; disabled: boolean; onClick: () => void }) {
+  const base = 'px-3 py-1 rounded-full transition-colors'
+  const tone = active
+    ? 'bg-white text-gray-900 shadow-sm'
+    : disabled
+    ? 'text-gray-400 cursor-not-allowed'
+    : 'text-gray-500 hover:text-gray-700'
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled && !active}
+      className={`${base} ${tone}`}
+    >
+      {label}
+    </button>
   )
 }
 
@@ -215,6 +269,7 @@ function HardModeBody({
           stations={graph.stations}
           score={score}
           orderBroken={orderBroken}
+          mode="hard"
         />
       )}
     </>
@@ -330,6 +385,7 @@ function EasyModeBody({
           stations={graph.stations}
           score={score}
           orderBroken={orderBroken}
+          mode="easy"
         />
       )}
     </>

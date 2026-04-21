@@ -6,7 +6,7 @@
  */
 
 import { useState } from 'react'
-import type { LinePuzzle, Slot, Station } from '../data/types.js'
+import type { LinePuzzle, Mode, Slot, Station } from '../data/types.js'
 
 interface Props {
   won: boolean
@@ -15,11 +15,24 @@ interface Props {
   stations: Record<string, Station>
   score: number
   orderBroken: boolean
+  mode: Mode
 }
 
 // ── Share format ─────────────────────────────────────────────────────────────
 
-function buildShareText(puzzle: LinePuzzle, slots: Slot[], score: number, orderBroken: boolean, won: boolean): string {
+const MODE_LABEL: Record<Mode, string> = {
+  easy: 'Makkelijk',
+  hard: 'Moeilijk',
+}
+
+function buildShareText(
+  puzzle: LinePuzzle,
+  slots: Slot[],
+  score: number,
+  orderBroken: boolean,
+  won: boolean,
+  mode: Mode,
+): string {
   const grid = slots.map(s => {
     if (s.status === 'correct') return '🟩'
     if (s.status === 'wrong-order') return '🟨'
@@ -34,7 +47,7 @@ function buildShareText(puzzle: LinePuzzle, slots: Slot[], score: number, orderB
   const toS = puzzle.to
 
   return [
-    `Overstap — ${puzzle.date}`,
+    `Overstap — ${puzzle.date} · ${MODE_LABEL[mode]}`,
     `${fromS} → ${toS}`,
     `${correctStops}/${totalStops} stations, ${score} punten${bonus}`,
     grid,
@@ -43,7 +56,7 @@ function buildShareText(puzzle: LinePuzzle, slots: Slot[], score: number, orderB
 
 // ── Component ────────────────────────────────────────────────────────────────
 
-export function ScoreScreen({ won, puzzle, slots, stations, score, orderBroken }: Props) {
+export function ScoreScreen({ won, puzzle, slots, stations, score, orderBroken, mode }: Props) {
   const [copied, setCopied] = useState(false)
 
   const totalStops = puzzle.stops.length
@@ -51,7 +64,7 @@ export function ScoreScreen({ won, puzzle, slots, stations, score, orderBroken }
   const wrongStations = slots.filter(s => s.status === 'not-on-route')
 
   const routeText = puzzle.stops.map(c => stations[c]?.nameShort ?? c).join(' → ')
-  const shareText = buildShareText(puzzle, slots, score, orderBroken, won)
+  const shareText = buildShareText(puzzle, slots, score, orderBroken, won, mode)
 
   async function handleShare() {
     try {
