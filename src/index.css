@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
-/* Font size scale — bumped slightly above Tailwind defaults for readability.
+/* Font size scale — sized up ~30% over Tailwind defaults for mobile readability.
    Tailwind's text-xs / text-sm / text-base / … utilities map to these. */
 @theme {
-  --text-xs: 0.8125rem;     /* 13px */
-  --text-sm: 0.9375rem;     /* 15px */
-  --text-base: 1.0625rem;   /* 17px */
-  --text-lg: 1.1875rem;     /* 19px */
-  --text-xl: 1.375rem;      /* 22px */
-  --text-2xl: 1.625rem;     /* 26px */
+  --text-xs: 1.0625rem;     /* 17px */
+  --text-sm: 1.21875rem;    /* ~19.5px */
+  --text-base: 1.375rem;    /* 22px */
+  --text-lg: 1.54375rem;    /* ~24.7px */
+  --text-xl: 1.7875rem;     /* ~28.6px */
+  --text-2xl: 2.1125rem;    /* ~33.8px */
 }
