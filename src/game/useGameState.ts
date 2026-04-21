@@ -6,10 +6,11 @@
  * placed (win) or all slots are used (lose).
  */
 
-import { useReducer, useCallback, useMemo } from 'react'
+import { useReducer, useCallback, useMemo, useEffect } from 'react'
 import type { LinePuzzle, Slot } from '../data/types.js'
 import { classifyGuess, isRouteComplete } from './classify.js'
 import { slotCount } from './puzzle.js'
+import { storage } from '../storage/index.js'
 
 export type GameStatus = 'playing' | 'won' | 'lost'
 
@@ -24,6 +25,10 @@ type Action =
   | { type: 'GUESS'; code: string }
   | { type: 'RESET'; puzzle: LinePuzzle }
 
+// Bump when GameState shape changes — old saves are then silently discarded.
+const STORAGE_VERSION = 1
+const storageKey = (date: string) => `game:${date}`
+
 function initialState(puzzle: LinePuzzle): GameState {
   return {
     puzzle,
@@ -31,6 +36,26 @@ function initialState(puzzle: LinePuzzle): GameState {
     slots: [],
     maxSlots: slotCount(puzzle.stops.length),
   }
+}
+
+/**
+ * Hydrate from storage if today's key exists and the stored puzzle still matches.
+ * A puzzle mismatch (from/to/stops changed) means the generator shifted under the
+ * saved game — treat that as corrupt and start fresh.
+ */
+function loadOrInit(puzzle: LinePuzzle): GameState {
+  const stored = storage.get<GameState>(storageKey(puzzle.date), STORAGE_VERSION)
+  if (!stored) return initialState(puzzle)
+  const p = stored.puzzle
+  const matches =
+    p &&
+    p.date === puzzle.date &&
+    p.from === puzzle.from &&
+    p.to === puzzle.to &&
+    Array.isArray(p.stops) &&
+    p.stops.length === puzzle.stops.length &&
+    p.stops.every((s, i) => s === puzzle.stops[i])
+  return matches ? stored : initialState(puzzle)
 }
 
 function reducer(state: GameState, action: Action): GameState {
@@ -59,8 +84,11 @@ function reducer(state: GameState, action: Action): GameState {
 }
 
 export function useGameState(puzzle: LinePuzzle) {
-  const initial = useMemo(() => initialState(puzzle), [puzzle])
-  const [state, dispatch] = useReducer(reducer, initial)
+  const [state, dispatch] = useReducer(reducer, puzzle, loadOrInit)
+
+  useEffect(() => {
+    storage.set(storageKey(state.puzzle.date), state, STORAGE_VERSION)
+  }, [state])
 
   const guess = useCallback((code: string) => {
     dispatch({ type: 'GUESS', code })
