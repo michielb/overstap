@@ -7,6 +7,7 @@
  * drag out or tap to return; post-check slots are green/red with an icon.
  */
 
+import { useState } from 'react'
 import type { Station } from '../data/types.js'
 
 interface Props {
@@ -16,10 +17,12 @@ interface Props {
   stopsInOrder: string[]          // true order; only consulted after check
   checked: boolean
   selectedCode: string | null     // if set, empty slots highlight as tap targets
+  isDragActive: boolean           // MB-470: any chip currently being dragged
   stations: Record<string, Station>
   onPlace: (code: string, slot: number, fromSlot?: number) => void
   onReturnToPool: (slot: number) => void
   onSlotTap: (slot: number) => void
+  onDragActiveChange: (active: boolean) => void
 }
 
 interface DragPayload {
@@ -48,10 +51,12 @@ export function EasySlotList({
   stopsInOrder,
   checked,
   selectedCode,
+  isDragActive,
   stations,
   onPlace,
   onReturnToPool,
   onSlotTap,
+  onDragActiveChange,
 }: Props) {
   return (
     <div className="w-full bg-white rounded-2xl border border-gray-200 shadow-sm p-4">
@@ -66,10 +71,12 @@ export function EasySlotList({
             correctCode={stopsInOrder[i]}
             checked={checked}
             selectedCode={selectedCode}
+            isDragActive={isDragActive}
             stations={stations}
             onPlace={onPlace}
             onReturnToPool={onReturnToPool}
             onSlotTap={onSlotTap}
+            onDragActiveChange={onDragActiveChange}
           />
         ))}
 
@@ -106,10 +113,12 @@ interface SlotRowProps {
   correctCode: string
   checked: boolean
   selectedCode: string | null
+  isDragActive: boolean
   stations: Record<string, Station>
   onPlace: (code: string, slot: number, fromSlot?: number) => void
   onReturnToPool: (slot: number) => void
   onSlotTap: (slot: number) => void
+  onDragActiveChange: (active: boolean) => void
 }
 
 function SlotRow({
@@ -118,11 +127,14 @@ function SlotRow({
   correctCode,
   checked,
   selectedCode,
+  isDragActive,
   stations,
   onPlace,
   onReturnToPool,
   onSlotTap,
+  onDragActiveChange,
 }: SlotRowProps) {
+  const [isDragging, setIsDragging] = useState(false)
   const isCorrect = checked && code === correctCode
   const isWrong = checked && code !== null && code !== correctCode
   const station = code ? stations[code] : null
@@ -148,6 +160,13 @@ function SlotRow({
     if (!code || checked) return
     e.dataTransfer.setData('text/plain', JSON.stringify({ kind: 'slot-chip', code, slot: slotIndex }))
     e.dataTransfer.effectAllowed = 'move'
+    setIsDragging(true)
+    onDragActiveChange(true)
+  }
+
+  function handleDragEnd() {
+    setIsDragging(false)
+    onDragActiveChange(false)
   }
 
   function handleClick() {
@@ -161,7 +180,9 @@ function SlotRow({
 
   // Pick pill visuals. Height stays h-10 across all branches so rhythm holds.
   const isFilledPrecheck = code !== null && !checked
-  const isEmptySelected = code === null && selectedCode !== null && !checked
+  // Highlight empty slots whenever the player is staging a move — either
+  // tap-to-move (`selectedCode`) or an active drag (MB-470).
+  const isEmptySelected = code === null && !checked && (selectedCode !== null || isDragActive)
 
   let pillClass = ''
   let content: React.ReactNode = null
@@ -183,7 +204,14 @@ function SlotRow({
       </>
     )
   } else if (isFilledPrecheck) {
-    pillClass = 'bg-[#0063D3] text-white cursor-grab active:cursor-grabbing'
+    // MB-470: press-feedback + active-drag ring. `:active` fires during the
+    // mobile long-press hold before dragstart, giving the user immediate
+    // acknowledgement that their press registered. `isDragging` takes over
+    // with a stronger ring once the browser commits to the drag.
+    const ring = isDragging
+      ? 'ring-2 ring-white shadow-md'
+      : 'active:ring-2 active:ring-white/60'
+    pillClass = `bg-[#0063D3] text-white cursor-grab active:cursor-grabbing ${ring}`
     content = <span className="truncate flex-1">{shortName}</span>
   } else if (isEmptySelected) {
     pillClass = 'bg-yellow-50 border-2 border-dashed border-[#FFC917]'
@@ -198,6 +226,7 @@ function SlotRow({
       <div
         draggable={isFilledPrecheck}
         onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         onClick={handleClick}
@@ -205,7 +234,7 @@ function SlotRow({
         tabIndex={0}
         title={code !== null ? fullName : undefined}
         className={`w-full h-10 pl-3 pr-3 rounded-xl text-sm font-medium shadow-sm select-none
-                    flex items-center gap-2 transition-colors ${pillClass}`}
+                    flex items-center gap-2 transition-all ${pillClass}`}
       >
         {content}
       </div>

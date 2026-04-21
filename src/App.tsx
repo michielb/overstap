@@ -290,6 +290,7 @@ function EasyModeBody({
   state, fromStation, toStation, selectedPoolCode, setSelectedPoolCode,
   orderBroken, score, slotsForScore, onPlace, onReturnToPool, onCheck,
 }: EasyBodyProps) {
+  const [isDragActive, setIsDragActive] = useState(false)
   const poolCodes = state.shuffledStops.filter(c => !state.placements.includes(c))
   const allFilled = state.placements.every(p => p !== null)
   const revealAll = state.checked
@@ -317,6 +318,14 @@ function EasyModeBody({
   function handlePlace(code: string, slot: number, fromSlot?: number) {
     onPlace(code, slot, fromSlot)
     setSelectedPoolCode(null)
+    // MB-470: a pool chip consumed by the drop unmounts before its own
+    // `dragend` can fire, so clear the drag highlight here too.
+    setIsDragActive(false)
+  }
+
+  function handleReturnToPool(slot: number) {
+    onReturnToPool(slot)
+    setIsDragActive(false)
   }
 
   return (
@@ -338,10 +347,12 @@ function EasyModeBody({
           stopsInOrder={state.puzzle.stops}
           checked={state.checked}
           selectedCode={selectedPoolCode}
+          isDragActive={isDragActive}
           stations={graph.stations}
           onPlace={handlePlace}
-          onReturnToPool={onReturnToPool}
+          onReturnToPool={handleReturnToPool}
           onSlotTap={handleSlotTap}
+          onDragActiveChange={setIsDragActive}
         />
         {state.checked ? (
           <CorrectAnswerColumn
@@ -354,7 +365,8 @@ function EasyModeBody({
             codes={poolCodes}
             selectedCode={selectedPoolCode}
             onSelect={handlePoolSelect}
-            onDropFromSlot={onReturnToPool}
+            onDropFromSlot={handleReturnToPool}
+            onDragActiveChange={setIsDragActive}
           />
         )}
       </div>
