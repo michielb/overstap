@@ -1,46 +1,118 @@
 /**
- * TrainMap — progressive route reveal.
+ * TrainMap — progressive route reveal on the real Dutch rail network.
  *
- * Shows origin + destination always. Each correctly-placed stop appears at its
- * true lat/lng as the player guesses it. A polyline is drawn through the
- * origin → revealed stops → destination, growing as more stops are revealed.
- * Stops not yet guessed are invisible. On game end, any remaining stops are
- * revealed for the solution display.
+ * Renders three layers stacked in SVG space:
+ *   1. Background tracks   — every NL rail segment from the spoorkaart, thin gray
+ *   2. Active route        — the puzzle's route, traced through real track
+ *                            geometry in NS blue. Grows as the player reveals stops.
+ *   3. Station dots + labels for endpoints and revealed stops.
+ *
+ * The viewport is fitted to the active route's bbox (with padding + minimum
+ * span) so a short Sprinter puzzle fills the frame instead of floating in one
+ * corner of NL.
  */
 
+import { useMemo } from 'react'
 import type { NetworkGraph, Slot } from '../data/types.js'
 
-// ── Projection ───────────────────────────────────────────────────────────────
-
-const MIN_LNG = 3.2
-const MAX_LNG = 7.35
-const MIN_LAT = 50.65
-const MAX_LAT = 53.65
+// ── Geometry helpers ─────────────────────────────────────────────────────────
 
 const SVG_W = 380
 const SVG_H = 460
+const BBOX_PAD = 0.2                // fractional padding on each side
+const MIN_SPAN_DEG = 0.15            // ~15 km minimum — clamp for tiny routes
 
-function project(lng: number, lat: number): [number, number] {
-  const x = ((lng - MIN_LNG) / (MAX_LNG - MIN_LNG)) * SVG_W
-  const y = (1 - (lat - MIN_LAT) / (MAX_LAT - MIN_LAT)) * SVG_H
-  return [Math.round(x * 10) / 10, Math.round(y * 10) / 10]
+// At 52°N (middle of NL), one degree of longitude covers ~0.615× the distance
+// of one degree of latitude. To keep the map isotropic (round stations look
+// round, tracks don't squash), the displayed lng:lat ratio must equal
+// (SVG_W / SVG_H) / 0.615 ≈ 1.343.
+const LNG_PER_LAT_KM = 0.615
+const DESIRED_LNG_OVER_LAT = (SVG_W / SVG_H) / LNG_PER_LAT_KM
+
+interface Bbox {
+  minLng: number
+  maxLng: number
+  minLat: number
+  maxLat: number
 }
 
-// ── Simplified Netherlands outline for geographic context ────────────────────
+function makeProjector(bbox: Bbox) {
+  const spanLng = bbox.maxLng - bbox.minLng
+  const spanLat = bbox.maxLat - bbox.minLat
+  return (lng: number, lat: number): [number, number] => {
+    const x = ((lng - bbox.minLng) / spanLng) * SVG_W
+    const y = (1 - (lat - bbox.minLat) / spanLat) * SVG_H
+    return [Math.round(x * 10) / 10, Math.round(y * 10) / 10]
+  }
+}
 
-const NL_OUTLINE: [number, number][] = [
-  [4.62, 52.83], [4.67, 52.96], [4.73, 53.07], [4.78, 53.17],
-  [5.0, 53.25],  [5.5, 53.33],  [6.05, 53.38], [6.8, 53.32],
-  [7.05, 53.28], [7.05, 52.65], [7.0, 52.38],  [6.85, 51.97],
-  [6.7, 51.77],  [6.5, 51.45],  [6.15, 51.15], [5.9, 51.07],
-  [5.65, 50.82], [5.55, 50.75], [5.1, 50.78],  [4.55, 50.82],
-  [4.3, 51.3],   [3.7, 51.1],   [3.52, 51.35], [3.75, 51.5],
-  [4.05, 51.5],  [4.25, 51.62], [3.95, 51.73], [3.78, 51.87],
-  [3.87, 52.07], [4.08, 52.28], [4.38, 52.38], [4.5, 52.92],
-  [4.62, 52.83],
-]
+function routeBbox(
+  graph: NetworkGraph,
+  codes: string[],
+): Bbox {
+  let minLng = Infinity, maxLng = -Infinity, minLat = Infinity, maxLat = -Infinity
+  for (const code of codes) {
+    const s = graph.stations[code]
+    if (!s) continue
+    if (s.lng < minLng) minLng = s.lng
+    if (s.lng > maxLng) maxLng = s.lng
+    if (s.lat < minLat) minLat = s.lat
+    if (s.lat > maxLat) maxLat = s.lat
+  }
+  // Clamp to a minimum span so two nearby stations don't render on top of
+  // each other on very short puzzles.
+  let lngSpan = Math.max(maxLng - minLng, MIN_SPAN_DEG)
+  let latSpan = Math.max(maxLat - minLat, MIN_SPAN_DEG / DESIRED_LNG_OVER_LAT)
 
-const NL_PATH = NL_OUTLINE.map(([lng, lat]) => project(lng, lat).join(',')).join(' ')
+  // Equalise aspect to the SVG canvas so circles render round, not squashed.
+  // Expand whichever dimension is relatively too small.
+  if (lngSpan / latSpan > DESIRED_LNG_OVER_LAT) {
+    latSpan = lngSpan / DESIRED_LNG_OVER_LAT    // route is too wide → grow lat
+  } else {
+    lngSpan = latSpan * DESIRED_LNG_OVER_LAT    // route is too tall → grow lng
+  }
+
+  // Centre on the original route centre and pad.
+  const centerLng = (minLng + maxLng) / 2
+  const centerLat = (minLat + maxLat) / 2
+  const halfLng = (lngSpan / 2) * (1 + BBOX_PAD)
+  const halfLat = (latSpan / 2) * (1 + BBOX_PAD)
+  return {
+    minLng: centerLng - halfLng,
+    maxLng: centerLng + halfLng,
+    minLat: centerLat - halfLat,
+    maxLat: centerLat + halfLat,
+  }
+}
+
+/**
+ * Concat the per-pair polylines for a chain of consecutive stations into one
+ * continuous polyline. Reverses each segment as needed so the polyline flows
+ * from chain[0] to chain[N].
+ */
+function chainPolyline(
+  graph: NetworkGraph,
+  chain: string[],
+): [number, number][] {
+  const out: [number, number][] = []
+  for (let i = 0; i < chain.length - 1; i++) {
+    const a = chain[i], b = chain[i + 1]
+    const [lo, hi] = a < b ? [a, b] : [b, a]
+    const segment = graph.trackGeometry[`${lo}|${hi}`]
+    if (!segment || segment.length < 2) continue
+    const oriented = a === lo ? segment : [...segment].reverse()
+    const start = out.length === 0 ? 0 : 1
+    for (let k = start; k < oriented.length; k++) out.push(oriented[k])
+  }
+  return out
+}
+
+function polylinePoints(
+  coords: [number, number][],
+  project: (lng: number, lat: number) => [number, number],
+): string {
+  return coords.map(([lng, lat]) => project(lng, lat).join(',')).join(' ')
+}
 
 // ── Component ────────────────────────────────────────────────────────────────
 
@@ -61,16 +133,39 @@ export function TrainMap({ graph, from, to, stops, slots, revealAll }: Props) {
     slots.filter(s => s.status === 'wrong-order').map(s => s.station),
   )
 
-  // Stops to render, in route order: any placed (or all if revealed)
-  const visibleStops = stops.filter(c => revealAll || placed.has(c))
+  // bbox is stable for the whole puzzle — it covers the full route, not just
+  // the revealed portion, so the camera doesn't zoom as the player guesses.
+  const fullChain = useMemo(() => [from, ...stops, to], [from, stops, to])
+  const bbox = useMemo(() => routeBbox(graph, fullChain), [graph, fullChain])
+  const project = useMemo(() => makeProjector(bbox), [bbox])
 
-  // Polyline path: origin → visible stops (in true route order) → destination
-  const pathCodes = [from, ...visibleStops, to]
-  const pathPoints = pathCodes
-    .map(code => graph.stations[code])
-    .filter(Boolean)
-    .map(s => project(s.lng, s.lat).join(','))
-    .join(' ')
+  // Pre-compute background polylines in SVG space once per bbox.
+  const backgroundPoints = useMemo(
+    () => graph.backgroundTracks.map(coords => polylinePoints(coords, project)),
+    [graph.backgroundTracks, project],
+  )
+
+  // Active-route polyline: only include stops up to the currently-revealed
+  // prefix (contiguous from the start). A stop is "revealed" when it's been
+  // placed correctly or when the game has ended. Non-contiguous placements
+  // don't extend the line — otherwise we'd draw impossible shortcuts.
+  const revealedChain = useMemo(() => {
+    if (revealAll) return fullChain
+    const chain: string[] = [from]
+    for (const stop of stops) {
+      if (!placed.has(stop)) break
+      chain.push(stop)
+    }
+    // Include 'to' only if the whole route is placed (otherwise the line
+    // would teleport over unguessed stops).
+    if (chain.length === stops.length + 1) chain.push(to)
+    return chain
+  }, [from, to, stops, placed, revealAll, fullChain])
+
+  const routePoints = useMemo(() => {
+    if (revealedChain.length < 2) return ''
+    return polylinePoints(chainPolyline(graph, revealedChain), project)
+  }, [graph, revealedChain, project])
 
   function dotFill(code: string): string {
     if (code === from) return '#FFC917'
@@ -80,6 +175,9 @@ export function TrainMap({ graph, from, to, stops, slots, revealAll }: Props) {
     return '#10B981'                                       // emerald
   }
 
+  const visibleStops = revealAll ? stops : stops.filter(c => placed.has(c))
+  const dotCodes = [from, ...visibleStops, to]
+
   return (
     <div className="w-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
       <svg
@@ -88,30 +186,27 @@ export function TrainMap({ graph, from, to, stops, slots, revealAll }: Props) {
         style={{ maxHeight: '320px' }}
         aria-label="Kaart van de route"
       >
-        {/* Netherlands outline */}
-        <polygon
-          points={NL_PATH}
-          fill="#F9FAFB"
-          stroke="#E5E7EB"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-        />
+        {/* Background: all NL rail segments as thin gray lines */}
+        <g fill="none" stroke="#E5E7EB" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+          {backgroundPoints.map((pts, i) => (
+            <polyline key={`bg-${i}`} points={pts} />
+          ))}
+        </g>
 
-        {/* Route polyline (grows as more stops are revealed) */}
-        {pathCodes.length >= 2 && (
+        {/* Active route polyline, tracing real track geometry */}
+        {routePoints && (
           <polyline
-            points={pathPoints}
+            points={routePoints}
             fill="none"
             stroke="#003082"
-            strokeWidth="2.5"
+            strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
-            opacity={0.85}
           />
         )}
 
-        {/* Station dots: origin, destination, and revealed stops */}
-        {pathCodes.map(code => {
+        {/* Station dots: origin, destination, revealed stops */}
+        {dotCodes.map(code => {
           const s = graph.stations[code]
           if (!s) return null
           const [x, y] = project(s.lng, s.lat)
@@ -131,12 +226,13 @@ export function TrainMap({ graph, from, to, stops, slots, revealAll }: Props) {
               />
               <text
                 x={x}
-                y={y - r - 3}
+                y={y - r - 6}
                 textAnchor="middle"
-                fontSize="9"
-                fontWeight="600"
+                fontSize="20"
+                fontWeight="700"
                 fill="#1F2937"
                 className="select-none"
+                style={{ paintOrder: 'stroke', stroke: 'white', strokeWidth: 5, strokeLinejoin: 'round' } as React.CSSProperties}
               >
                 {label}
               </text>

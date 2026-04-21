@@ -218,6 +218,9 @@ const spoorkaart: any[] = JSON.parse(
   readFileSync(resolve(RAW_DIR, 'spoorkaart.json'), 'utf8'),
 )
 const physAdj = new Map<string, Set<string>>()
+/** Per physical edge: key `${min}|${max}` → coords in min→max direction. */
+const physEdgeCoords = new Map<string, [number, number][]>()
+
 for (const f of spoorkaart) {
   const a = String(f.properties?.from ?? '').toUpperCase()
   const b = String(f.properties?.to ?? '').toUpperCase()
@@ -226,10 +229,32 @@ for (const f of spoorkaart) {
   if (!physAdj.has(b)) physAdj.set(b, new Set())
   physAdj.get(a)!.add(b)
   physAdj.get(b)!.add(a)
+
+  const rawCoords: unknown = f.geometry?.coordinates
+  if (!Array.isArray(rawCoords)) continue
+  // 4-decimal precision = ~10 m at Dutch latitudes. Plenty for a country-scale
+  // map and roughly halves the serialized size vs 5 decimals.
+  const coords = (rawCoords as unknown[]).filter(
+    (c): c is [number, number] => Array.isArray(c) && c.length >= 2 && typeof c[0] === 'number' && typeof c[1] === 'number',
+  ).map(c => [Number((c[0] as number).toFixed(4)), Number((c[1] as number).toFixed(4))] as [number, number])
+  if (coords.length < 2) continue
+
+  const [lo, hi] = a < b ? [a, b] : [b, a]
+  const key = `${lo}|${hi}`
+  if (physEdgeCoords.has(key)) continue  // dedupe if spoorkaart has parallel features
+  // Normalise to lo→hi direction: if the raw feature went hi→lo, reverse.
+  physEdgeCoords.set(key, a === lo ? coords : [...coords].reverse())
 }
 
-function physPath(start: string, goal: string): string[] | null {
-  if (start === goal) return [start]
+/**
+ * BFS physical path between two stations. Returns both the node chain and the
+ * concatenated coord polyline, or null if no path exists.
+ */
+function physPathWithCoords(
+  start: string,
+  goal: string,
+): { nodes: string[]; coords: [number, number][] } | null {
+  if (start === goal) return { nodes: [start], coords: [] }
   const q: string[][] = [[start]]
   const seen = new Set([start])
   while (q.length) {
@@ -237,12 +262,40 @@ function physPath(start: string, goal: string): string[] | null {
     const head = path[path.length - 1]
     for (const next of physAdj.get(head) ?? []) {
       if (seen.has(next)) continue
-      if (next === goal) return [...path, next]
+      if (next === goal) {
+        const nodes = [...path, next]
+        return { nodes, coords: nodesToCoords(nodes) }
+      }
       seen.add(next)
       q.push([...path, next])
     }
   }
   return null
+}
+
+function physPath(start: string, goal: string): string[] | null {
+  const out = physPathWithCoords(start, goal)
+  return out ? out.nodes : null
+}
+
+/**
+ * Given a sequence of station codes, concat the physEdgeCoords for each
+ * consecutive pair, reversing per-edge as needed. Returns an empty array if
+ * any edge is missing.
+ */
+function nodesToCoords(nodes: string[]): [number, number][] {
+  const out: [number, number][] = []
+  for (let i = 0; i < nodes.length - 1; i++) {
+    const a = nodes[i], b = nodes[i + 1]
+    const [lo, hi] = a < b ? [a, b] : [b, a]
+    const segment = physEdgeCoords.get(`${lo}|${hi}`)
+    if (!segment) return []
+    const oriented = a === lo ? segment : [...segment].reverse()
+    // Skip the first point of every segment after the first to avoid dupes.
+    const start = out.length === 0 ? 0 : 1
+    for (let k = start; k < oriented.length; k++) out.push(oriented[k])
+  }
+  return out
 }
 
 const IC_PREFIXES = new Set(['IC', 'ICD', 'INT', 'THA'])
@@ -340,11 +393,78 @@ for (const [sprLine, stops] of Object.entries(synthLines)) {
 
 const transferList = Array.from(transferStations).filter(s => stations[s])
 
+// ── Per-line consecutive-pair polylines (MB-482) ─────────────────────────────
+// For every consecutive station pair used by any line, store the physical-
+// track polyline tracing them through the spoorkaart. The renderer looks these
+// up at render time to draw curvy routes instead of straight station-to-
+// station lines.
+
+const trackGeometry: Record<string, [number, number][]> = {}
+let pairsMissing = 0
+for (const stops of Object.values(lineMap)) {
+  for (let i = 0; i < stops.length - 1; i++) {
+    const a = stops[i], b = stops[i + 1]
+    if (!stations[a] || !stations[b]) continue
+    const [lo, hi] = a < b ? [a, b] : [b, a]
+    const key = `${lo}|${hi}`
+    if (trackGeometry[key]) continue
+    const walk = physPathWithCoords(lo, hi)
+    if (walk && walk.coords.length >= 2) {
+      trackGeometry[key] = walk.coords
+    } else {
+      // Fallback: straight line between the two station coords, so the route
+      // never breaks visually. Shouldn't trigger for NL stations on lines we
+      // know about, but is cheap insurance.
+      trackGeometry[key] = [
+        [stations[lo].lng, stations[lo].lat],
+        [stations[hi].lng, stations[hi].lat],
+      ]
+      pairsMissing++
+    }
+  }
+}
+console.log(`  📐 trackGeometry: ${Object.keys(trackGeometry).length} pairs (${pairsMissing} missing, falling back to straight lines)`)
+
+// ── Background track layer (MB-482) ──────────────────────────────────────────
+// Every physical edge whose geometry lies (at least partially) inside NL, so
+// the player gets the full mainline + branch-line network as visual context.
+// We don't key on station-endpoint membership: the spoorkaart has plenty of
+// station→junction→station chains where the junction isn't a station we
+// know, and filtering by endpoint throws those out. Coord-bbox filtering
+// keeps them.
+//
+// Points are decimated to roughly every-4th (plus endpoints preserved) so
+// the background JSON stays small without visual loss at the zoom levels the
+// game uses. The coastline silhouette survives this cleanly.
+
+const NL_BOUNDS = { minLng: 3.0, maxLng: 7.5, minLat: 50.5, maxLat: 53.8 }
+const isInNL = ([lng, lat]: [number, number]): boolean =>
+  lng >= NL_BOUNDS.minLng && lng <= NL_BOUNDS.maxLng &&
+  lat >= NL_BOUNDS.minLat && lat <= NL_BOUNDS.maxLat
+
+function decimate(coords: [number, number][], stride: number): [number, number][] {
+  if (coords.length <= 3 || stride <= 1) return coords
+  const out: [number, number][] = [coords[0]]
+  for (let i = stride; i < coords.length - 1; i += stride) out.push(coords[i])
+  out.push(coords[coords.length - 1])
+  return out
+}
+
+const backgroundTracks: [number, number][][] = []
+for (const coords of physEdgeCoords.values()) {
+  if (!coords.some(isInNL)) continue
+  backgroundTracks.push(decimate(coords, 8))
+}
+const bgPointCount = backgroundTracks.reduce((n, arr) => n + arr.length, 0)
+console.log(`  🗺️  backgroundTracks: ${backgroundTracks.length} segments, ${bgPointCount} points`)
+
 const graph: NetworkGraph = {
   stations,
   adjacency,
   lines: lineMap,
   transferStations: transferList,
+  trackGeometry,
+  backgroundTracks,
 }
 
 writeFileSync(OUT_PATH, JSON.stringify(graph, null, 2))

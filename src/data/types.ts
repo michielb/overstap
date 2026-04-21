@@ -22,6 +22,19 @@ export interface NetworkGraph {
   adjacency: Record<string, AdjacencyEntry[]>
   lines: Record<string, string[]>  // line code -> ordered list of station codes
   transferStations: string[]
+  /**
+   * For each directly-adjacent station pair on any line, the polyline of
+   * [lng, lat] coords traced through the physical spoorkaart between them.
+   * Keys are canonical `${min(codeA, codeB)}|${max(codeA, codeB)}`. Value is
+   * the geometry in A→B order (sorted by key, not by any route direction);
+   * callers reverse as needed.
+   */
+  trackGeometry: Record<string, [number, number][]>
+  /**
+   * All NL rail segments from the spoorkaart, each as an independent LineString
+   * of [lng, lat] coords. Used as a thin gray background layer under the route.
+   */
+  backgroundTracks: [number, number][][]
 }
 
 export interface AdjacencyEntry {
