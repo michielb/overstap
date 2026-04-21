@@ -57,7 +57,7 @@ function App() {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <header className="bg-white border-b border-gray-200 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center justify-between gap-3">
-          <h1 className="text-xl font-bold tracking-tight text-gray-900">Overstap</h1>
+          <h1 className="text-xl font-bold tracking-tight text-gray-900">Treintje</h1>
           <ModeToggle
             mode={mode}
             locked={locked}

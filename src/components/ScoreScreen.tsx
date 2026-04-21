@@ -47,7 +47,7 @@ function buildShareText(
   const toS = puzzle.to
 
   return [
-    `Overstap — ${puzzle.date} · ${MODE_LABEL[mode]}`,
+    `Treintje — ${puzzle.date} · ${MODE_LABEL[mode]}`,
     `${fromS} → ${toS}`,
     `${correctStops}/${totalStops} stations, ${score} punten${bonus}`,
     grid,

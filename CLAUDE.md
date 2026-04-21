@@ -1,10 +1,12 @@
-# Overstap
+# Treintje
 
-A daily Dutch train route guessing game. Players guess the transfer stations (overstappen) needed to travel between two NS stations.
+A daily Dutch train puzzle. The current game (internal name: Overstap) is about guessing every intermediate stop on a train's line between A and B. Future games under the Treintje umbrella will share the same NS network data and station primitives.
+
+> The GitHub repo, local checkout path, Obsidian folder, and Linear project are still called `overstap` for historical reasons — only the public brand, deploy subdomain, package name, and in-app copy use Treintje. Renaming those is a future cleanup; don't treat mixed references as a bug.
 
 ## Concept
 
-Each day a new puzzle is shown: two NS stations (A → B). The player must guess the minimum set of transfer stations needed. Like Wordle but for train routes.
+Each day a new puzzle is shown: two NS stations (A → B) on a single train line, and the player has to name every intermediate stop. Two modes — hard (free recall) and easy (drag-and-drop ordering of given stops). See Obsidian `Projects/Overstap/Status.md` for the current, load-bearing gameplay description.
 
 ## Stack
 
@@ -44,10 +46,3 @@ Key endpoints:
 - Departure boards & trip planner are available but rate-limited
 
 Transfer stations are identified by stations where 2+ different IC/Sprinter lines stop.
-
-## Game rules
-
-- 6 guesses maximum
-- A guess is a list of transfer stations in order
-- Correct if the sequence is a valid route with minimum transfers
-- Direct routes (0 transfers) are valid puzzles — answer is empty
