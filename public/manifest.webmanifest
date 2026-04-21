@@ -1,0 +1,26 @@
+{
+  "name": "Treintje",
+  "short_name": "Treintje",
+  "description": "Dagelijkse treinpuzzel: raad alle tussenstations.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#003082",
+  "theme_color": "#003082",
+  "lang": "nl",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
