@@ -15,7 +15,13 @@
         "IC-2113",
         "IC-3012",
         "IC-2912",
-        "IC-1519"
+        "IC-1519",
+        "SPR-SYN-819",
+        "SPR-SYN-3019",
+        "SPR-SYN-2215",
+        "SPR-SYN-3012",
+        "SPR-SYN-2912",
+        "SPR-SYN-1519"
       ]
     },
     "ALM": {
@@ -28,7 +34,10 @@
       "lines": [
         "IC-819",
         "ICD-2417",
-        "IC-823"
+        "IC-823",
+        "SPR-SYN-819",
+        "SPR-SYN-2417",
+        "SPR-SYN-823"
       ]
     },
     "LLS": {
@@ -40,7 +49,9 @@
       "isTransfer": true,
       "lines": [
         "IC-819",
-        "IC-823"
+        "IC-823",
+        "SPR-SYN-819",
+        "SPR-SYN-823"
       ]
     },
     "ZL": {
@@ -54,7 +65,11 @@
         "IC-819",
         "IC-519",
         "IC-621",
-        "IC-823"
+        "IC-823",
+        "SPR-SYN-819",
+        "SPR-SYN-519",
+        "SPR-SYN-621",
+        "SPR-SYN-823"
       ]
     },
     "ASN": {
@@ -65,7 +80,8 @@
       "lng": 6.57083320617676,
       "isTransfer": false,
       "lines": [
-        "IC-519"
+        "IC-519",
+        "SPR-SYN-519"
       ]
     },
     "GN": {
@@ -77,7 +93,8 @@
       "isTransfer": true,
       "lines": [
         "IC-519",
-        "ST-37413"
+        "ST-37413",
+        "SPR-SYN-519"
       ]
     },
     "MP": {
@@ -89,7 +106,10 @@
       "isTransfer": true,
       "lines": [
         "IC-819",
-        "IC-823"
+        "IC-823",
+        "SPR-SYN-819",
+        "SPR-SYN-519",
+        "SPR-SYN-823"
       ]
     },
     "SWK": {
@@ -101,7 +121,9 @@
       "isTransfer": true,
       "lines": [
         "IC-819",
-        "IC-823"
+        "IC-823",
+        "SPR-SYN-819",
+        "SPR-SYN-823"
       ]
     },
     "HR": {
@@ -113,7 +135,9 @@
       "isTransfer": true,
       "lines": [
         "IC-819",
-        "IC-823"
+        "IC-823",
+        "SPR-SYN-819",
+        "SPR-SYN-823"
       ]
     },
     "LW": {
@@ -126,7 +150,9 @@
       "lines": [
         "IC-819",
         "IC-823",
-        "ST-37413"
+        "ST-37413",
+        "SPR-SYN-819",
+        "SPR-SYN-823"
       ]
     },
     "UT": {
@@ -143,7 +169,13 @@
         "IC-2921",
         "IC-621",
         "IC-3121",
-        "IC-3918"
+        "IC-3918",
+        "SPR-SYN-1721",
+        "SPR-SYN-3019",
+        "SPR-SYN-3519",
+        "SPR-SYN-621",
+        "SPR-SYN-3121",
+        "SPR-SYN-3918"
       ]
     },
     "AMF": {
@@ -156,7 +188,10 @@
       "lines": [
         "IC-1721",
         "IC-621",
-        "IC-1519"
+        "IC-1519",
+        "SPR-SYN-1721",
+        "SPR-SYN-621",
+        "SPR-SYN-1519"
       ]
     },
     "APD": {
@@ -168,7 +203,10 @@
       "isTransfer": true,
       "lines": [
         "IC-1721",
-        "IC-1519"
+        "IC-1519",
+        "SPR-SYN-1721",
+        "SPR-SYN-621",
+        "SPR-SYN-1519"
       ]
     },
     "DV": {
@@ -179,7 +217,9 @@
       "lng": 6.16055536270142,
       "isTransfer": false,
       "lines": [
-        "IC-1721"
+        "IC-1721",
+        "SPR-SYN-1721",
+        "SPR-SYN-621"
       ]
     },
     "AML": {
@@ -190,7 +230,8 @@
       "lng": 6.65388870239258,
       "isTransfer": false,
       "lines": [
-        "IC-1721"
+        "IC-1721",
+        "SPR-SYN-1721"
       ]
     },
     "HGL": {
@@ -201,7 +242,8 @@
       "lng": 6.79388904571533,
       "isTransfer": false,
       "lines": [
-        "IC-1721"
+        "IC-1721",
+        "SPR-SYN-1721"
       ]
     },
     "ES": {
@@ -212,7 +254,8 @@
       "lng": 6.8899998664856,
       "isTransfer": false,
       "lines": [
-        "IC-1721"
+        "IC-1721",
+        "SPR-SYN-1721"
       ]
     },
     "ASA": {
@@ -224,7 +267,8 @@
       "isTransfer": true,
       "lines": [
         "IC-3019",
-        "IC-2921"
+        "IC-2921",
+        "SPR-SYN-3019"
       ]
     },
     "DB": {
@@ -235,7 +279,8 @@
       "lng": 5.25861120223999,
       "isTransfer": false,
       "lines": [
-        "IC-3019"
+        "IC-3019",
+        "SPR-SYN-3121"
       ]
     },
     "KLP": {
@@ -246,7 +291,8 @@
       "lng": 5.57388877868652,
       "isTransfer": false,
       "lines": [
-        "IC-3019"
+        "IC-3019",
+        "SPR-SYN-3121"
       ]
     },
     "ED": {
@@ -258,7 +304,8 @@
       "isTransfer": true,
       "lines": [
         "IC-3019",
-        "IC-3121"
+        "IC-3121",
+        "SPR-SYN-3121"
       ]
     },
     "AH": {
@@ -270,7 +317,8 @@
       "isTransfer": true,
       "lines": [
         "IC-3019",
-        "IC-3121"
+        "IC-3121",
+        "SPR-SYN-3121"
       ]
     },
     "NM": {
@@ -282,7 +330,8 @@
       "isTransfer": true,
       "lines": [
         "IC-3019",
-        "IC-3121"
+        "IC-3121",
+        "SPR-SYN-3121"
       ]
     },
     "HT": {
@@ -295,7 +344,9 @@
       "lines": [
         "IC-3519",
         "IC-2921",
-        "IC-3918"
+        "IC-3918",
+        "SPR-SYN-3519",
+        "SPR-SYN-3918"
       ]
     },
     "EHV": {
@@ -309,7 +360,11 @@
         "IC-3519",
         "IC-2921",
         "IC-3918",
-        "IC-1121"
+        "IC-1121",
+        "SPR-SYN-3519",
+        "SPR-SYN-2921",
+        "SPR-SYN-3918",
+        "SPR-SYN-1121"
       ]
     },
     "HM": {
@@ -320,7 +375,8 @@
       "lng": 5.66194438934326,
       "isTransfer": false,
       "lines": [
-        "IC-3519"
+        "IC-3519",
+        "SPR-SYN-3519"
       ]
     },
     "DN": {
@@ -331,7 +387,8 @@
       "lng": 5.78888893127441,
       "isTransfer": false,
       "lines": [
-        "IC-3519"
+        "IC-3519",
+        "SPR-SYN-3519"
       ]
     },
     "HRT": {
@@ -342,7 +399,8 @@
       "lng": 6.04222202301025,
       "isTransfer": false,
       "lines": [
-        "IC-3519"
+        "IC-3519",
+        "SPR-SYN-3519"
       ]
     },
     "BR": {
@@ -353,7 +411,8 @@
       "lng": 6.15500020980835,
       "isTransfer": false,
       "lines": [
-        "IC-3519"
+        "IC-3519",
+        "SPR-SYN-3519"
       ]
     },
     "VL": {
@@ -366,7 +425,8 @@
       "lines": [
         "IC-3519",
         "ST-32226",
-        "ST-32215"
+        "ST-32215",
+        "SPR-SYN-3519"
       ]
     },
     "WT": {
@@ -377,7 +437,8 @@
       "lng": 5.70361089706421,
       "isTransfer": false,
       "lines": [
-        "IC-2921"
+        "IC-2921",
+        "SPR-SYN-2921"
       ]
     },
     "RM": {
@@ -391,7 +452,9 @@
         "IC-2921",
         "ST-32226",
         "ST-32215",
-        "IC-3915"
+        "IC-3915",
+        "SPR-SYN-2921",
+        "SPR-SYN-3915"
       ]
     },
     "STD": {
@@ -403,7 +466,9 @@
       "isTransfer": true,
       "lines": [
         "IC-2921",
-        "IC-3915"
+        "IC-3915",
+        "SPR-SYN-2921",
+        "SPR-SYN-3915"
       ]
     },
     "HRL": {
@@ -414,7 +479,8 @@
       "lng": 5.97499990463257,
       "isTransfer": false,
       "lines": [
-        "IC-2921"
+        "IC-2921",
+        "SPR-SYN-2921"
       ]
     },
     "MT": {
@@ -425,7 +491,8 @@
       "lng": 5.70555543899536,
       "isTransfer": false,
       "lines": [
-        "IC-2921"
+        "IC-2921",
+        "SPR-SYN-2921"
       ]
     },
     "ASS": {
@@ -440,7 +507,10 @@
         "IC-2113",
         "IC-3012",
         "IC-2912",
-        "SPR-4121"
+        "SPR-4121",
+        "SPR-SYN-2215",
+        "SPR-SYN-3012",
+        "SPR-SYN-2912"
       ]
     },
     "HLM": {
@@ -452,7 +522,8 @@
       "isTransfer": true,
       "lines": [
         "IC-2215",
-        "IC-2113"
+        "IC-2113",
+        "SPR-SYN-2215"
       ]
     },
     "HAD": {
@@ -464,7 +535,8 @@
       "isTransfer": true,
       "lines": [
         "IC-2215",
-        "IC-2113"
+        "IC-2113",
+        "SPR-SYN-2215"
       ]
     },
     "LEDN": {
@@ -476,7 +548,8 @@
       "isTransfer": true,
       "lines": [
         "IC-2215",
-        "IC-2113"
+        "IC-2113",
+        "SPR-SYN-2215"
       ]
     },
     "LAA": {
@@ -487,7 +560,8 @@
       "lng": 4.34277772903442,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "GV": {
@@ -499,7 +573,8 @@
       "isTransfer": true,
       "lines": [
         "IC-2215",
-        "SPR-5012"
+        "SPR-5012",
+        "SPR-SYN-2215"
       ]
     },
     "DT": {
@@ -511,7 +586,8 @@
       "isTransfer": true,
       "lines": [
         "IC-2215",
-        "SPR-5012"
+        "SPR-5012",
+        "SPR-SYN-2215"
       ]
     },
     "SDM": {
@@ -523,7 +599,8 @@
       "isTransfer": true,
       "lines": [
         "IC-2215",
-        "SPR-5012"
+        "SPR-5012",
+        "SPR-SYN-2215"
       ]
     },
     "RTD": {
@@ -540,7 +617,11 @@
         "ICD-2417",
         "IC-1121",
         "SPR-5012",
-        "ICD-1814"
+        "ICD-1814",
+        "SPR-SYN-2215",
+        "SPR-SYN-2819",
+        "SPR-SYN-2417",
+        "SPR-SYN-1121"
       ]
     },
     "RTB": {
@@ -551,7 +632,8 @@
       "lng": 4.48888874053955,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "DDR": {
@@ -562,7 +644,8 @@
       "lng": 4.66833353042603,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "RSD": {
@@ -573,7 +656,8 @@
       "lng": 4.45833349227905,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "BGN": {
@@ -584,7 +668,8 @@
       "lng": 4.29611110687256,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "RB": {
@@ -595,7 +680,8 @@
       "lng": 4.16111087799072,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "KBD": {
@@ -606,7 +692,8 @@
       "lng": 4.11694431304932,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "KRG": {
@@ -617,7 +704,8 @@
       "lng": 4.03722238540649,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "BZL": {
@@ -628,7 +716,8 @@
       "lng": 3.95611119270325,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "GS": {
@@ -639,7 +728,8 @@
       "lng": 3.89055562019348,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "ARN": {
@@ -650,7 +740,8 @@
       "lng": 3.66916656494141,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "MDB": {
@@ -661,7 +752,8 @@
       "lng": 3.61722230911255,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "VSS": {
@@ -672,7 +764,8 @@
       "lng": 3.59527778625488,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "VS": {
@@ -683,7 +776,8 @@
       "lng": 3.59527778625488,
       "isTransfer": false,
       "lines": [
-        "IC-2215"
+        "IC-2215",
+        "SPR-SYN-2215"
       ]
     },
     "GVC": {
@@ -708,7 +802,9 @@
       "lng": 4.81361103057861,
       "isTransfer": false,
       "lines": [
-        "IC-3012"
+        "IC-3012",
+        "SPR-SYN-3012",
+        "SPR-SYN-2912"
       ]
     },
     "CAS": {
@@ -719,7 +815,8 @@
       "lng": 4.65861129760742,
       "isTransfer": false,
       "lines": [
-        "IC-3012"
+        "IC-3012",
+        "SPR-SYN-3012"
       ]
     },
     "HLO": {
@@ -730,7 +827,8 @@
       "lng": 4.70055532455444,
       "isTransfer": false,
       "lines": [
-        "IC-3012"
+        "IC-3012",
+        "SPR-SYN-3012"
       ]
     },
     "AMR": {
@@ -741,7 +839,8 @@
       "lng": 4.73972225189209,
       "isTransfer": false,
       "lines": [
-        "IC-3012"
+        "IC-3012",
+        "SPR-SYN-3012"
       ]
     },
     "HN": {
@@ -752,7 +851,8 @@
       "lng": 5.05555534362793,
       "isTransfer": false,
       "lines": [
-        "IC-2912"
+        "IC-2912",
+        "SPR-SYN-2912"
       ]
     },
     "GD": {
@@ -765,7 +865,9 @@
       "lines": [
         "IC-621",
         "IC-1721",
-        "IC-2819"
+        "IC-2819",
+        "SPR-SYN-1721",
+        "SPR-SYN-2819"
       ]
     },
     "RTA": {
@@ -776,7 +878,8 @@
       "lng": 4.55361127853394,
       "isTransfer": false,
       "lines": [
-        "IC-2819"
+        "IC-2819",
+        "SPR-SYN-2819"
       ]
     },
     "BD": {
@@ -789,7 +892,8 @@
       "lines": [
         "IC-1114",
         "IC-1121",
-        "ICD-1814"
+        "ICD-1814",
+        "SPR-SYN-1121"
       ]
     },
     "SHL": {
@@ -802,7 +906,8 @@
       "lines": [
         "ICD-2417",
         "SPR-4121",
-        "ICD-1814"
+        "ICD-1814",
+        "SPR-SYN-2417"
       ]
     },
     "ASDZ": {
@@ -813,7 +918,8 @@
       "lng": 4.872356,
       "isTransfer": false,
       "lines": [
-        "ICD-2417"
+        "ICD-2417",
+        "SPR-SYN-2417"
       ]
     },
     "SM": {
@@ -860,7 +966,8 @@
       "lng": 5.08361101150513,
       "isTransfer": false,
       "lines": [
-        "IC-1121"
+        "IC-1121",
+        "SPR-SYN-1121"
       ]
     },
     "HVS": {
@@ -871,7 +978,8 @@
       "lng": 5.18194437026978,
       "isTransfer": false,
       "lines": [
-        "IC-1519"
+        "IC-1519",
+        "SPR-SYN-1519"
       ]
     },
     "DTCP": {
@@ -882,7 +990,8 @@
       "lng": 4.36472225189209,
       "isTransfer": false,
       "lines": [
-        "SPR-5012"
+        "SPR-5012",
+        "SPR-SYN-2215"
       ]
     },
     "RSW": {
@@ -893,7 +1002,8 @@
       "lng": 4.31916666030884,
       "isTransfer": false,
       "lines": [
-        "SPR-5012"
+        "SPR-5012",
+        "SPR-SYN-2215"
       ]
     },
     "GVMW": {
@@ -904,7 +1014,8 @@
       "lng": 4.3086109161377,
       "isTransfer": false,
       "lines": [
-        "SPR-5012"
+        "SPR-5012",
+        "SPR-SYN-2215"
       ]
     },
     "ZH": {
@@ -994,6 +1105,1280 @@
       "lines": [
         "SPR-4121"
       ]
+    },
+    "ASDM": {
+      "code": "ASDM",
+      "name": "Amsterdam Muiderpoort",
+      "nameShort": "Muiderprt",
+      "lat": 52.3605537414551,
+      "lng": 4.93111133575439,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-3019",
+        "SPR-SYN-1519"
+      ]
+    },
+    "ASSP": {
+      "code": "ASSP",
+      "name": "Amsterdam Science Park",
+      "nameShort": "Scienceprk",
+      "lat": 52.35274,
+      "lng": 4.94855,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-1519"
+      ]
+    },
+    "DMN": {
+      "code": "DMN",
+      "name": "Diemen",
+      "nameShort": "Diemen",
+      "lat": 52.34515,
+      "lng": 4.967566,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-1519"
+      ]
+    },
+    "WP": {
+      "code": "WP",
+      "name": "Weesp",
+      "nameShort": "Weesp",
+      "lat": 52.3127784729004,
+      "lng": 5.04305553436279,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-2417",
+        "SPR-SYN-1519"
+      ]
+    },
+    "AMPO": {
+      "code": "AMPO",
+      "name": "Almere Poort",
+      "nameShort": "Poort",
+      "lat": 52.342778,
+      "lng": 5.151944,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-2417"
+      ]
+    },
+    "ALMM": {
+      "code": "ALMM",
+      "name": "Almere Muziekwijk",
+      "nameShort": "Muziekwijk",
+      "lat": 52.3675003051758,
+      "lng": 5.19027757644653,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-2417"
+      ]
+    },
+    "ALMP": {
+      "code": "ALMP",
+      "name": "Almere Parkwijk",
+      "nameShort": "Parkwijk",
+      "lat": 52.3766670227051,
+      "lng": 5.24472236633301,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-823"
+      ]
+    },
+    "ALMB": {
+      "code": "ALMB",
+      "name": "Almere Buiten",
+      "nameShort": "Buiten",
+      "lat": 52.3941650390625,
+      "lng": 5.2780556678772,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-823"
+      ]
+    },
+    "ALMO": {
+      "code": "ALMO",
+      "name": "Almere Oostvaarders",
+      "nameShort": "Oostvaard",
+      "lat": 52.4033317565918,
+      "lng": 5.30055570602417,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-823"
+      ]
+    },
+    "DRON": {
+      "code": "DRON",
+      "name": "Dronten",
+      "nameShort": "Dronten",
+      "lat": 52.5344,
+      "lng": 5.72089,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-823"
+      ]
+    },
+    "KPNZ": {
+      "code": "KPNZ",
+      "name": "Kampen Zuid",
+      "nameShort": "Kampen Z",
+      "lat": 52.5331,
+      "lng": 5.91309,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-823"
+      ]
+    },
+    "WV": {
+      "code": "WV",
+      "name": "Wolvega",
+      "nameShort": "Wolvega",
+      "lat": 52.8808326721191,
+      "lng": 6.00361108779907,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-823"
+      ]
+    },
+    "AKM": {
+      "code": "AKM",
+      "name": "Akkrum",
+      "nameShort": "Akkrum",
+      "lat": 53.0463905334473,
+      "lng": 5.84361124038696,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-823"
+      ]
+    },
+    "GW": {
+      "code": "GW",
+      "name": "Grou-Jirnsum",
+      "nameShort": "Grou-Jirns",
+      "lat": 53.0888900756836,
+      "lng": 5.82250022888184,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-819",
+        "SPR-SYN-823"
+      ]
+    },
+    "HGV": {
+      "code": "HGV",
+      "name": "Hoogeveen",
+      "nameShort": "Hoogeveen",
+      "lat": 52.7338905334473,
+      "lng": 6.47361087799072,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-519"
+      ]
+    },
+    "BL": {
+      "code": "BL",
+      "name": "Beilen",
+      "nameShort": "Beilen",
+      "lat": 52.8547210693359,
+      "lng": 6.52111101150513,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-519"
+      ]
+    },
+    "HRN": {
+      "code": "HRN",
+      "name": "Haren",
+      "nameShort": "Haren",
+      "lat": 53.1761093139648,
+      "lng": 6.61722230911255,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-519"
+      ]
+    },
+    "GDG": {
+      "code": "GDG",
+      "name": "Gouda Goverwelle",
+      "nameShort": "Goverwelle",
+      "lat": 52.0149993896484,
+      "lng": 4.7408332824707,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721"
+      ]
+    },
+    "WD": {
+      "code": "WD",
+      "name": "Woerden",
+      "nameShort": "Woerden",
+      "lat": 52.0849990844727,
+      "lng": 4.89361095428467,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721"
+      ]
+    },
+    "BKL": {
+      "code": "BKL",
+      "name": "Breukelen",
+      "nameShort": "Breukelen",
+      "lat": 52.17149,
+      "lng": 4.9906,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721",
+        "SPR-SYN-3019"
+      ]
+    },
+    "MAS": {
+      "code": "MAS",
+      "name": "Maarssen",
+      "nameShort": "Maarssen",
+      "lat": 52.1352767944336,
+      "lng": 5.03361129760742,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721",
+        "SPR-SYN-3019"
+      ]
+    },
+    "UTZL": {
+      "code": "UTZL",
+      "name": "Utrecht Zuilen",
+      "nameShort": "Zuilen",
+      "lat": 52.103055,
+      "lng": 5.09,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721",
+        "SPR-SYN-3019"
+      ]
+    },
+    "UTO": {
+      "code": "UTO",
+      "name": "Utrecht Overvecht",
+      "nameShort": "Overvecht",
+      "lat": 52.1100006103516,
+      "lng": 5.12472200393677,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721",
+        "SPR-SYN-621"
+      ]
+    },
+    "BHV": {
+      "code": "BHV",
+      "name": "Bilthoven",
+      "nameShort": "Bilthoven",
+      "lat": 52.1300010681152,
+      "lng": 5.20388889312744,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721",
+        "SPR-SYN-621"
+      ]
+    },
+    "DLD": {
+      "code": "DLD",
+      "name": "Den Dolder",
+      "nameShort": "Den Dolder",
+      "lat": 52.1402778625488,
+      "lng": 5.24277782440186,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721",
+        "SPR-SYN-621"
+      ]
+    },
+    "HVL": {
+      "code": "HVL",
+      "name": "Hoevelaken",
+      "nameShort": "Hoevelaken",
+      "lat": 52.16652,
+      "lng": 5.45718,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721",
+        "SPR-SYN-621",
+        "SPR-SYN-1519"
+      ]
+    },
+    "APDO": {
+      "code": "APDO",
+      "name": "Apeldoorn Osseveld",
+      "nameShort": "Osseveld",
+      "lat": 52.2152786254883,
+      "lng": 6.00444459915161,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721",
+        "SPR-SYN-621"
+      ]
+    },
+    "TWL": {
+      "code": "TWL",
+      "name": "Twello",
+      "nameShort": "Twello",
+      "lat": 52.2377777099609,
+      "lng": 6.09861087799072,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721",
+        "SPR-SYN-621"
+      ]
+    },
+    "DVC": {
+      "code": "DVC",
+      "name": "Deventer Colmschate",
+      "nameShort": "Colmschate",
+      "lat": 52.2502784729004,
+      "lng": 6.21444463729858,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721"
+      ]
+    },
+    "HON": {
+      "code": "HON",
+      "name": "Holten",
+      "nameShort": "Holten",
+      "lat": 52.2838897705078,
+      "lng": 6.42027759552002,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721"
+      ]
+    },
+    "RSN": {
+      "code": "RSN",
+      "name": "Rijssen",
+      "nameShort": "Rijssen",
+      "lat": 52.3122215270996,
+      "lng": 6.52027797698975,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721"
+      ]
+    },
+    "WDN": {
+      "code": "WDN",
+      "name": "Wierden",
+      "nameShort": "Wierden",
+      "lat": 52.3613891601562,
+      "lng": 6.59166669845581,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721"
+      ]
+    },
+    "AMRI": {
+      "code": "AMRI",
+      "name": "Almelo de Riet",
+      "nameShort": "de Riet",
+      "lat": 52.3419456481934,
+      "lng": 6.66666650772095,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721"
+      ]
+    },
+    "BN": {
+      "code": "BN",
+      "name": "Borne",
+      "nameShort": "Borne",
+      "lat": 52.2988891601562,
+      "lng": 6.74805545806885,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721"
+      ]
+    },
+    "ESK": {
+      "code": "ESK",
+      "name": "Enschede Kennispark",
+      "nameShort": "Kennispark",
+      "lat": 52.2374992370605,
+      "lng": 6.83888912200928,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1721"
+      ]
+    },
+    "DVD": {
+      "code": "DVD",
+      "name": "Duivendrecht",
+      "nameShort": "Duivendrt",
+      "lat": 52.3233337402344,
+      "lng": 4.93638896942139,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3019",
+        "SPR-SYN-2417"
+      ]
+    },
+    "ASB": {
+      "code": "ASB",
+      "name": "Amsterdam Bijlmer ArenA",
+      "nameShort": "Bijlmer A",
+      "lat": 52.3122215270996,
+      "lng": 4.94694423675537,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3019"
+      ]
+    },
+    "ASHD": {
+      "code": "ASHD",
+      "name": "Amsterdam Holendrecht",
+      "nameShort": "Holendrcht",
+      "lat": 52.29844,
+      "lng": 4.95972,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3019"
+      ]
+    },
+    "AC": {
+      "code": "AC",
+      "name": "Abcoude",
+      "nameShort": "Abcoude",
+      "lat": 52.2785,
+      "lng": 4.977,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3019"
+      ]
+    },
+    "UTLN": {
+      "code": "UTLN",
+      "name": "Utrecht Lunetten",
+      "nameShort": "Lunetten",
+      "lat": 52.0655555725098,
+      "lng": 5.14416646957397,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3519",
+        "SPR-SYN-3918"
+      ]
+    },
+    "HTN": {
+      "code": "HTN",
+      "name": "Houten",
+      "nameShort": "Houten",
+      "lat": 52.03402,
+      "lng": 5.16821,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3519",
+        "SPR-SYN-3918"
+      ]
+    },
+    "HTNC": {
+      "code": "HTNC",
+      "name": "Houten Castellum",
+      "nameShort": "Castellum",
+      "lat": 52.01701,
+      "lng": 5.17949,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3519",
+        "SPR-SYN-3918"
+      ]
+    },
+    "CL": {
+      "code": "CL",
+      "name": "Culemborg",
+      "nameShort": "Culemborg",
+      "lat": 51.9466667175293,
+      "lng": 5.22694444656372,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3519",
+        "SPR-SYN-3918"
+      ]
+    },
+    "GDM": {
+      "code": "GDM",
+      "name": "Geldermalsen",
+      "nameShort": "Geldermlsn",
+      "lat": 51.88301,
+      "lng": 5.27127,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3519",
+        "SPR-SYN-3918"
+      ]
+    },
+    "ZBM": {
+      "code": "ZBM",
+      "name": "Zaltbommel",
+      "nameShort": "Zaltbommel",
+      "lat": 51.8088874816895,
+      "lng": 5.26333332061768,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3519",
+        "SPR-SYN-3918"
+      ]
+    },
+    "VG": {
+      "code": "VG",
+      "name": "Vught",
+      "nameShort": "Vught",
+      "lat": 51.65038,
+      "lng": 5.29218,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3519",
+        "SPR-SYN-3918"
+      ]
+    },
+    "BTL": {
+      "code": "BTL",
+      "name": "Boxtel",
+      "nameShort": "Boxtel",
+      "lat": 51.58433,
+      "lng": 5.31912,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3519",
+        "SPR-SYN-3918",
+        "SPR-SYN-1121"
+      ]
+    },
+    "BET": {
+      "code": "BET",
+      "name": "Best",
+      "nameShort": "Best",
+      "lat": 51.5099983215332,
+      "lng": 5.38916683197022,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3519",
+        "SPR-SYN-3918",
+        "SPR-SYN-1121"
+      ]
+    },
+    "EHS": {
+      "code": "EHS",
+      "name": "Eindhoven Strijp-S",
+      "nameShort": "Strijp-S",
+      "lat": 51.4511108398438,
+      "lng": 5.45583343505859,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3519",
+        "SPR-SYN-3918",
+        "SPR-SYN-1121"
+      ]
+    },
+    "HMBV": {
+      "code": "HMBV",
+      "name": "Helmond Brandevoort",
+      "nameShort": "Brandevrt",
+      "lat": 51.4622230529785,
+      "lng": 5.60722208023071,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3519"
+      ]
+    },
+    "HMH": {
+      "code": "HMH",
+      "name": "Helmond 't Hout",
+      "nameShort": "'t Hout",
+      "lat": 51.46794,
+      "lng": 5.63085,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3519"
+      ]
+    },
+    "HMBH": {
+      "code": "HMBH",
+      "name": "Helmond Brouwhuis",
+      "nameShort": "Brouwhuis",
+      "lat": 51.47068,
+      "lng": 5.70177,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3519"
+      ]
+    },
+    "GP": {
+      "code": "GP",
+      "name": "Geldrop",
+      "nameShort": "Geldrop",
+      "lat": 51.4197235107422,
+      "lng": 5.55055570602417,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "HZE": {
+      "code": "HZE",
+      "name": "Heeze",
+      "nameShort": "Heeze",
+      "lat": 51.3849983215332,
+      "lng": 5.56944465637207,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "MZ": {
+      "code": "MZ",
+      "name": "Maarheeze",
+      "nameShort": "Maarheeze",
+      "lat": 51.304986,
+      "lng": 5.629796,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "EC": {
+      "code": "EC",
+      "name": "Echt",
+      "nameShort": "Echt",
+      "lat": 51.1005554199219,
+      "lng": 5.87888908386231,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921",
+        "SPR-SYN-3915"
+      ]
+    },
+    "SRN": {
+      "code": "SRN",
+      "name": "Susteren",
+      "nameShort": "Susteren",
+      "lat": 51.0613899230957,
+      "lng": 5.86305570602417,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921",
+        "SPR-SYN-3915"
+      ]
+    },
+    "GLN": {
+      "code": "GLN",
+      "name": "Geleen Oost",
+      "nameShort": "Geleen O",
+      "lat": 50.9669456481934,
+      "lng": 5.84305572509766,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "SBK": {
+      "code": "SBK",
+      "name": "Spaubeek",
+      "nameShort": "Spaubeek",
+      "lat": 50.94327,
+      "lng": 5.850529,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "SN": {
+      "code": "SN",
+      "name": "Schinnen",
+      "nameShort": "Schinnen",
+      "lat": 50.9391670227051,
+      "lng": 5.87444448471069,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "NH": {
+      "code": "NH",
+      "name": "Nuth",
+      "nameShort": "Nuth",
+      "lat": 50.9194450378418,
+      "lng": 5.89277791976929,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "HB": {
+      "code": "HB",
+      "name": "Hoensbroek",
+      "nameShort": "Hoensbroek",
+      "lat": 50.9055557250977,
+      "lng": 5.93055534362793,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "HRLW": {
+      "code": "HRLW",
+      "name": "Heerlen Woonboulevard",
+      "nameShort": "Heerlen W",
+      "lat": 50.896667,
+      "lng": 5.952222,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "VDL": {
+      "code": "VDL",
+      "name": "Voerendaal",
+      "nameShort": "Voerendaal",
+      "lat": 50.8872222900391,
+      "lng": 5.93027782440186,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "KMR": {
+      "code": "KMR",
+      "name": "Klimmen-Ransdaal",
+      "nameShort": "Klimmen-R",
+      "lat": 50.8663902282715,
+      "lng": 5.8905553817749,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "SOG": {
+      "code": "SOG",
+      "name": "Schin op Geul",
+      "nameShort": "Schin op G",
+      "lat": 50.856388092041,
+      "lng": 5.87222242355347,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "VK": {
+      "code": "VK",
+      "name": "Valkenburg",
+      "nameShort": "Valkenburg",
+      "lat": 50.8697204589844,
+      "lng": 5.83222198486328,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "SGL": {
+      "code": "SGL",
+      "name": "Houthem-St. Gerlach",
+      "nameShort": "Houthem-St",
+      "lat": 50.8733329772949,
+      "lng": 5.79722213745117,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "MES": {
+      "code": "MES",
+      "name": "Meerssen",
+      "nameShort": "Meerssen",
+      "lat": 50.882879392551,
+      "lng": 5.75099945068359,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "MTN": {
+      "code": "MTN",
+      "name": "Maastricht Noord",
+      "nameShort": "Maastr. N",
+      "lat": 50.87087,
+      "lng": 5.71774,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2921"
+      ]
+    },
+    "HWZB": {
+      "code": "HWZB",
+      "name": "Halfweg-Zwanenburg",
+      "nameShort": "Halfweg-Zw",
+      "lat": 52.385935,
+      "lng": 4.747165,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2215"
+      ]
+    },
+    "HLMS": {
+      "code": "HLMS",
+      "name": "Haarlem Spaarnwoude",
+      "nameShort": "Spaarnwde",
+      "lat": 52.3827781677246,
+      "lng": 4.67305564880371,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2215"
+      ]
+    },
+    "HIL": {
+      "code": "HIL",
+      "name": "Hillegom",
+      "nameShort": "Hillegom",
+      "lat": 52.3025016784668,
+      "lng": 4.56555557250977,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2215"
+      ]
+    },
+    "VH": {
+      "code": "VH",
+      "name": "Voorhout",
+      "nameShort": "Voorhout",
+      "lat": 52.2244453430176,
+      "lng": 4.4844446182251,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2215"
+      ]
+    },
+    "DVNK": {
+      "code": "DVNK",
+      "name": "De Vink",
+      "nameShort": "De Vink",
+      "lat": 52.1472206115723,
+      "lng": 4.4563889503479,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2215"
+      ]
+    },
+    "VST": {
+      "code": "VST",
+      "name": "Voorschoten",
+      "nameShort": "Voorschtn",
+      "lat": 52.1252784729004,
+      "lng": 4.43249988555908,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2215"
+      ]
+    },
+    "GVM": {
+      "code": "GVM",
+      "name": "Den Haag Mariahoeve",
+      "nameShort": "Mariahoeve",
+      "lat": 52.0905570983887,
+      "lng": 4.36944437026978,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2215"
+      ]
+    },
+    "DDZD": {
+      "code": "DDZD",
+      "name": "Dordrecht Zuid",
+      "nameShort": "Dordrcht Z",
+      "lat": 51.7900009155273,
+      "lng": 4.67138910293579,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2215"
+      ]
+    },
+    "ZLW": {
+      "code": "ZLW",
+      "name": "Lage Zwaluwe",
+      "nameShort": "Lage Zwalu",
+      "lat": 51.6911125183105,
+      "lng": 4.66305541992188,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2215"
+      ]
+    },
+    "ZVB": {
+      "code": "ZVB",
+      "name": "Zevenbergen",
+      "nameShort": "Zevenbergn",
+      "lat": 51.64042,
+      "lng": 4.60904,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2215"
+      ]
+    },
+    "ODB": {
+      "code": "ODB",
+      "name": "Oudenbosch",
+      "nameShort": "Oudenbosch",
+      "lat": 51.587776184082,
+      "lng": 4.53333330154419,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2215"
+      ]
+    },
+    "KZ": {
+      "code": "KZ",
+      "name": "Koog aan de Zaan",
+      "nameShort": "Koog Zaan",
+      "lat": 52.458610534668,
+      "lng": 4.80555534362793,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3012"
+      ]
+    },
+    "ZZS": {
+      "code": "ZZS",
+      "name": "Zaandijk Zaanse Schans",
+      "nameShort": "Zaanse S.",
+      "lat": 52.469165802002,
+      "lng": 4.80499982833862,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3012"
+      ]
+    },
+    "WM": {
+      "code": "WM",
+      "name": "Wormerveer",
+      "nameShort": "Wormerveer",
+      "lat": 52.4891662597656,
+      "lng": 4.79222202301025,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3012"
+      ]
+    },
+    "KMA": {
+      "code": "KMA",
+      "name": "Krommenie-Assendelft",
+      "nameShort": "Krommenie",
+      "lat": 52.49511,
+      "lng": 4.75417,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3012"
+      ]
+    },
+    "UTG": {
+      "code": "UTG",
+      "name": "Uitgeest",
+      "nameShort": "Uitgeest",
+      "lat": 52.5216674804687,
+      "lng": 4.70166683197022,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3012"
+      ]
+    },
+    "ZDK": {
+      "code": "ZDK",
+      "name": "Zaandam Kogerveld",
+      "nameShort": "Kogerveld",
+      "lat": 52.4566650390625,
+      "lng": 4.82027769088745,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2912"
+      ]
+    },
+    "PMW": {
+      "code": "PMW",
+      "name": "Purmerend Weidevenne",
+      "nameShort": "Weidevenne",
+      "lat": 52.4965906325416,
+      "lng": 4.93562936782836,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2912"
+      ]
+    },
+    "PMR": {
+      "code": "PMR",
+      "name": "Purmerend",
+      "nameShort": "Purmerend",
+      "lat": 52.5030555725098,
+      "lng": 4.95361089706421,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2912"
+      ]
+    },
+    "PMO": {
+      "code": "PMO",
+      "name": "Purmerend Overwhere",
+      "nameShort": "Overwhere",
+      "lat": 52.5113906860352,
+      "lng": 4.96833324432373,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2912"
+      ]
+    },
+    "OST": {
+      "code": "OST",
+      "name": "Olst",
+      "nameShort": "Olst",
+      "lat": 52.3347206115723,
+      "lng": 6.11305570602417,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-621"
+      ]
+    },
+    "WH": {
+      "code": "WH",
+      "name": "Wijhe",
+      "nameShort": "Wijhe",
+      "lat": 52.3902778625488,
+      "lng": 6.1405553817749,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-621"
+      ]
+    },
+    "BNK": {
+      "code": "BNK",
+      "name": "Bunnik",
+      "nameShort": "Bunnik",
+      "lat": 52.0630569458008,
+      "lng": 5.19444465637207,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3121"
+      ]
+    },
+    "MRN": {
+      "code": "MRN",
+      "name": "Maarn",
+      "nameShort": "Maarn",
+      "lat": 52.0641670227051,
+      "lng": 5.36999988555908,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3121"
+      ]
+    },
+    "WF": {
+      "code": "WF",
+      "name": "Wolfheze",
+      "nameShort": "Wolfheze",
+      "lat": 52.0055541992188,
+      "lng": 5.7936110496521,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3121"
+      ]
+    },
+    "OTB": {
+      "code": "OTB",
+      "name": "Oosterbeek",
+      "nameShort": "Oosterbeek",
+      "lat": 51.9949989318848,
+      "lng": 5.84000015258789,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3121"
+      ]
+    },
+    "AHZ": {
+      "code": "AHZ",
+      "name": "Arnhem Zuid",
+      "nameShort": "Arnhem Z",
+      "lat": 51.9550018310547,
+      "lng": 5.85194444656372,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3121"
+      ]
+    },
+    "EST": {
+      "code": "EST",
+      "name": "Elst",
+      "nameShort": "Elst",
+      "lat": 51.9169425964355,
+      "lng": 5.85500001907349,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3121"
+      ]
+    },
+    "NML": {
+      "code": "NML",
+      "name": "Nijmegen Lent",
+      "nameShort": "Lent",
+      "lat": 51.863154,
+      "lng": 5.859625,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-3121"
+      ]
+    },
+    "RTN": {
+      "code": "RTN",
+      "name": "Rotterdam Noord",
+      "nameShort": "Rotterdm N",
+      "lat": 51.9422225952148,
+      "lng": 4.48166656494141,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2819"
+      ]
+    },
+    "CPS": {
+      "code": "CPS",
+      "name": "Capelle Schollevaar",
+      "nameShort": "Schollevr",
+      "lat": 51.9541664123535,
+      "lng": 4.58416652679443,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2819"
+      ]
+    },
+    "NWK": {
+      "code": "NWK",
+      "name": "Nieuwerkerk a/d IJssel",
+      "nameShort": "Nieuwerkrk",
+      "lat": 51.9652786254883,
+      "lng": 4.61694431304932,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2819"
+      ]
+    },
+    "RAI": {
+      "code": "RAI",
+      "name": "Amsterdam RAI",
+      "nameShort": "RAI",
+      "lat": 52.3372230529785,
+      "lng": 4.89027786254883,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2417"
+      ]
+    },
+    "DMNZ": {
+      "code": "DMNZ",
+      "name": "Diemen Zuid",
+      "nameShort": "Diemen Z",
+      "lat": 52.3302764892578,
+      "lng": 4.95583343505859,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-2417"
+      ]
+    },
+    "GZ": {
+      "code": "GZ",
+      "name": "Gilze-Rijen",
+      "nameShort": "Gilze-Rij",
+      "lat": 51.583610534668,
+      "lng": 4.92611122131348,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1121"
+      ]
+    },
+    "TBR": {
+      "code": "TBR",
+      "name": "Tilburg Reeshof",
+      "nameShort": "Reeshof",
+      "lat": 51.5736122131348,
+      "lng": 4.99444437026978,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1121"
+      ]
+    },
+    "TBU": {
+      "code": "TBU",
+      "name": "Tilburg Universiteit",
+      "nameShort": "Tilburg Un",
+      "lat": 51.564985,
+      "lng": 5.051778,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1121"
+      ]
+    },
+    "OT": {
+      "code": "OT",
+      "name": "Oisterwijk",
+      "nameShort": "Oisterwijk",
+      "lat": 51.5822219848633,
+      "lng": 5.19416666030884,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1121"
+      ]
+    },
+    "NDB": {
+      "code": "NDB",
+      "name": "Naarden-Bussum",
+      "nameShort": "Naarden-Bu",
+      "lat": 52.2802772521973,
+      "lng": 5.15694427490234,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1519"
+      ]
+    },
+    "BSMZ": {
+      "code": "BSMZ",
+      "name": "Bussum Zuid",
+      "nameShort": "Bussum Z",
+      "lat": 52.2658348083496,
+      "lng": 5.16305541992188,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1519"
+      ]
+    },
+    "HVSM": {
+      "code": "HVSM",
+      "name": "Hilversum Media Park",
+      "nameShort": "Media Park",
+      "lat": 52.2380561828613,
+      "lng": 5.17388868331909,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1519"
+      ]
+    },
+    "BRN": {
+      "code": "BRN",
+      "name": "Baarn",
+      "nameShort": "Baarn",
+      "lat": 52.2083320617676,
+      "lng": 5.28083324432373,
+      "isTransfer": false,
+      "lines": [
+        "SPR-SYN-1519"
+      ]
     }
   },
   "adjacency": {
@@ -1037,6 +2422,36 @@
         "to": "HVS",
         "line": "IC-1519",
         "durationMin": 0
+      },
+      {
+        "to": "ASDM",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ASDM",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "ASS",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "ASS",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "ASS",
+        "line": "SPR-SYN-2912",
+        "durationMin": 0
+      },
+      {
+        "to": "ASDM",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
       }
     ],
     "ALM": [
@@ -1059,6 +2474,26 @@
         "to": "LLS",
         "line": "IC-823",
         "durationMin": 0
+      },
+      {
+        "to": "ALMM",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ALMP",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ALMM",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "ALMP",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
       }
     ],
     "LLS": [
@@ -1080,6 +2515,26 @@
       {
         "to": "ZL",
         "line": "IC-823",
+        "durationMin": 0
+      },
+      {
+        "to": "ALMO",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "DRON",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ALMO",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      },
+      {
+        "to": "DRON",
+        "line": "SPR-SYN-823",
         "durationMin": 0
       }
     ],
@@ -1113,6 +2568,36 @@
         "to": "MP",
         "line": "IC-823",
         "durationMin": 0
+      },
+      {
+        "to": "KPNZ",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "MP",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "MP",
+        "line": "SPR-SYN-519",
+        "durationMin": 0
+      },
+      {
+        "to": "WH",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "KPNZ",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      },
+      {
+        "to": "MP",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
       }
     ],
     "ASN": [
@@ -1125,6 +2610,16 @@
         "to": "GN",
         "line": "IC-519",
         "durationMin": 0
+      },
+      {
+        "to": "BL",
+        "line": "SPR-SYN-519",
+        "durationMin": 0
+      },
+      {
+        "to": "HRN",
+        "line": "SPR-SYN-519",
+        "durationMin": 0
       }
     ],
     "GN": [
@@ -1136,6 +2631,11 @@
       {
         "to": "ZH",
         "line": "ST-37413",
+        "durationMin": 0
+      },
+      {
+        "to": "HRN",
+        "line": "SPR-SYN-519",
         "durationMin": 0
       }
     ],
@@ -1159,6 +2659,36 @@
         "to": "SWK",
         "line": "IC-823",
         "durationMin": 0
+      },
+      {
+        "to": "ZL",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "SWK",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ZL",
+        "line": "SPR-SYN-519",
+        "durationMin": 0
+      },
+      {
+        "to": "HGV",
+        "line": "SPR-SYN-519",
+        "durationMin": 0
+      },
+      {
+        "to": "ZL",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      },
+      {
+        "to": "SWK",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
       }
     ],
     "SWK": [
@@ -1180,6 +2710,26 @@
       {
         "to": "HR",
         "line": "IC-823",
+        "durationMin": 0
+      },
+      {
+        "to": "MP",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "WV",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "MP",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      },
+      {
+        "to": "WV",
+        "line": "SPR-SYN-823",
         "durationMin": 0
       }
     ],
@@ -1203,6 +2753,26 @@
         "to": "LW",
         "line": "IC-823",
         "durationMin": 0
+      },
+      {
+        "to": "WV",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "AKM",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "WV",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      },
+      {
+        "to": "AKM",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
       }
     ],
     "LW": [
@@ -1219,6 +2789,16 @@
       {
         "to": "LWC",
         "line": "ST-37413",
+        "durationMin": 0
+      },
+      {
+        "to": "GW",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "GW",
+        "line": "SPR-SYN-823",
         "durationMin": 0
       }
     ],
@@ -1277,6 +2857,41 @@
         "to": "HT",
         "line": "IC-3918",
         "durationMin": 0
+      },
+      {
+        "to": "UTZL",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "UTO",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "UTZL",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "UTLN",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "UTO",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "BNK",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "UTLN",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
       }
     ],
     "AMF": [
@@ -1309,6 +2924,36 @@
         "to": "APD",
         "line": "IC-1519",
         "durationMin": 0
+      },
+      {
+        "to": "DLD",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "HVL",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "DLD",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "HVL",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "BRN",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "HVL",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
       }
     ],
     "APD": [
@@ -1326,6 +2971,31 @@
         "to": "AMF",
         "line": "IC-1519",
         "durationMin": 0
+      },
+      {
+        "to": "HVL",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "APDO",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "HVL",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "APDO",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "HVL",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
       }
     ],
     "DV": [
@@ -1337,6 +3007,26 @@
       {
         "to": "AML",
         "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "TWL",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "DVC",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "TWL",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "OST",
+        "line": "SPR-SYN-621",
         "durationMin": 0
       }
     ],
@@ -1350,6 +3040,16 @@
         "to": "HGL",
         "line": "IC-1721",
         "durationMin": 0
+      },
+      {
+        "to": "WDN",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "AMRI",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
       }
     ],
     "HGL": [
@@ -1362,12 +3062,27 @@
         "to": "ES",
         "line": "IC-1721",
         "durationMin": 0
+      },
+      {
+        "to": "BN",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "ESK",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
       }
     ],
     "ES": [
       {
         "to": "HGL",
         "line": "IC-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "ESK",
+        "line": "SPR-SYN-1721",
         "durationMin": 0
       }
     ],
@@ -1391,6 +3106,16 @@
         "to": "UT",
         "line": "IC-2921",
         "durationMin": 0
+      },
+      {
+        "to": "ASDM",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "DVD",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
       }
     ],
     "DB": [
@@ -1403,6 +3128,16 @@
         "to": "KLP",
         "line": "IC-3019",
         "durationMin": 0
+      },
+      {
+        "to": "BNK",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "MRN",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
       }
     ],
     "KLP": [
@@ -1414,6 +3149,16 @@
       {
         "to": "ED",
         "line": "IC-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "MRN",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "ED",
+        "line": "SPR-SYN-3121",
         "durationMin": 0
       }
     ],
@@ -1437,6 +3182,16 @@
         "to": "AH",
         "line": "IC-3121",
         "durationMin": 0
+      },
+      {
+        "to": "KLP",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "WF",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
       }
     ],
     "AH": [
@@ -1459,6 +3214,16 @@
         "to": "NM",
         "line": "IC-3121",
         "durationMin": 0
+      },
+      {
+        "to": "OTB",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "AHZ",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
       }
     ],
     "NM": [
@@ -1470,6 +3235,11 @@
       {
         "to": "AH",
         "line": "IC-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "NML",
+        "line": "SPR-SYN-3121",
         "durationMin": 0
       }
     ],
@@ -1503,6 +3273,26 @@
         "to": "UT",
         "line": "IC-3918",
         "durationMin": 0
+      },
+      {
+        "to": "ZBM",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "VG",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "VG",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "ZBM",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
       }
     ],
     "EHV": [
@@ -1535,6 +3325,31 @@
         "to": "TB",
         "line": "IC-1121",
         "durationMin": 0
+      },
+      {
+        "to": "EHS",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HMBV",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "GP",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "EHS",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "EHS",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
       }
     ],
     "HM": [
@@ -1546,6 +3361,16 @@
       {
         "to": "DN",
         "line": "IC-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HMH",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HMBH",
+        "line": "SPR-SYN-3519",
         "durationMin": 0
       }
     ],
@@ -1559,6 +3384,16 @@
         "to": "HRT",
         "line": "IC-3519",
         "durationMin": 0
+      },
+      {
+        "to": "HMBH",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HRT",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
       }
     ],
     "HRT": [
@@ -1571,6 +3406,16 @@
         "to": "BR",
         "line": "IC-3519",
         "durationMin": 0
+      },
+      {
+        "to": "DN",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "BR",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
       }
     ],
     "BR": [
@@ -1582,6 +3427,16 @@
       {
         "to": "VL",
         "line": "IC-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HRT",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "VL",
+        "line": "SPR-SYN-3519",
         "durationMin": 0
       }
     ],
@@ -1600,6 +3455,11 @@
         "to": "TG",
         "line": "ST-32215",
         "durationMin": 0
+      },
+      {
+        "to": "BR",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
       }
     ],
     "WT": [
@@ -1611,6 +3471,16 @@
       {
         "to": "RM",
         "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "MZ",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "RM",
+        "line": "SPR-SYN-2921",
         "durationMin": 0
       }
     ],
@@ -1639,6 +3509,21 @@
         "to": "STD",
         "line": "IC-3915",
         "durationMin": 0
+      },
+      {
+        "to": "WT",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "EC",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "EC",
+        "line": "SPR-SYN-3915",
+        "durationMin": 0
       }
     ],
     "STD": [
@@ -1656,6 +3541,21 @@
         "to": "RM",
         "line": "IC-3915",
         "durationMin": 0
+      },
+      {
+        "to": "SRN",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "GLN",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "SRN",
+        "line": "SPR-SYN-3915",
+        "durationMin": 0
       }
     ],
     "HRL": [
@@ -1668,12 +3568,27 @@
         "to": "MT",
         "line": "IC-2921",
         "durationMin": 0
+      },
+      {
+        "to": "HB",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "HRLW",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
       }
     ],
     "MT": [
       {
         "to": "HRL",
         "line": "IC-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "MTN",
+        "line": "SPR-SYN-2921",
         "durationMin": 0
       }
     ],
@@ -1722,6 +3637,36 @@
         "to": "ASDL",
         "line": "SPR-4121",
         "durationMin": 0
+      },
+      {
+        "to": "ASD",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "HWZB",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "ASD",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "ZD",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "ASD",
+        "line": "SPR-SYN-2912",
+        "durationMin": 0
+      },
+      {
+        "to": "ZD",
+        "line": "SPR-SYN-2912",
+        "durationMin": 0
       }
     ],
     "HLM": [
@@ -1743,6 +3688,16 @@
       {
         "to": "HAD",
         "line": "IC-2113",
+        "durationMin": 0
+      },
+      {
+        "to": "HLMS",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "HAD",
+        "line": "SPR-SYN-2215",
         "durationMin": 0
       }
     ],
@@ -1766,6 +3721,16 @@
         "to": "LEDN",
         "line": "IC-2113",
         "durationMin": 0
+      },
+      {
+        "to": "HLM",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "HIL",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
       }
     ],
     "LEDN": [
@@ -1788,6 +3753,16 @@
         "to": "GVC",
         "line": "IC-2113",
         "durationMin": 0
+      },
+      {
+        "to": "VH",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "DVNK",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
       }
     ],
     "LAA": [
@@ -1799,6 +3774,16 @@
       {
         "to": "GV",
         "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "GVM",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "GV",
+        "line": "SPR-SYN-2215",
         "durationMin": 0
       }
     ],
@@ -1822,6 +3807,16 @@
         "to": "GVC",
         "line": "SPR-5012",
         "durationMin": 0
+      },
+      {
+        "to": "LAA",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "GVMW",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
       }
     ],
     "DT": [
@@ -1844,6 +3839,16 @@
         "to": "RSW",
         "line": "SPR-5012",
         "durationMin": 0
+      },
+      {
+        "to": "RSW",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "DTCP",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
       }
     ],
     "SDM": [
@@ -1865,6 +3870,16 @@
       {
         "to": "DTCP",
         "line": "SPR-5012",
+        "durationMin": 0
+      },
+      {
+        "to": "DTCP",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "RTD",
+        "line": "SPR-SYN-2215",
         "durationMin": 0
       }
     ],
@@ -1913,6 +3928,31 @@
         "to": "BD",
         "line": "ICD-1814",
         "durationMin": 0
+      },
+      {
+        "to": "SDM",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "RTB",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "RTN",
+        "line": "SPR-SYN-2819",
+        "durationMin": 0
+      },
+      {
+        "to": "SHL",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "BD",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
       }
     ],
     "RTB": [
@@ -1924,6 +3964,16 @@
       {
         "to": "DDR",
         "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "RTD",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "DDR",
+        "line": "SPR-SYN-2215",
         "durationMin": 0
       }
     ],
@@ -1937,6 +3987,16 @@
         "to": "RSD",
         "line": "IC-2215",
         "durationMin": 0
+      },
+      {
+        "to": "RTB",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "DDZD",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
       }
     ],
     "RSD": [
@@ -1948,6 +4008,16 @@
       {
         "to": "BGN",
         "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "ODB",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "BGN",
+        "line": "SPR-SYN-2215",
         "durationMin": 0
       }
     ],
@@ -1961,6 +4031,16 @@
         "to": "RB",
         "line": "IC-2215",
         "durationMin": 0
+      },
+      {
+        "to": "RSD",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "RB",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
       }
     ],
     "RB": [
@@ -1972,6 +4052,16 @@
       {
         "to": "KBD",
         "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "BGN",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "KBD",
+        "line": "SPR-SYN-2215",
         "durationMin": 0
       }
     ],
@@ -1985,6 +4075,16 @@
         "to": "KRG",
         "line": "IC-2215",
         "durationMin": 0
+      },
+      {
+        "to": "RB",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "KRG",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
       }
     ],
     "KRG": [
@@ -1996,6 +4096,16 @@
       {
         "to": "BZL",
         "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "KBD",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "BZL",
+        "line": "SPR-SYN-2215",
         "durationMin": 0
       }
     ],
@@ -2009,6 +4119,16 @@
         "to": "GS",
         "line": "IC-2215",
         "durationMin": 0
+      },
+      {
+        "to": "KRG",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "GS",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
       }
     ],
     "GS": [
@@ -2020,6 +4140,16 @@
       {
         "to": "ARN",
         "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "BZL",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "ARN",
+        "line": "SPR-SYN-2215",
         "durationMin": 0
       }
     ],
@@ -2033,6 +4163,16 @@
         "to": "MDB",
         "line": "IC-2215",
         "durationMin": 0
+      },
+      {
+        "to": "GS",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "MDB",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
       }
     ],
     "MDB": [
@@ -2044,6 +4184,16 @@
       {
         "to": "VSS",
         "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "ARN",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "VSS",
+        "line": "SPR-SYN-2215",
         "durationMin": 0
       }
     ],
@@ -2057,12 +4207,27 @@
         "to": "VS",
         "line": "IC-2215",
         "durationMin": 0
+      },
+      {
+        "to": "MDB",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "VS",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
       }
     ],
     "VS": [
       {
         "to": "VSS",
         "line": "IC-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "VSS",
+        "line": "SPR-SYN-2215",
         "durationMin": 0
       }
     ],
@@ -2098,6 +4263,26 @@
         "to": "CAS",
         "line": "IC-3012",
         "durationMin": 0
+      },
+      {
+        "to": "ASS",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "KZ",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "ASS",
+        "line": "SPR-SYN-2912",
+        "durationMin": 0
+      },
+      {
+        "to": "ZDK",
+        "line": "SPR-SYN-2912",
+        "durationMin": 0
       }
     ],
     "CAS": [
@@ -2109,6 +4294,16 @@
       {
         "to": "HLO",
         "line": "IC-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "UTG",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "HLO",
+        "line": "SPR-SYN-3012",
         "durationMin": 0
       }
     ],
@@ -2122,6 +4317,16 @@
         "to": "AMR",
         "line": "IC-3012",
         "durationMin": 0
+      },
+      {
+        "to": "CAS",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "AMR",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
       }
     ],
     "AMR": [
@@ -2129,12 +4334,22 @@
         "to": "HLO",
         "line": "IC-3012",
         "durationMin": 0
+      },
+      {
+        "to": "HLO",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
       }
     ],
     "HN": [
       {
         "to": "ASS",
         "line": "IC-2912",
+        "durationMin": 0
+      },
+      {
+        "to": "PMO",
+        "line": "SPR-SYN-2912",
         "durationMin": 0
       }
     ],
@@ -2163,6 +4378,16 @@
         "to": "RTA",
         "line": "IC-2819",
         "durationMin": 0
+      },
+      {
+        "to": "GDG",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "NWK",
+        "line": "SPR-SYN-2819",
+        "durationMin": 0
       }
     ],
     "RTA": [
@@ -2174,6 +4399,16 @@
       {
         "to": "GD",
         "line": "IC-2819",
+        "durationMin": 0
+      },
+      {
+        "to": "RTN",
+        "line": "SPR-SYN-2819",
+        "durationMin": 0
+      },
+      {
+        "to": "CPS",
+        "line": "SPR-SYN-2819",
         "durationMin": 0
       }
     ],
@@ -2197,6 +4432,16 @@
         "to": "RTD",
         "line": "ICD-1814",
         "durationMin": 0
+      },
+      {
+        "to": "RTD",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      },
+      {
+        "to": "GZ",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
       }
     ],
     "SHL": [
@@ -2219,6 +4464,16 @@
         "to": "RTD",
         "line": "ICD-1814",
         "durationMin": 0
+      },
+      {
+        "to": "RTD",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "ASDZ",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
       }
     ],
     "ASDZ": [
@@ -2230,6 +4485,16 @@
       {
         "to": "ALM",
         "line": "ICD-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "SHL",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "RAI",
+        "line": "SPR-SYN-2417",
         "durationMin": 0
       }
     ],
@@ -2309,6 +4574,16 @@
         "to": "EHV",
         "line": "IC-1121",
         "durationMin": 0
+      },
+      {
+        "to": "TBU",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      },
+      {
+        "to": "OT",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
       }
     ],
     "HVS": [
@@ -2320,6 +4595,16 @@
       {
         "to": "AMF",
         "line": "IC-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "HVSM",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "BRN",
+        "line": "SPR-SYN-1519",
         "durationMin": 0
       }
     ],
@@ -2333,6 +4618,16 @@
         "to": "DT",
         "line": "SPR-5012",
         "durationMin": 0
+      },
+      {
+        "to": "DT",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "SDM",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
       }
     ],
     "RSW": [
@@ -2345,6 +4640,16 @@
         "to": "GVMW",
         "line": "SPR-5012",
         "durationMin": 0
+      },
+      {
+        "to": "GVMW",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "DT",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
       }
     ],
     "GVMW": [
@@ -2356,6 +4661,16 @@
       {
         "to": "GV",
         "line": "SPR-5012",
+        "durationMin": 0
+      },
+      {
+        "to": "GV",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "RSW",
+        "line": "SPR-SYN-2215",
         "durationMin": 0
       }
     ],
@@ -2452,6 +4767,1770 @@
       {
         "to": "SHL",
         "line": "SPR-4121",
+        "durationMin": 0
+      }
+    ],
+    "ASDM": [
+      {
+        "to": "ASD",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ASSP",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ASD",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "ASA",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "ASD",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "ASSP",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      }
+    ],
+    "ASSP": [
+      {
+        "to": "ASDM",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "DMN",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ASDM",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "DMN",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      }
+    ],
+    "DMN": [
+      {
+        "to": "ASSP",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "WP",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ASSP",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "WP",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      }
+    ],
+    "WP": [
+      {
+        "to": "DMN",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "AMPO",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "DMNZ",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "AMPO",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "DMN",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "NDB",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      }
+    ],
+    "AMPO": [
+      {
+        "to": "WP",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ALMM",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "WP",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "ALMM",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      }
+    ],
+    "ALMM": [
+      {
+        "to": "AMPO",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ALM",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "AMPO",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "ALM",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      }
+    ],
+    "ALMP": [
+      {
+        "to": "ALM",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ALMB",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ALM",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      },
+      {
+        "to": "ALMB",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      }
+    ],
+    "ALMB": [
+      {
+        "to": "ALMP",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ALMO",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ALMP",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      },
+      {
+        "to": "ALMO",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      }
+    ],
+    "ALMO": [
+      {
+        "to": "ALMB",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "LLS",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ALMB",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      },
+      {
+        "to": "LLS",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      }
+    ],
+    "DRON": [
+      {
+        "to": "LLS",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "KPNZ",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "LLS",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      },
+      {
+        "to": "KPNZ",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      }
+    ],
+    "KPNZ": [
+      {
+        "to": "DRON",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "ZL",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "DRON",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      },
+      {
+        "to": "ZL",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      }
+    ],
+    "WV": [
+      {
+        "to": "SWK",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "HR",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "SWK",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      },
+      {
+        "to": "HR",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      }
+    ],
+    "AKM": [
+      {
+        "to": "HR",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "GW",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "HR",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      },
+      {
+        "to": "GW",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      }
+    ],
+    "GW": [
+      {
+        "to": "AKM",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "LW",
+        "line": "SPR-SYN-819",
+        "durationMin": 0
+      },
+      {
+        "to": "AKM",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      },
+      {
+        "to": "LW",
+        "line": "SPR-SYN-823",
+        "durationMin": 0
+      }
+    ],
+    "HGV": [
+      {
+        "to": "MP",
+        "line": "SPR-SYN-519",
+        "durationMin": 0
+      },
+      {
+        "to": "BL",
+        "line": "SPR-SYN-519",
+        "durationMin": 0
+      }
+    ],
+    "BL": [
+      {
+        "to": "HGV",
+        "line": "SPR-SYN-519",
+        "durationMin": 0
+      },
+      {
+        "to": "ASN",
+        "line": "SPR-SYN-519",
+        "durationMin": 0
+      }
+    ],
+    "HRN": [
+      {
+        "to": "ASN",
+        "line": "SPR-SYN-519",
+        "durationMin": 0
+      },
+      {
+        "to": "GN",
+        "line": "SPR-SYN-519",
+        "durationMin": 0
+      }
+    ],
+    "GDG": [
+      {
+        "to": "GD",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "WD",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      }
+    ],
+    "WD": [
+      {
+        "to": "GDG",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "BKL",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      }
+    ],
+    "BKL": [
+      {
+        "to": "WD",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "MAS",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "AC",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "MAS",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      }
+    ],
+    "MAS": [
+      {
+        "to": "BKL",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "UTZL",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "BKL",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "UTZL",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      }
+    ],
+    "UTZL": [
+      {
+        "to": "MAS",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "UT",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "MAS",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "UT",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      }
+    ],
+    "UTO": [
+      {
+        "to": "UT",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "BHV",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "UT",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "BHV",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      }
+    ],
+    "BHV": [
+      {
+        "to": "UTO",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "DLD",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "UTO",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "DLD",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      }
+    ],
+    "DLD": [
+      {
+        "to": "BHV",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "AMF",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "BHV",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "AMF",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      }
+    ],
+    "HVL": [
+      {
+        "to": "AMF",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "APD",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "AMF",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "APD",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "AMF",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "APD",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      }
+    ],
+    "APDO": [
+      {
+        "to": "APD",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "TWL",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "APD",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "TWL",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      }
+    ],
+    "TWL": [
+      {
+        "to": "APDO",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "DV",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "APDO",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "DV",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      }
+    ],
+    "DVC": [
+      {
+        "to": "DV",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "HON",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      }
+    ],
+    "HON": [
+      {
+        "to": "DVC",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "RSN",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      }
+    ],
+    "RSN": [
+      {
+        "to": "HON",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "WDN",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      }
+    ],
+    "WDN": [
+      {
+        "to": "RSN",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "AML",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      }
+    ],
+    "AMRI": [
+      {
+        "to": "AML",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "BN",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      }
+    ],
+    "BN": [
+      {
+        "to": "AMRI",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "HGL",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      }
+    ],
+    "ESK": [
+      {
+        "to": "HGL",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      },
+      {
+        "to": "ES",
+        "line": "SPR-SYN-1721",
+        "durationMin": 0
+      }
+    ],
+    "DVD": [
+      {
+        "to": "ASA",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "ASB",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "RAI",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "DMNZ",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      }
+    ],
+    "ASB": [
+      {
+        "to": "DVD",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "ASHD",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      }
+    ],
+    "ASHD": [
+      {
+        "to": "ASB",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "AC",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      }
+    ],
+    "AC": [
+      {
+        "to": "ASHD",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      },
+      {
+        "to": "BKL",
+        "line": "SPR-SYN-3019",
+        "durationMin": 0
+      }
+    ],
+    "UTLN": [
+      {
+        "to": "UT",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HTN",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HTN",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "UT",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      }
+    ],
+    "HTN": [
+      {
+        "to": "UTLN",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HTNC",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HTNC",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "UTLN",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      }
+    ],
+    "HTNC": [
+      {
+        "to": "HTN",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "CL",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "CL",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "HTN",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      }
+    ],
+    "CL": [
+      {
+        "to": "HTNC",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "GDM",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "GDM",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "HTNC",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      }
+    ],
+    "GDM": [
+      {
+        "to": "CL",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "ZBM",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "ZBM",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "CL",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      }
+    ],
+    "ZBM": [
+      {
+        "to": "GDM",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HT",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HT",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "GDM",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      }
+    ],
+    "VG": [
+      {
+        "to": "HT",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "BTL",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "BTL",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "HT",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      }
+    ],
+    "BTL": [
+      {
+        "to": "VG",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "BET",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "BET",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "VG",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "OT",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      },
+      {
+        "to": "BET",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      }
+    ],
+    "BET": [
+      {
+        "to": "BTL",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "EHS",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "EHS",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "BTL",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "BTL",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      },
+      {
+        "to": "EHS",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      }
+    ],
+    "EHS": [
+      {
+        "to": "BET",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "EHV",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "EHV",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "BET",
+        "line": "SPR-SYN-3918",
+        "durationMin": 0
+      },
+      {
+        "to": "BET",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      },
+      {
+        "to": "EHV",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      }
+    ],
+    "HMBV": [
+      {
+        "to": "EHV",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HMH",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      }
+    ],
+    "HMH": [
+      {
+        "to": "HMBV",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "HM",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      }
+    ],
+    "HMBH": [
+      {
+        "to": "HM",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      },
+      {
+        "to": "DN",
+        "line": "SPR-SYN-3519",
+        "durationMin": 0
+      }
+    ],
+    "GP": [
+      {
+        "to": "EHV",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "HZE",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "HZE": [
+      {
+        "to": "GP",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "MZ",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "MZ": [
+      {
+        "to": "HZE",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "WT",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "EC": [
+      {
+        "to": "RM",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "SRN",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "RM",
+        "line": "SPR-SYN-3915",
+        "durationMin": 0
+      },
+      {
+        "to": "SRN",
+        "line": "SPR-SYN-3915",
+        "durationMin": 0
+      }
+    ],
+    "SRN": [
+      {
+        "to": "EC",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "STD",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "EC",
+        "line": "SPR-SYN-3915",
+        "durationMin": 0
+      },
+      {
+        "to": "STD",
+        "line": "SPR-SYN-3915",
+        "durationMin": 0
+      }
+    ],
+    "GLN": [
+      {
+        "to": "STD",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "SBK",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "SBK": [
+      {
+        "to": "GLN",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "SN",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "SN": [
+      {
+        "to": "SBK",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "NH",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "NH": [
+      {
+        "to": "SN",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "HB",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "HB": [
+      {
+        "to": "NH",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "HRL",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "HRLW": [
+      {
+        "to": "HRL",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "VDL",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "VDL": [
+      {
+        "to": "HRLW",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "KMR",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "KMR": [
+      {
+        "to": "VDL",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "SOG",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "SOG": [
+      {
+        "to": "KMR",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "VK",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "VK": [
+      {
+        "to": "SOG",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "SGL",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "SGL": [
+      {
+        "to": "VK",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "MES",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "MES": [
+      {
+        "to": "SGL",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "MTN",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "MTN": [
+      {
+        "to": "MES",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      },
+      {
+        "to": "MT",
+        "line": "SPR-SYN-2921",
+        "durationMin": 0
+      }
+    ],
+    "HWZB": [
+      {
+        "to": "ASS",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "HLMS",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      }
+    ],
+    "HLMS": [
+      {
+        "to": "HWZB",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "HLM",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      }
+    ],
+    "HIL": [
+      {
+        "to": "HAD",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "VH",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      }
+    ],
+    "VH": [
+      {
+        "to": "HIL",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "LEDN",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      }
+    ],
+    "DVNK": [
+      {
+        "to": "LEDN",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "VST",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      }
+    ],
+    "VST": [
+      {
+        "to": "DVNK",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "GVM",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      }
+    ],
+    "GVM": [
+      {
+        "to": "VST",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "LAA",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      }
+    ],
+    "DDZD": [
+      {
+        "to": "DDR",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "ZLW",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      }
+    ],
+    "ZLW": [
+      {
+        "to": "DDZD",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "ZVB",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      }
+    ],
+    "ZVB": [
+      {
+        "to": "ZLW",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "ODB",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      }
+    ],
+    "ODB": [
+      {
+        "to": "ZVB",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      },
+      {
+        "to": "RSD",
+        "line": "SPR-SYN-2215",
+        "durationMin": 0
+      }
+    ],
+    "KZ": [
+      {
+        "to": "ZD",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "ZZS",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      }
+    ],
+    "ZZS": [
+      {
+        "to": "KZ",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "WM",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      }
+    ],
+    "WM": [
+      {
+        "to": "ZZS",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "KMA",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      }
+    ],
+    "KMA": [
+      {
+        "to": "WM",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "UTG",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      }
+    ],
+    "UTG": [
+      {
+        "to": "KMA",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      },
+      {
+        "to": "CAS",
+        "line": "SPR-SYN-3012",
+        "durationMin": 0
+      }
+    ],
+    "ZDK": [
+      {
+        "to": "ZD",
+        "line": "SPR-SYN-2912",
+        "durationMin": 0
+      },
+      {
+        "to": "PMW",
+        "line": "SPR-SYN-2912",
+        "durationMin": 0
+      }
+    ],
+    "PMW": [
+      {
+        "to": "ZDK",
+        "line": "SPR-SYN-2912",
+        "durationMin": 0
+      },
+      {
+        "to": "PMR",
+        "line": "SPR-SYN-2912",
+        "durationMin": 0
+      }
+    ],
+    "PMR": [
+      {
+        "to": "PMW",
+        "line": "SPR-SYN-2912",
+        "durationMin": 0
+      },
+      {
+        "to": "PMO",
+        "line": "SPR-SYN-2912",
+        "durationMin": 0
+      }
+    ],
+    "PMO": [
+      {
+        "to": "PMR",
+        "line": "SPR-SYN-2912",
+        "durationMin": 0
+      },
+      {
+        "to": "HN",
+        "line": "SPR-SYN-2912",
+        "durationMin": 0
+      }
+    ],
+    "OST": [
+      {
+        "to": "DV",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "WH",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      }
+    ],
+    "WH": [
+      {
+        "to": "OST",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      },
+      {
+        "to": "ZL",
+        "line": "SPR-SYN-621",
+        "durationMin": 0
+      }
+    ],
+    "BNK": [
+      {
+        "to": "UT",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "DB",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      }
+    ],
+    "MRN": [
+      {
+        "to": "DB",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "KLP",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      }
+    ],
+    "WF": [
+      {
+        "to": "ED",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "OTB",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      }
+    ],
+    "OTB": [
+      {
+        "to": "WF",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "AH",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      }
+    ],
+    "AHZ": [
+      {
+        "to": "AH",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "EST",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      }
+    ],
+    "EST": [
+      {
+        "to": "AHZ",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "NML",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      }
+    ],
+    "NML": [
+      {
+        "to": "EST",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      },
+      {
+        "to": "NM",
+        "line": "SPR-SYN-3121",
+        "durationMin": 0
+      }
+    ],
+    "RTN": [
+      {
+        "to": "RTD",
+        "line": "SPR-SYN-2819",
+        "durationMin": 0
+      },
+      {
+        "to": "RTA",
+        "line": "SPR-SYN-2819",
+        "durationMin": 0
+      }
+    ],
+    "CPS": [
+      {
+        "to": "RTA",
+        "line": "SPR-SYN-2819",
+        "durationMin": 0
+      },
+      {
+        "to": "NWK",
+        "line": "SPR-SYN-2819",
+        "durationMin": 0
+      }
+    ],
+    "NWK": [
+      {
+        "to": "CPS",
+        "line": "SPR-SYN-2819",
+        "durationMin": 0
+      },
+      {
+        "to": "GD",
+        "line": "SPR-SYN-2819",
+        "durationMin": 0
+      }
+    ],
+    "RAI": [
+      {
+        "to": "ASDZ",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "DVD",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      }
+    ],
+    "DMNZ": [
+      {
+        "to": "DVD",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      },
+      {
+        "to": "WP",
+        "line": "SPR-SYN-2417",
+        "durationMin": 0
+      }
+    ],
+    "GZ": [
+      {
+        "to": "BD",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      },
+      {
+        "to": "TBR",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      }
+    ],
+    "TBR": [
+      {
+        "to": "GZ",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      },
+      {
+        "to": "TBU",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      }
+    ],
+    "TBU": [
+      {
+        "to": "TBR",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      },
+      {
+        "to": "TB",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      }
+    ],
+    "OT": [
+      {
+        "to": "TB",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      },
+      {
+        "to": "BTL",
+        "line": "SPR-SYN-1121",
+        "durationMin": 0
+      }
+    ],
+    "NDB": [
+      {
+        "to": "WP",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "BSMZ",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      }
+    ],
+    "BSMZ": [
+      {
+        "to": "NDB",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "HVSM",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      }
+    ],
+    "HVSM": [
+      {
+        "to": "BSMZ",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "HVS",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      }
+    ],
+    "BRN": [
+      {
+        "to": "HVS",
+        "line": "SPR-SYN-1519",
+        "durationMin": 0
+      },
+      {
+        "to": "AMF",
+        "line": "SPR-SYN-1519",
         "durationMin": 0
       }
     ]
@@ -2647,6 +6726,307 @@
       "SHL",
       "RTD",
       "BD"
+    ],
+    "SPR-SYN-819": [
+      "ASD",
+      "ASDM",
+      "ASSP",
+      "DMN",
+      "WP",
+      "AMPO",
+      "ALMM",
+      "ALM",
+      "ALMP",
+      "ALMB",
+      "ALMO",
+      "LLS",
+      "DRON",
+      "KPNZ",
+      "ZL",
+      "MP",
+      "SWK",
+      "WV",
+      "HR",
+      "AKM",
+      "GW",
+      "LW"
+    ],
+    "SPR-SYN-519": [
+      "ZL",
+      "MP",
+      "HGV",
+      "BL",
+      "ASN",
+      "HRN",
+      "GN"
+    ],
+    "SPR-SYN-1721": [
+      "GD",
+      "GDG",
+      "WD",
+      "BKL",
+      "MAS",
+      "UTZL",
+      "UT",
+      "UTO",
+      "BHV",
+      "DLD",
+      "AMF",
+      "HVL",
+      "APD",
+      "APDO",
+      "TWL",
+      "DV",
+      "DVC",
+      "HON",
+      "RSN",
+      "WDN",
+      "AML",
+      "AMRI",
+      "BN",
+      "HGL",
+      "ESK",
+      "ES"
+    ],
+    "SPR-SYN-3019": [
+      "ASD",
+      "ASDM",
+      "ASA",
+      "DVD",
+      "ASB",
+      "ASHD",
+      "AC",
+      "BKL",
+      "MAS",
+      "UTZL",
+      "UT"
+    ],
+    "SPR-SYN-3519": [
+      "UT",
+      "UTLN",
+      "HTN",
+      "HTNC",
+      "CL",
+      "GDM",
+      "ZBM",
+      "HT",
+      "VG",
+      "BTL",
+      "BET",
+      "EHS",
+      "EHV",
+      "HMBV",
+      "HMH",
+      "HM",
+      "HMBH",
+      "DN",
+      "HRT",
+      "BR",
+      "VL"
+    ],
+    "SPR-SYN-2921": [
+      "EHV",
+      "GP",
+      "HZE",
+      "MZ",
+      "WT",
+      "RM",
+      "EC",
+      "SRN",
+      "STD",
+      "GLN",
+      "SBK",
+      "SN",
+      "NH",
+      "HB",
+      "HRL",
+      "HRLW",
+      "VDL",
+      "KMR",
+      "SOG",
+      "VK",
+      "SGL",
+      "MES",
+      "MTN",
+      "MT"
+    ],
+    "SPR-SYN-2215": [
+      "ASD",
+      "ASS",
+      "HWZB",
+      "HLMS",
+      "HLM",
+      "HAD",
+      "HIL",
+      "VH",
+      "LEDN",
+      "DVNK",
+      "VST",
+      "GVM",
+      "LAA",
+      "GV",
+      "GVMW",
+      "RSW",
+      "DT",
+      "DTCP",
+      "SDM",
+      "RTD",
+      "RTB",
+      "DDR",
+      "DDZD",
+      "ZLW",
+      "ZVB",
+      "ODB",
+      "RSD",
+      "BGN",
+      "RB",
+      "KBD",
+      "KRG",
+      "BZL",
+      "GS",
+      "ARN",
+      "MDB",
+      "VSS",
+      "VS"
+    ],
+    "SPR-SYN-3012": [
+      "ASD",
+      "ASS",
+      "ZD",
+      "KZ",
+      "ZZS",
+      "WM",
+      "KMA",
+      "UTG",
+      "CAS",
+      "HLO",
+      "AMR"
+    ],
+    "SPR-SYN-2912": [
+      "ASD",
+      "ASS",
+      "ZD",
+      "ZDK",
+      "PMW",
+      "PMR",
+      "PMO",
+      "HN"
+    ],
+    "SPR-SYN-621": [
+      "UT",
+      "UTO",
+      "BHV",
+      "DLD",
+      "AMF",
+      "HVL",
+      "APD",
+      "APDO",
+      "TWL",
+      "DV",
+      "OST",
+      "WH",
+      "ZL"
+    ],
+    "SPR-SYN-3121": [
+      "UT",
+      "BNK",
+      "DB",
+      "MRN",
+      "KLP",
+      "ED",
+      "WF",
+      "OTB",
+      "AH",
+      "AHZ",
+      "EST",
+      "NML",
+      "NM"
+    ],
+    "SPR-SYN-2819": [
+      "RTD",
+      "RTN",
+      "RTA",
+      "CPS",
+      "NWK",
+      "GD"
+    ],
+    "SPR-SYN-3918": [
+      "EHV",
+      "EHS",
+      "BET",
+      "BTL",
+      "VG",
+      "HT",
+      "ZBM",
+      "GDM",
+      "CL",
+      "HTNC",
+      "HTN",
+      "UTLN",
+      "UT"
+    ],
+    "SPR-SYN-2417": [
+      "RTD",
+      "SHL",
+      "ASDZ",
+      "RAI",
+      "DVD",
+      "DMNZ",
+      "WP",
+      "AMPO",
+      "ALMM",
+      "ALM"
+    ],
+    "SPR-SYN-823": [
+      "ALM",
+      "ALMP",
+      "ALMB",
+      "ALMO",
+      "LLS",
+      "DRON",
+      "KPNZ",
+      "ZL",
+      "MP",
+      "SWK",
+      "WV",
+      "HR",
+      "AKM",
+      "GW",
+      "LW"
+    ],
+    "SPR-SYN-1121": [
+      "RTD",
+      "BD",
+      "GZ",
+      "TBR",
+      "TBU",
+      "TB",
+      "OT",
+      "BTL",
+      "BET",
+      "EHS",
+      "EHV"
+    ],
+    "SPR-SYN-1519": [
+      "ASD",
+      "ASDM",
+      "ASSP",
+      "DMN",
+      "WP",
+      "NDB",
+      "BSMZ",
+      "HVSM",
+      "HVS",
+      "BRN",
+      "AMF",
+      "HVL",
+      "APD"
+    ],
+    "SPR-SYN-3915": [
+      "RM",
+      "EC",
+      "SRN",
+      "STD"
     ]
   },
   "transferStations": [

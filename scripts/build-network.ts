@@ -206,6 +206,138 @@ for (const p of uniquePatterns) {
   lineMap[p.line] = p.stops.filter(s => stations[s])
 }
 
+// ── Synthesize Sprinter variants from IC lines using spoorkaart topology ─────
+// A Sprinter on the same corridor stops at every physical station between the
+// IC stops. We reconstruct that stopping pattern by BFS through the raw
+// spoorkaart (physical track graph) for each consecutive IC-stop pair.
+
+console.log('\n📡 Synthesizing Sprinter variants from physical topology...')
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const spoorkaart: any[] = JSON.parse(
+  readFileSync(resolve(RAW_DIR, 'spoorkaart.json'), 'utf8'),
+)
+const physAdj = new Map<string, Set<string>>()
+for (const f of spoorkaart) {
+  const a = String(f.properties?.from ?? '').toUpperCase()
+  const b = String(f.properties?.to ?? '').toUpperCase()
+  if (!a || !b) continue
+  if (!physAdj.has(a)) physAdj.set(a, new Set())
+  if (!physAdj.has(b)) physAdj.set(b, new Set())
+  physAdj.get(a)!.add(b)
+  physAdj.get(b)!.add(a)
+}
+
+function physPath(start: string, goal: string): string[] | null {
+  if (start === goal) return [start]
+  const q: string[][] = [[start]]
+  const seen = new Set([start])
+  while (q.length) {
+    const path = q.shift()!
+    const head = path[path.length - 1]
+    for (const next of physAdj.get(head) ?? []) {
+      if (seen.has(next)) continue
+      if (next === goal) return [...path, next]
+      seen.add(next)
+      q.push([...path, next])
+    }
+  }
+  return null
+}
+
+const IC_PREFIXES = new Set(['IC', 'ICD', 'INT', 'THA'])
+const synthLines: Record<string, string[]> = {}
+const discoveredStations = new Set<string>()   // Sprinter stops introduced by synthesis
+
+let synthesized = 0
+let skippedNoGain = 0
+let skippedNoPath = 0
+
+for (const [icLine, icStops] of Object.entries(lineMap)) {
+  const prefix = icLine.split('-')[0]
+  if (!IC_PREFIXES.has(prefix)) continue
+  if (icStops.length < 2) continue
+
+  const fullStops: string[] = [icStops[0]]
+  let broken = false
+  for (let i = 0; i < icStops.length - 1; i++) {
+    const seg = physPath(icStops[i], icStops[i + 1])
+    if (!seg || seg.length < 2) { broken = true; break }
+    // Drop first node (already appended as last of previous segment)
+    for (let k = 1; k < seg.length; k++) fullStops.push(seg[k])
+  }
+  if (broken) { skippedNoPath++; continue }
+
+  // Skip if the Sprinter adds nothing (e.g. Alkmaar-Den Helder: IC stops everywhere anyway)
+  if (fullStops.length === icStops.length) { skippedNoGain++; continue }
+
+  const sprLine = `SPR-SYN-${icLine.split('-').slice(1).join('-')}`
+  synthLines[sprLine] = fullStops
+  synthesized++
+  for (const s of fullStops) {
+    if (!stations[s]) discoveredStations.add(s)
+  }
+}
+
+console.log(`  ✅ Synthesized ${synthesized} Sprinter lines`)
+console.log(`  ℹ️  Skipped ${skippedNoGain} (no extra stops vs IC) · ${skippedNoPath} (incomplete physical path)`)
+console.log(`  ℹ️  Discovered ${discoveredStations.size} new Sprinter-only stations from spoorkaart expansion`)
+
+// Add the newly-discovered Sprinter-only stations to `stations` so the UI/map
+// can resolve them. Mark them with their synth line memberships.
+const synthStationLines = new Map<string, Set<string>>()
+for (const [sprLine, stops] of Object.entries(synthLines)) {
+  for (const code of stops) {
+    if (!synthStationLines.has(code)) synthStationLines.set(code, new Set())
+    synthStationLines.get(code)!.add(sprLine)
+  }
+}
+
+for (const code of discoveredStations) {
+  const raw = stationByCode.get(code)
+  if (!raw || raw.land !== 'NL') continue
+  const lines = Array.from(synthStationLines.get(code) ?? [])
+  stations[code] = {
+    code,
+    name: raw.namen.lang,
+    nameShort: raw.namen.kort,
+    lat: raw.lat,
+    lng: raw.lng,
+    isTransfer: false,  // we don't re-evaluate transfer status for synth-only stops
+    lines,
+  }
+}
+
+// Also append synth lines to the `lines` membership of existing stations
+for (const [code, sprLineSet] of synthStationLines) {
+  if (!stations[code]) continue
+  const merged = new Set([...stations[code].lines, ...sprLineSet])
+  stations[code] = { ...stations[code], lines: Array.from(merged) }
+}
+
+// Merge synth lines into lineMap. Drop any stops that still aren't in `stations`
+// (raw-data gaps) so the final graph stays internally consistent.
+for (const [sprLine, stops] of Object.entries(synthLines)) {
+  const filtered = stops.filter(s => stations[s])
+  if (filtered.length >= 4) lineMap[sprLine] = filtered  // need ≥3 intermediates for any puzzle
+}
+
+// Add synth edges to adjacency so the map renderer has the physical links
+for (const [sprLine, stops] of Object.entries(synthLines)) {
+  for (let i = 0; i < stops.length - 1; i++) {
+    const from = stops[i], to = stops[i + 1]
+    if (!stations[from] || !stations[to]) continue
+    if (!adjacency[from]) adjacency[from] = []
+    if (!adjacency[to]) adjacency[to] = []
+    if (!adjacency[from].some(e => e.to === to && e.line === sprLine)) {
+      adjacency[from].push({ to, line: sprLine, durationMin: 0 })
+    }
+    if (!adjacency[to].some(e => e.to === from && e.line === sprLine)) {
+      adjacency[to].push({ to: from, line: sprLine, durationMin: 0 })
+    }
+  }
+}
+
 const transferList = Array.from(transferStations).filter(s => stations[s])
 
 const graph: NetworkGraph = {

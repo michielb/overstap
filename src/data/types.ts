@@ -32,7 +32,11 @@ export interface AdjacencyEntry {
 
 // ── Game models (v2: guess-all-stops-on-route) ────────────────────────────────
 
-export type Difficulty = 'easy' | 'medium' | 'hard'
+/** IC = Intercity / Intercity Direct / international; Sprinter = SPR / stoptrein */
+export type Category = 'ic' | 'sprinter'
+
+/** Bucket by intermediate-stop count. Targets ~4, ~7, ~12 stops respectively. */
+export type Size = 'short' | 'medium' | 'long'
 
 export interface LinePuzzle {
   date: string              // YYYY-MM-DD
@@ -40,7 +44,8 @@ export interface LinePuzzle {
   to: string                // destination station code
   stops: string[]           // ordered intermediate station codes (excluding from/to)
   line: string              // line identifier (for debugging / display)
-  difficulty: Difficulty
+  category: Category
+  size: Size
 }
 
 export type Mode = 'easy' | 'hard'

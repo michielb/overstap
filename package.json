@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "fetch-data": "tsx scripts/fetch-ns-data.ts",
     "build-network": "tsx scripts/build-network.ts",
-    "test-api": "tsx scripts/test-ns-api.ts"
+    "test-api": "tsx scripts/test-ns-api.ts",
+    "preview-puzzles": "tsx scripts/preview-puzzles.ts"
   },
   "dependencies": {
     "react": "^19.2.4",

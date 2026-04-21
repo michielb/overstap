@@ -2,10 +2,44 @@
  * Puzzle selection for v2: "guess all stops on the route".
  *
  * A puzzle is a single-line segment (from, to, intermediate stops in order).
- * Players guess the intermediate stops one at a time.
+ * Each day picks one cell of the 2×3 grid {IC, Sprinter} × {short, medium, long},
+ * with an anti-repeat window so consecutive days don't land on overlapping routes.
  */
 
-import type { Difficulty, LinePuzzle, NetworkGraph } from '../data/types.js'
+import type { Category, LinePuzzle, NetworkGraph, Size } from '../data/types.js'
+import pinnedData from '../data/pinned-puzzles.json'
+
+// ── Pinned overrides ─────────────────────────────────────────────────────────
+// Author-curated puzzles keyed by YYYY-MM-DD. When present, they short-circuit
+// the seeded random pick so a specific trip ships on a specific date.
+
+interface Pin {
+  line: string       // must match a key in NetworkGraph.lines
+  from: string       // endpoint station code (order within the line doesn't matter)
+  to: string
+}
+const pins = pinnedData as Record<string, Pin>
+
+function resolvePin(graph: NetworkGraph, date: string): LinePuzzle | null {
+  const pin = pins[date]
+  if (!pin) return null
+  const seq = graph.lines[pin.line]
+  if (!seq) return null
+  const i = seq.indexOf(pin.from)
+  const j = seq.indexOf(pin.to)
+  if (i < 0 || j < 0 || i === j) return null
+  const [lo, hi] = i < j ? [i, j] : [j, i]
+  const slice = seq.slice(lo + 1, hi)
+  const stops = i < j ? slice : [...slice].reverse()
+  const size = classifySize(stops.length)
+  if (!size) return null
+  return {
+    date, from: pin.from, to: pin.to, stops,
+    line: pin.line,
+    category: classifyCategory(pin.line),
+    size,
+  }
+}
 
 // ── Seeded PRNG ──────────────────────────────────────────────────────────────
 
@@ -23,13 +57,26 @@ function dateToSeed(date: string): number {
   return date.split('-').reduce((acc, part) => acc * 1000 + parseInt(part), 0)
 }
 
-// ── Difficulty buckets (by intermediate-stop count) ──────────────────────────
+function addDays(date: string, delta: number): string {
+  const d = new Date(date + 'T00:00:00Z')
+  d.setUTCDate(d.getUTCDate() + delta)
+  return d.toISOString().slice(0, 10)
+}
 
-export function classifyDifficulty(intermediateCount: number): Difficulty | null {
-  if (intermediateCount < 2) return null       // 0–1: too trivial
-  if (intermediateCount <= 4) return 'easy'    // 2–4
-  if (intermediateCount <= 8) return 'medium'  // 5–8
-  return 'hard'                                // 9+
+// ── Classification ───────────────────────────────────────────────────────────
+
+/** IC / ICD / Thalys / International → 'ic'; SPR / Stoptrein → 'sprinter'. */
+export function classifyCategory(line: string): Category {
+  const prefix = line.split('-')[0]
+  return prefix === 'SPR' || prefix === 'ST' ? 'sprinter' : 'ic'
+}
+
+/** Map intermediate-stop count to a size bucket. Targets: ~4, ~7, ~12. */
+export function classifySize(intermediateCount: number): Size | null {
+  if (intermediateCount < 3) return null        // too trivial
+  if (intermediateCount <= 5) return 'short'    // 3–5  (centred ~4)
+  if (intermediateCount <= 8) return 'medium'   // 6–8  (centred ~7)
+  return 'long'                                 // 9+   (centred ~12)
 }
 
 // ── Candidate generation ─────────────────────────────────────────────────────
@@ -39,31 +86,33 @@ interface Candidate {
   to: string
   stops: string[]
   line: string
-  difficulty: Difficulty
+  category: Category
+  size: Size
 }
 
 /**
- * Enumerate all line-segment puzzles from the network.
- * Includes sub-segments of each line to broaden puzzle variety.
- * Dedupes by (from, to), keeping the variant with MORE intermediate stops.
+ * Enumerate all line-segment puzzles from the network. Each sub-segment of
+ * a line with ≥3 intermediate stops becomes a candidate. Dedupes by
+ * {from, to, category} — IC and Sprinter variants on the same corridor are
+ * kept as distinct puzzles. Within a (from, to, category) group, keeps the
+ * variant with MORE intermediate stops (i.e. the fullest stopping pattern).
  */
 export function buildCandidates(graph: NetworkGraph): Candidate[] {
   const best = new Map<string, Candidate>()
 
   for (const [line, seq] of Object.entries(graph.lines)) {
-    // Every (i, j) sub-segment where j > i+2 gives ≥2 intermediate stops
+    const category = classifyCategory(line)
     for (let i = 0; i < seq.length; i++) {
-      for (let j = i + 3; j < seq.length; j++) {
+      for (let j = i + 4; j < seq.length; j++) {  // j ≥ i+4 → ≥3 intermediate stops
         const from = seq[i]
         const to = seq[j]
         const stops = seq.slice(i + 1, j)
-        const difficulty = classifyDifficulty(stops.length)
-        if (!difficulty) continue
-        // Canonical key (unordered) so we don't get A→B and B→A as distinct puzzles
-        const key = [from, to].sort().join('|')
+        const size = classifySize(stops.length)
+        if (!size) continue
+        const key = [from, to].sort().join('|') + '|' + category
         const existing = best.get(key)
         if (!existing || stops.length > existing.stops.length) {
-          best.set(key, { from, to, stops, line, difficulty })
+          best.set(key, { from, to, stops, line, category, size })
         }
       }
     }
@@ -74,47 +123,125 @@ export function buildCandidates(graph: NetworkGraph): Candidate[] {
 
 // ── Daily puzzle selector ────────────────────────────────────────────────────
 
+const CELLS: ReadonlyArray<[Category, Size]> = [
+  ['ic', 'short'], ['ic', 'medium'], ['ic', 'long'],
+  ['sprinter', 'short'], ['sprinter', 'medium'], ['sprinter', 'long'],
+]
+
+/** Days of history to avoid station overlap with. */
+const LOOKBACK_DAYS = 5
+
+interface DailyOptions {
+  /** If false, skip the anti-repeat lookback. Used internally to bound recursion. */
+  avoidRecent?: boolean
+  /** Restrict to a specific category (for the "two puzzles per day" preview). */
+  onlyCategory?: Category
+}
+
 /**
- * Returns today's puzzle. Same date → same puzzle for all players.
+ * Returns the daily puzzle. Same date → same puzzle for all players.
  *
- * Difficulty rotation: each day picks one of easy/medium/hard with equal chance,
- * then picks a puzzle from that bucket. If the chosen bucket is empty, falls back.
+ * Selection:
+ *   1. Honour pinned overrides.
+ *   2. Roll a cell (category × size) seeded by the date.
+ *   3. Fall through empty cells (same category first, then across).
+ *   4. Within the cell, pick the first candidate that doesn't share any
+ *      station with the previous {LOOKBACK_DAYS} days. If none qualify,
+ *      take the first (fully seeded).
  */
-export function getDailyPuzzle(graph: NetworkGraph, dateStr?: string): LinePuzzle {
+export function getDailyPuzzle(
+  graph: NetworkGraph,
+  dateStr?: string,
+  options: DailyOptions = {},
+): LinePuzzle {
   const date = dateStr ?? new Date().toISOString().slice(0, 10)
-  const rng = mulberry32(dateToSeed(date))
 
+  if (!options.onlyCategory) {
+    const pinned = resolvePin(graph, date)
+    if (pinned) return pinned
+  }
+
+  const rng = mulberry32(dateToSeed(date) ^ (options.onlyCategory === 'sprinter' ? 0xa5a5 : 0))
   const candidates = buildCandidates(graph)
-  const byDifficulty: Record<Difficulty, Candidate[]> = {
-    easy: candidates.filter(c => c.difficulty === 'easy'),
-    medium: candidates.filter(c => c.difficulty === 'medium'),
-    hard: candidates.filter(c => c.difficulty === 'hard'),
+
+  // Build cell preference order
+  const rolledIdx = Math.floor(rng() * CELLS.length)
+  let order = [CELLS[rolledIdx], ...CELLS.filter((_, i) => i !== rolledIdx)]
+  if (options.onlyCategory) {
+    const [same, other] = [
+      order.filter(c => c[0] === options.onlyCategory),
+      order.filter(c => c[0] !== options.onlyCategory),
+    ]
+    order = [...same, ...other]   // prefer requested category, fall back across
   }
 
-  const order: Difficulty[] = ['easy', 'medium', 'hard']
-  const pickDifficulty = order[Math.floor(rng() * order.length)]
-
-  // Pick a non-empty bucket, preferring the rolled one
-  const buckets: Candidate[][] = [
-    byDifficulty[pickDifficulty],
-    ...order.filter(d => d !== pickDifficulty).map(d => byDifficulty[d]),
-  ]
-  const bucket = buckets.find(b => b.length > 0)
-
-  if (!bucket || bucket.length === 0) {
-    throw new Error('No puzzle candidates available in network data')
+  // Collect stations used in the recent window so we can avoid overlap
+  const recentStations = new Set<string>()
+  if (options.avoidRecent !== false) {
+    for (let i = 1; i <= LOOKBACK_DAYS; i++) {
+      try {
+        const prev = getDailyPuzzle(graph, addDays(date, -i), {
+          avoidRecent: false,
+          onlyCategory: options.onlyCategory,
+        })
+        recentStations.add(prev.from)
+        recentStations.add(prev.to)
+        prev.stops.forEach(s => recentStations.add(s))
+      } catch {
+        /* no candidates that far back — ignore */
+      }
+    }
   }
 
-  const pick = bucket[Math.floor(rng() * bucket.length)]
+  for (const [cat, size] of order) {
+    const bucket = candidates.filter(c => c.category === cat && c.size === size)
+    if (bucket.length === 0) continue
 
-  return {
-    date,
-    from: pick.from,
-    to: pick.to,
-    stops: pick.stops,
-    line: pick.line,
-    difficulty: pick.difficulty,
+    // Deterministic Fisher-Yates shuffle
+    const shuffled = [...bucket]
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(rng() * (i + 1))
+      ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+    }
+
+    const pick = shuffled.find(c =>
+      !recentStations.has(c.from) &&
+      !recentStations.has(c.to) &&
+      !c.stops.some(s => recentStations.has(s)),
+    ) ?? shuffled[0]
+
+    return {
+      date,
+      from: pick.from,
+      to: pick.to,
+      stops: pick.stops,
+      line: pick.line,
+      category: pick.category,
+      size: pick.size,
+    }
   }
+
+  throw new Error('No puzzle candidates available in network data')
+}
+
+/**
+ * Pair-per-day preview helper: returns one IC puzzle and one Sprinter puzzle
+ * for the same date. The two use different seeds so they're independent picks.
+ * Returns `null` for either side if no candidates exist in that category.
+ */
+export function getDailyPair(
+  graph: NetworkGraph,
+  dateStr?: string,
+): { ic: LinePuzzle | null; sprinter: LinePuzzle | null } {
+  const tryCat = (cat: Category): LinePuzzle | null => {
+    try {
+      const p = getDailyPuzzle(graph, dateStr, { onlyCategory: cat })
+      return p.category === cat ? p : null  // don't leak fallbacks across categories
+    } catch {
+      return null
+    }
+  }
+  return { ic: tryCat('ic'), sprinter: tryCat('sprinter') }
 }
 
 // ── Slot count ───────────────────────────────────────────────────────────────
