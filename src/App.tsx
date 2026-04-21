@@ -231,19 +231,10 @@ function HardModeBody({
         revealAll={!isPlaying}
       />
 
-      {/* Input above slots — closer to thumb on mobile */}
       {isPlaying && (
-        <div className="w-full space-y-2">
-          <div className="flex items-center justify-between px-1 text-xs text-gray-500">
-            <span>Slot {slotsUsed + 1} / {state.maxSlots}</span>
-            <span>{correctCount} van {stopsTotal} geraden</span>
-          </div>
-          <StationInput
-            stations={graph.stations}
-            excludeCodes={excludeCodes}
-            onSelect={onGuess}
-            placeholder="Welk station komt tussen A en B?"
-          />
+        <div className="w-full flex items-center justify-between px-1 text-xs text-gray-500">
+          <span>Slot {slotsUsed + 1} / {state.maxSlots}</span>
+          <span>{correctCount} van {stopsTotal} geraden</span>
         </div>
       )}
 
@@ -253,6 +244,14 @@ function HardModeBody({
         slots={state.slots}
         maxSlots={state.maxSlots}
         stations={graph.stations}
+        activeInput={isPlaying ? (
+          <StationInput
+            stations={graph.stations}
+            excludeCodes={excludeCodes}
+            onSelect={onGuess}
+            placeholder="Welk station nu?"
+          />
+        ) : undefined}
       />
 
       {!isPlaying && (

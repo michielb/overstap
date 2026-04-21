@@ -14,10 +14,14 @@ interface Props {
   slots: Slot[]
   maxSlots: number
   stations: Record<string, Station>
+  /** Rendered in place of the first empty slot row. MB-465. */
+  activeInput?: React.ReactNode
 }
 
-export function SlotList({ fromStation, toStation, slots, maxSlots, stations }: Props) {
+export function SlotList({ fromStation, toStation, slots, maxSlots, stations, activeInput }: Props) {
   const emptyCount = Math.max(0, maxSlots - slots.length)
+  const hasActiveInput = activeInput !== undefined && emptyCount > 0
+  const trailingEmpty = hasActiveInput ? emptyCount - 1 : emptyCount
 
   return (
     <div className="w-full bg-white rounded-2xl border border-gray-200 shadow-sm p-4">
@@ -39,10 +43,14 @@ export function SlotList({ fromStation, toStation, slots, maxSlots, stations }: 
           />
         ))}
 
-        {Array.from({ length: emptyCount }).map((_, i) => (
+        {hasActiveInput && (
+          <ActiveInputRow index={slots.length + 1}>{activeInput}</ActiveInputRow>
+        )}
+
+        {Array.from({ length: trailingEmpty }).map((_, i) => (
           <EmptyRow
             key={`empty-${i}`}
-            index={slots.length + i + 1}
+            index={slots.length + (hasActiveInput ? i + 2 : i + 1)}
           />
         ))}
 
@@ -122,6 +130,20 @@ function EmptyRow({ index }: { index: number }) {
       <div className="flex-1 min-w-0">
         <p className="text-sm text-gray-300 italic">Nog te raden</p>
       </div>
+    </li>
+  )
+}
+
+function ActiveInputRow({ index, children }: { index: number; children: React.ReactNode }) {
+  return (
+    <li className="relative flex items-center gap-3 py-1">
+      <span
+        className="relative z-10 w-10 h-10 rounded-full bg-[#FFC917] flex items-center
+                   justify-center text-xs font-bold text-gray-900 shadow-sm font-mono tabular-nums"
+      >
+        {index}
+      </span>
+      <div className="flex-1 min-w-0">{children}</div>
     </li>
   )
 }

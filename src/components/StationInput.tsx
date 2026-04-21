@@ -54,7 +54,19 @@ export function StationInput({ stations, excludeCodes, onSelect, disabled, place
     setOpen(false)
     setHighlighted(0)
     inputRef.current?.focus()
+    // MB-465: the input slides down one slot after each guess; keep it in view.
+    requestAnimationFrame(() => {
+      inputRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    })
   }, [onSelect])
+
+  function handleFocus() {
+    if (query.length >= 1) setOpen(true)
+    // MB-465: on mobile, the on-screen keyboard can cover the input — pull it back into view.
+    requestAnimationFrame(() => {
+      inputRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    })
+  }
 
   function handleKeyDown(e: React.KeyboardEvent) {
     if (e.key === 'ArrowDown') {
@@ -97,7 +109,7 @@ export function StationInput({ stations, excludeCodes, onSelect, disabled, place
                    placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400
                    focus:border-transparent disabled:opacity-40 disabled:cursor-not-allowed"
         onChange={e => { setQuery(e.target.value); setOpen(true) }}
-        onFocus={() => query.length >= 1 && setOpen(true)}
+        onFocus={handleFocus}
         onKeyDown={handleKeyDown}
         autoComplete="off"
         autoCorrect="off"
