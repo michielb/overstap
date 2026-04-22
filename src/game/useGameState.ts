@@ -54,8 +54,71 @@ type Action =
 // for the same date persist independently.
 // v5 (MB-496): hard-mode classifier no longer emits 'wrong-order' — on-route
 // guesses always become 'correct' at their true slot index.
-const STORAGE_VERSION = 5
+// v6: persisted envelope no longer carries the puzzle definition (from/to/stops/
+// line/size) — the player's progress is all that's stored; the puzzle itself
+// is re-derived from date+category on hydrate. Keeps the answer out of
+// localStorage for anyone peeking in devtools.
+const STORAGE_VERSION = 6
 const storageKey = (date: string, category: string) => `game:${date}:${category}`
+
+// What we actually write to storage: just the player's progress. The puzzle
+// identity lives in the key (date + category), and the puzzle itself is
+// re-derived on hydrate from the bundled network — so we don't need to echo
+// stops/from/to/line/size into storage.
+interface PersistedHard {
+  mode: 'hard'
+  status: GameStatus
+  slots: Slot[]
+  statsRecorded: boolean
+}
+interface PersistedEasy {
+  mode: 'easy'
+  status: GameStatus
+  placements: (string | null)[]
+  checked: boolean
+  statsRecorded: boolean
+}
+type PersistedState = PersistedHard | PersistedEasy
+
+function toPersisted(state: GameState): PersistedState {
+  if (state.mode === 'hard') {
+    return {
+      mode: 'hard',
+      status: state.status,
+      slots: state.slots,
+      statsRecorded: state.statsRecorded,
+    }
+  }
+  return {
+    mode: 'easy',
+    status: state.status,
+    placements: state.placements,
+    checked: state.checked,
+    statsRecorded: state.statsRecorded,
+  }
+}
+
+function fromPersisted(p: PersistedState, puzzle: LinePuzzle): GameState {
+  if (p.mode === 'hard') {
+    return {
+      mode: 'hard',
+      puzzle,
+      status: p.status,
+      slots: p.slots,
+      maxSlots: slotCount(puzzle.stops.length),
+      statsRecorded: p.statsRecorded,
+    }
+  }
+  return {
+    mode: 'easy',
+    puzzle,
+    status: p.status,
+    shuffledStops: shuffleStops(puzzle.stops, puzzle.date),
+    placements: p.placements,
+    checked: p.checked,
+    statsRecorded: p.statsRecorded,
+  }
+}
 
 function initialHardState(puzzle: LinePuzzle): HardGameState {
   return {
@@ -85,26 +148,23 @@ function initialState(puzzle: LinePuzzle, mode: Mode): GameState {
 }
 
 /**
- * Hydrate from storage if today's key exists and the stored puzzle still
- * matches. A puzzle mismatch means the generator shifted under the saved game
- * (rare: rebuild of network.json mid-day), in which case we start fresh.
+ * Hydrate from storage if today's key exists. The key already carries the
+ * puzzle identity (date + category), and the puzzle itself is passed in from
+ * the caller — so we just need to verify the saved progress is shape-compatible
+ * with the current puzzle. In easy mode that means placements.length must
+ * still match stops.length; a mismatch means the generator shifted under the
+ * saved game (rare: rebuild of network.json mid-day), and we start fresh.
  *
  * The stored `mode` wins over the requested one: within a day, the mode is
  * committed the first time it's saved (see MB-463 lock rules).
  */
 function loadOrInit(puzzle: LinePuzzle, mode: Mode): GameState {
-  const stored = storage.get<GameState>(storageKey(puzzle.date, puzzle.category), STORAGE_VERSION)
+  const stored = storage.get<PersistedState>(storageKey(puzzle.date, puzzle.category), STORAGE_VERSION)
   if (!stored) return initialState(puzzle, mode)
-  const p = stored.puzzle
-  const matches =
-    p &&
-    p.date === puzzle.date &&
-    p.from === puzzle.from &&
-    p.to === puzzle.to &&
-    Array.isArray(p.stops) &&
-    p.stops.length === puzzle.stops.length &&
-    p.stops.every((s, i) => s === puzzle.stops[i])
-  return matches ? stored : initialState(puzzle, mode)
+  if (stored.mode === 'easy' && stored.placements.length !== puzzle.stops.length) {
+    return initialState(puzzle, mode)
+  }
+  return fromPersisted(stored, puzzle)
 }
 
 /**
@@ -272,7 +332,7 @@ export function useGameState(
 
   useEffect(() => {
     if (ephemeral) return
-    storage.set(storageKey(state.puzzle.date, state.puzzle.category), state, STORAGE_VERSION)
+    storage.set(storageKey(state.puzzle.date, state.puzzle.category), toPersisted(state), STORAGE_VERSION)
   }, [state, ephemeral])
 
   // Session-scoped guard so StrictMode's double-invoke of the effect below
