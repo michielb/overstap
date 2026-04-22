@@ -1,36 +1,46 @@
 /**
  * Classify a single guess against the puzzle's ordered stop list.
  *
- * Rule (strict slot match):
- *   - If the station is not on the route → 'not-on-route'
- *   - Else if the guess lands in its correct slot — i.e. it equals
- *     `stops[slots.length]` — → 'correct'
- *   - Else → 'wrong-order'
+ * MB-496 skip-ahead rule:
+ *   - Off-route station → 'not-on-route'.
+ *   - On-route station whose earlier slots are all already filled at guess
+ *     time → 'correct' (green).
+ *   - On-route station typed while at least one earlier slot is still empty
+ *     → 'wrong-order' (amber). It still fills its own slot, but the
+ *     non-linear guess is recorded so it costs the perfect-bonus.
  *
- * The Nth guess is evaluated against the Nth route stop. Naming a station
- * that's on the route but in the wrong slot yields 'wrong-order', whether it
- * was "too early" or "too late". Beyond stops.length (after wrong-order /
- * not-on-route fill slots past the route length) every on-route guess is
- * 'wrong-order'.
+ * Every guess consumes one row of the buffer (maxSlots). The player wins
+ * when all stops have been named; they lose when the buffer runs out first.
  */
 
 import type { Slot, SlotStatus } from '../data/types.js'
 
 export function classifyGuess(
   stops: string[],
-  slots: Slot[],
+  placements: readonly (string | null)[],
   guess: string,
 ): SlotStatus {
-  if (!stops.includes(guess)) return 'not-on-route'
-  const expected = stops[slots.length]
-  return guess === expected ? 'correct' : 'wrong-order'
+  const idx = stops.indexOf(guess)
+  if (idx < 0) return 'not-on-route'
+  for (let i = 0; i < idx; i++) {
+    if (placements[i] === null) return 'wrong-order'
+  }
+  return 'correct'
 }
 
-/**
- * True once every route stop has been entered (as 'correct' or 'wrong-order').
- * The player has "completed the route" regardless of order.
- */
+/** Build a slot→station map from the guess log. */
+export function computePlacements(stops: string[], slots: Slot[]): (string | null)[] {
+  const placements: (string | null)[] = Array(stops.length).fill(null)
+  for (const s of slots) {
+    if (s.status === 'not-on-route') continue
+    const idx = stops.indexOf(s.station)
+    if (idx >= 0) placements[idx] = s.station
+  }
+  return placements
+}
+
+/** True once every route stop has been named (in any order). */
 export function isRouteComplete(stops: string[], slots: Slot[]): boolean {
-  const placed = new Set(slots.filter(s => s.status !== 'not-on-route').map(s => s.station))
-  return stops.every(s => placed.has(s))
+  const named = new Set(slots.filter(s => s.status !== 'not-on-route').map(s => s.station))
+  return stops.every(s => named.has(s))
 }

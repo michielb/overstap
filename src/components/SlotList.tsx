@@ -1,9 +1,17 @@
 /**
  * SlotList — vertical route view of the player's guesses.
  *
- * Shows origin at top, destination at bottom, and the configured number of
- * intermediate slots between them. Each slot is either empty or filled with
- * a station + icon (correct / wrong-order / not-on-route).
+ * Layout (MB-496):
+ *   [A endpoint]
+ *   every guess in the order it was made (✓ / ⇄ / ✗)
+ *   [input row] labelled with the lowest still-unfilled slot number
+ *   numbered empty rows, one per remaining unfilled slot, ascending by slot #
+ *   blank "reserve" rows, one per unused spare capacity
+ *   [B endpoint]
+ *
+ * Under skip-ahead scoring any on-route guess fills its true slot regardless
+ * of the order it was named in, but the *row order* on screen stays purely
+ * chronological — the user reads their guess log top-to-bottom.
  */
 
 import type { Slot, Station } from '../data/types.js'
@@ -11,52 +19,84 @@ import type { Slot, Station } from '../data/types.js'
 interface Props {
   fromStation: Station
   toStation: Station
+  /** Ordered route stops between A and B. Needed to compute which slots are
+   * still unfilled. Omit for post-game rollup views where every row is just
+   * a guess-order record. */
+  stops?: string[]
   slots: Slot[]
   maxSlots: number
   stations: Record<string, Station>
-  /** Rendered in place of the first empty slot row. MB-465. */
+  /** Rendered in the input row, positioned right below the last guess. */
   activeInput?: React.ReactNode
 }
 
-export function SlotList({ fromStation, toStation, slots, maxSlots, stations, activeInput }: Props) {
-  const emptyCount = Math.max(0, maxSlots - slots.length)
-  const hasActiveInput = activeInput !== undefined && emptyCount > 0
-  const trailingEmpty = hasActiveInput ? emptyCount - 1 : emptyCount
+export function SlotList({
+  fromStation,
+  toStation,
+  stops,
+  slots,
+  maxSlots,
+  stations,
+  activeInput,
+}: Props) {
+  const unfilledIndices: number[] = []
+  if (stops !== undefined) {
+    const placed = new Set<number>()
+    for (const s of slots) {
+      if (s.status === 'not-on-route') continue
+      const idx = stops.indexOf(s.station)
+      if (idx >= 0) placed.add(idx)
+    }
+    for (let i = 0; i < stops.length; i++) {
+      if (!placed.has(i)) unfilledIndices.push(i)
+    }
+  }
+
+  const remainingReal = unfilledIndices.length
+  const emptyRows = Math.max(0, maxSlots - slots.length)
+  const remainingSpare = Math.max(0, emptyRows - remainingReal)
+  const hasActiveInput = activeInput !== undefined && remainingReal > 0
+  const inputIndex = unfilledIndices[0] ?? 0
+  const trailingIndices = hasActiveInput ? unfilledIndices.slice(1) : unfilledIndices
 
   return (
     <div className="w-full bg-white rounded-2xl border border-gray-200 shadow-sm p-4">
       <ol className="relative flex flex-col gap-1.5">
-        {/* Vertical rail */}
-        <span
-          aria-hidden
-          className="absolute left-[19px] top-4 bottom-4 w-0.5 bg-gray-200"
-        />
-
+        <Rail />
         <EndpointRow station={fromStation} variant="origin" />
 
         {slots.map((slot, i) => (
-          <SlotRow
-            key={`slot-${i}`}
-            index={i + 1}
-            slot={slot}
-            stations={stations}
-          />
+          <SlotRow key={`guess-${i}`} slot={slot} stations={stations} />
         ))}
 
         {hasActiveInput && (
-          <ActiveInputRow index={slots.length + 1}>{activeInput}</ActiveInputRow>
+          // Stable key so React keeps the DOM node across renders — preserves
+          // keyboard focus on the station-autocomplete input between guesses.
+          <ActiveInputRow key="active-input" index={inputIndex + 1}>
+            {activeInput}
+          </ActiveInputRow>
         )}
 
-        {Array.from({ length: trailingEmpty }).map((_, i) => (
-          <EmptyRow
-            key={`empty-${i}`}
-            index={slots.length + (hasActiveInput ? i + 2 : i + 1)}
-          />
+        {trailingIndices.map(idx => (
+          <EmptyRow key={`empty-${idx}`} index={idx + 1} />
+        ))}
+
+        {Array.from({ length: remainingSpare }).map((_, i) => (
+          <EmptyRow key={`spare-${i}`} index={null} />
         ))}
 
         <EndpointRow station={toStation} variant="destination" />
       </ol>
     </div>
+  )
+}
+
+function Rail() {
+  return (
+    <span
+      aria-hidden
+      className="absolute left-[19px] top-4 bottom-4 w-0.5 bg-gray-200"
+    />
   )
 }
 
@@ -87,11 +127,9 @@ function EndpointRow({
 }
 
 function SlotRow({
-  index,
   slot,
   stations,
 }: {
-  index: number
   slot: Slot
   stations: Record<string, Station>
 }) {
@@ -109,13 +147,12 @@ function SlotRow({
       </span>
       <div className="flex-1 min-w-0 flex items-center justify-between gap-2">
         <p className={`text-sm font-medium truncate ${cfg.text}`}>{name}</p>
-        <span className="text-xs text-gray-300 font-mono tabular-nums shrink-0">{index}</span>
       </div>
     </li>
   )
 }
 
-function EmptyRow({ index }: { index: number }) {
+function EmptyRow({ index }: { index: number | null }) {
   return (
     <li className="relative flex items-center gap-3 py-1">
       <span
@@ -123,10 +160,12 @@ function EmptyRow({ index }: { index: number }) {
                    border-gray-200 flex items-center justify-center text-xs text-gray-300
                    font-mono tabular-nums"
       >
-        {index}
+        {index ?? ''}
       </span>
       <div className="flex-1 min-w-0">
-        <p className="text-sm text-gray-300 italic">Nog te raden</p>
+        <p className="text-sm text-gray-300 italic">
+          {index === null ? 'Reserve' : 'Nog te raden'}
+        </p>
       </div>
     </li>
   )

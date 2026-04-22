@@ -43,6 +43,9 @@ function buildShareText(
   }).join('')
 
   const totalStops = puzzle.stops.length
+  // MB-496: a "placed" stop means the station was named (correct or
+  // wrong-order). Both easy- and hard-mode slotsForScore share this shape
+  // (hard includes wrong-order rows; easy only ever contains placed slots).
   const correctStops = slots.filter(s => s.status !== 'not-on-route').length
   const bonus = won && !orderBroken ? ' ⭐' : ''
 
@@ -54,6 +57,7 @@ function buildShareText(
     `${fromName} → ${toName}`,
     `${correctStops}/${totalStops} stations, ${score} punten${bonus}`,
     grid,
+    'https://treintje.h4a.site',
   ].join('\n')
 }
 
@@ -128,7 +132,7 @@ export function ScoreScreen({ won, puzzle, slots, stations, score, orderBroken, 
                 key={s.station}
                 className="px-2 py-1 rounded-md bg-white border border-gray-200 text-xs text-gray-600"
               >
-                {stations[s.station]?.nameShort ?? s.station}
+                {stations[s.station]?.name ?? s.station}
               </span>
             ))}
           </div>

@@ -460,6 +460,7 @@ function HardModeBody({
         toStation={toStation}
         slots={state.slots}
         maxSlots={isPlaying ? state.maxSlots : state.slots.length}
+        stops={isPlaying ? state.puzzle.stops : undefined}
         stations={graph.stations}
         activeInput={isPlaying ? (
           <StationInput

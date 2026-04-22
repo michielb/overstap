@@ -11,7 +11,7 @@
 
 import { useReducer, useCallback, useMemo, useEffect, useRef } from 'react'
 import type { LinePuzzle, Mode, Slot } from '../data/types.js'
-import { classifyGuess, isRouteComplete } from './classify.js'
+import { classifyGuess, computePlacements, isRouteComplete } from './classify.js'
 import { shuffleStops, slotCount } from './puzzle.js'
 import { storage } from '../storage/index.js'
 import { recordCompletion } from './stats.js'
@@ -52,7 +52,9 @@ type Action =
 // Bump when GameState shape changes — old saves are then silently discarded.
 // v4 (MB-479): keys gained a `:<category>` suffix so IC and Sprinter puzzles
 // for the same date persist independently.
-const STORAGE_VERSION = 4
+// v5 (MB-496): hard-mode classifier no longer emits 'wrong-order' — on-route
+// guesses always become 'correct' at their true slot index.
+const STORAGE_VERSION = 5
 const storageKey = (date: string, category: string) => `game:${date}:${category}`
 
 function initialHardState(puzzle: LinePuzzle): HardGameState {
@@ -127,9 +129,12 @@ export function isModeLocked(state: GameState): boolean {
 function buildCompletion(state: GameState): import('./stats.js').GameCompletion {
   const stopsPossible = state.puzzle.stops.length
   if (state.mode === 'hard') {
+    // MB-496 skip-ahead: both 'correct' and 'wrong-order' fill real slots, so
+    // both count as stops guessed. The perfect bonus requires every guess to
+    // be a clean 'correct' — any 'wrong-order' or 'not-on-route' kills it.
     const stopsGuessed = state.slots.filter(s => s.status !== 'not-on-route').length
-    const orderBroken = state.slots.some(s => s.status === 'wrong-order')
     const wrongGuesses = state.slots.filter(s => s.status === 'not-on-route').length
+    const orderBroken = state.slots.some(s => s.status !== 'correct')
     const perfect = state.status === 'won' && !orderBroken
     const points = stopsGuessed + (perfect ? 1 : 0)
     return {
@@ -168,7 +173,8 @@ function reducer(state: GameState, action: Action): GameState {
       if (state.slots.some(s => s.station === action.code)) return state  // no dupes
       if (action.code === state.puzzle.from || action.code === state.puzzle.to) return state
 
-      const status = classifyGuess(state.puzzle.stops, state.slots, action.code)
+      const placements = computePlacements(state.puzzle.stops, state.slots)
+      const status = classifyGuess(state.puzzle.stops, placements, action.code)
       const nextSlots = [...state.slots, { station: action.code, status }]
 
       let nextStatus: GameStatus = 'playing'
@@ -341,10 +347,13 @@ export function useGameState(
 
   const { correctCount, orderBroken, score, slotsForScore } = useMemo(() => {
     if (state.mode === 'hard') {
-      const correct = state.slots.filter(s => s.status !== 'not-on-route').length
-      const broken = state.slots.some(s => s.status === 'wrong-order')
-      const s = correct + (state.status === 'won' && !broken ? 1 : 0)
-      return { correctCount: correct, orderBroken: broken, score: s, slotsForScore: state.slots }
+      // MB-496: a stop is "guessed" once its station has been named (correct
+      // or out-of-order). The perfect bonus only fires when every guess was
+      // a clean, in-sequence 'correct'.
+      const placed = state.slots.filter(s => s.status !== 'not-on-route').length
+      const broken = state.slots.some(s => s.status !== 'correct')
+      const s = placed + (state.status === 'won' && !broken ? 1 : 0)
+      return { correctCount: placed, orderBroken: broken, score: s, slotsForScore: state.slots }
     }
     // Easy mode: synthesize Slot[] from placements + true order.
     const slots: Slot[] = state.placements.map((code, i) => {
