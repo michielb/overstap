@@ -28,6 +28,11 @@ interface Props {
   stations: Record<string, Station>
   /** Rendered in the input row, positioned right below the last guess. */
   activeInput?: React.ReactNode
+  /** Post-game reveal: render unfilled rows with their true station name
+   * instead of "Nog te raden", and drop reserve rows. */
+  revealUnfilled?: boolean
+  /** Optional content rendered inside the card, below the rail. */
+  footer?: React.ReactNode
 }
 
 export function SlotList({
@@ -38,6 +43,8 @@ export function SlotList({
   maxSlots,
   stations,
   activeInput,
+  revealUnfilled = false,
+  footer,
 }: Props) {
   const unfilledIndices: number[] = []
   if (stops !== undefined) {
@@ -54,7 +61,7 @@ export function SlotList({
 
   const remainingReal = unfilledIndices.length
   const emptyRows = Math.max(0, maxSlots - slots.length)
-  const remainingSpare = Math.max(0, emptyRows - remainingReal)
+  const remainingSpare = revealUnfilled ? 0 : Math.max(0, emptyRows - remainingReal)
   const hasActiveInput = activeInput !== undefined && remainingReal > 0
   const inputIndex = unfilledIndices[0] ?? 0
   const trailingIndices = hasActiveInput ? unfilledIndices.slice(1) : unfilledIndices
@@ -77,9 +84,19 @@ export function SlotList({
           </ActiveInputRow>
         )}
 
-        {trailingIndices.map(idx => (
-          <EmptyRow key={`empty-${idx}`} index={idx + 1} />
-        ))}
+        {trailingIndices.map(idx => {
+          if (revealUnfilled && stops !== undefined) {
+            return (
+              <RevealRow
+                key={`reveal-${idx}`}
+                index={idx + 1}
+                station={stations[stops[idx]]}
+                fallbackCode={stops[idx]}
+              />
+            )
+          }
+          return <EmptyRow key={`empty-${idx}`} index={idx + 1} />
+        })}
 
         {Array.from({ length: remainingSpare }).map((_, i) => (
           <EmptyRow key={`spare-${i}`} index={null} />
@@ -87,6 +104,7 @@ export function SlotList({
 
         <EndpointRow station={toStation} variant="destination" />
       </ol>
+      {footer !== undefined && <div className="mt-3">{footer}</div>}
     </div>
   )
 }
@@ -147,6 +165,32 @@ function SlotRow({
       </span>
       <div className="flex-1 min-w-0 flex items-center justify-between gap-2">
         <p className={`text-sm font-medium truncate ${cfg.text}`}>{name}</p>
+      </div>
+    </li>
+  )
+}
+
+function RevealRow({
+  index,
+  station,
+  fallbackCode,
+}: {
+  index: number
+  station: Station | undefined
+  fallbackCode: string
+}) {
+  return (
+    <li className="relative flex items-center gap-3 py-1">
+      <span
+        className="relative z-10 w-10 h-10 rounded-full bg-gray-200 flex items-center
+                   justify-center text-xs text-gray-600 font-mono tabular-nums shadow-sm"
+      >
+        {index}
+      </span>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-medium text-gray-500 truncate">
+          {station?.name ?? fallbackCode}
+        </p>
       </div>
     </li>
   )

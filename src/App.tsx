@@ -130,7 +130,7 @@ function App() {
 
   function giveUpActive() {
     active.giveUp()
-    track('practice_giveup', {
+    track(view === 'practice' ? 'practice_giveup' : 'daily_giveup', {
       category: active.state.puzzle.category,
       mode: active.state.mode,
     })
@@ -223,6 +223,7 @@ function App() {
             score={active.score}
             slotsForScore={active.slotsForScore}
             onGuess={active.guess}
+            onGiveUp={giveUpActive}
             hideShare={view === 'practice'}
           />
         ) : (
@@ -242,8 +243,20 @@ function App() {
           />
         )}
 
-        {/* Practice controls — at the bottom of the page */}
-        {view === 'practice' && (
+        {/* Practice controls — at the bottom of the page. Hard mode's give-up
+            now lives inside the slot box, so only "Nog een puzzel" is here.
+            Easy mode has no slot-box give-up, so keep the two-button row. */}
+        {view === 'practice' && active.state.mode === 'hard' && (
+          <button
+            type="button"
+            onClick={newPracticePuzzle}
+            className="w-full py-2.5 rounded-xl bg-[#003082] text-white text-sm font-semibold
+                       hover:bg-blue-900 active:bg-blue-950 transition-colors mt-2"
+          >
+            Nog een puzzel
+          </button>
+        )}
+        {view === 'practice' && active.state.mode === 'easy' && (
           <div className="w-full grid grid-cols-2 gap-2 mt-2">
             <button
               type="button"
@@ -428,12 +441,13 @@ interface HardBodyProps {
   score: number
   slotsForScore: Slot[]
   onGuess: (code: string) => void
+  onGiveUp: () => void
   hideShare?: boolean
 }
 
 function HardModeBody({
   state, fromStation, toStation, isPlaying, correctCount, stopsTotal,
-  excludeCodes, orderBroken, score, slotsForScore, onGuess, hideShare,
+  excludeCodes, orderBroken, score, slotsForScore, onGuess, onGiveUp, hideShare,
 }: HardBodyProps) {
   const slotsUsed = state.slots.length
 
@@ -459,9 +473,10 @@ function HardModeBody({
         fromStation={fromStation}
         toStation={toStation}
         slots={state.slots}
-        maxSlots={isPlaying ? state.maxSlots : state.slots.length}
-        stops={isPlaying ? state.puzzle.stops : undefined}
+        maxSlots={state.maxSlots}
+        stops={state.puzzle.stops}
         stations={graph.stations}
+        revealUnfilled={!isPlaying}
         activeInput={isPlaying ? (
           <StationInput
             stations={graph.stations}
@@ -469,6 +484,16 @@ function HardModeBody({
             onSelect={onGuess}
             placeholder="Welk station nu?"
           />
+        ) : undefined}
+        footer={isPlaying ? (
+          <button
+            type="button"
+            onClick={onGiveUp}
+            className="w-full py-2.5 rounded-xl border border-gray-200 text-sm font-medium
+                       text-gray-600 hover:bg-gray-50 active:bg-gray-100 transition-colors"
+          >
+            Ik geef het op
+          </button>
         ) : undefined}
       />
 
