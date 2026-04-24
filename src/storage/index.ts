@@ -1,7 +1,7 @@
 // Typed, namespaced, schema-versioned wrapper around localStorage.
 // Backend is injectable so tests can swap in an in-memory Map without jsdom.
 
-const NAMESPACE = 'treintje:'
+const NAMESPACE = 'spoor:'
 
 export interface StorageBackend {
   getItem(key: string): string | null
@@ -71,7 +71,7 @@ let warned = false
 function warnOnce(message: string): void {
   if (warned) return
   warned = true
-  console.warn(`[treintje] ${message}`)
+  console.warn(`[spoor] ${message}`)
 }
 
 function detectBackend(): StorageBackend {

@@ -53,11 +53,11 @@ function buildShareText(
   const toName = stations[puzzle.to]?.name ?? puzzle.to
 
   return [
-    `Treintje — ${puzzle.date} · ${MODE_LABEL[mode]}`,
+    `Spoor — ${puzzle.date} · ${MODE_LABEL[mode]}`,
     `${fromName} → ${toName}`,
     `${correctStops}/${totalStops} stations, ${score} punten${bonus}`,
     grid,
-    'https://treintje.h4a.site',
+    'https://spoor.h4a.site',
   ].join('\n')
 }
 

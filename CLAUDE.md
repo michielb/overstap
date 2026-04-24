@@ -1,8 +1,8 @@
-# Treintje
+# Spoor
 
-A daily Dutch train puzzle. The current game (internal name: Overstap) is about guessing every intermediate stop on a train's line between A and B. Future games under the Treintje umbrella will share the same NS network data and station primitives.
+A daily Dutch train puzzle. The current game (internal name: Overstap) is about guessing every intermediate stop on a train's line between A and B. Future games under the Spoor umbrella will share the same NS network data and station primitives.
 
-> The GitHub repo, local checkout path, Obsidian folder, and Linear project are still called `overstap` for historical reasons — only the public brand, deploy subdomain, package name, and in-app copy use Treintje. Renaming those is a future cleanup; don't treat mixed references as a bug.
+> The GitHub repo, local checkout path, Obsidian folder, and Linear project are still called `overstap` for historical reasons — only the public brand, deploy subdomain, package name, and in-app copy use Spoor. Renaming those is a future cleanup; don't treat mixed references as a bug.
 
 ## Concept
 

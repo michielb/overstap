@@ -14,8 +14,8 @@
  */
 
 const ENDPOINT = 'https://t.michielb.nl/wa/e'
-const SITE_ID = 'treintje'
-const TITLE = 'Treintje'
+const SITE_ID = 'spoor'
+const TITLE = 'Spoor'
 const LANG = 'nl'
 
 export type AnalyticsValue = string | number | boolean | null | undefined
